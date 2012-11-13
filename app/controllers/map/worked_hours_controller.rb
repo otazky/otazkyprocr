@@ -6,7 +6,7 @@ class Map::WorkedHoursController < ApplicationController
   def index
     @title = 'Odpracované hodiny'
     @counties = Refinery::Counties::County.all
-    @questions = Refinery::Questions::Question.order('created_at DESC')
+    @questions = Refinery::Questions::Question.order('created_at DESC').enabled
     @map_data = :worked_hours
     @worked = true
   end

@@ -8,17 +8,17 @@ class ApplicationController < ActionController::Base
   protected
 
     def block_citizen_without_question
-      if session[:user_type] == 'Refinery::Citizens::Citizen' && current_user.questions.empty?
+      if session[:user_type] == 'Refinery::Citizens::Citizen' && current_user.questions.enabled.empty?
         redirect_to main_app.questions_path, :notice => 'Vyberte otázku!!!'
       end
     end
 
     def get_all_questions
-      @questions = Refinery::Questions::Question.order(:created_at)
+      @questions = Refinery::Questions::Question.enabled.joins(:election).where(refinery_elections: {done: false}).shuffle
     end
 
     def get_all_elections
-      @elections = Refinery::Elections::Election.order(:created_at)
+      @elections ||= Refinery::Elections::Election.order(:created_at).where(done: false)
     end
 
   protected

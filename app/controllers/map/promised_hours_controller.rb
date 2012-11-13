@@ -6,7 +6,7 @@ class Map::PromisedHoursController < ApplicationController
   def index
     @title = 'Přislíbené hodiny'
     @counties = Refinery::Counties::County.all
-    @questions = Refinery::Questions::Question.order('created_at DESC')
+    @questions = Refinery::Questions::Question.order('created_at DESC').enabled
     @map_data = :promised_hours
     @promised = true
   end

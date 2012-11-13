@@ -7,7 +7,7 @@ module Refinery
       has_many :subjects, :through => :election_subject_elections
       has_many :questions, :class_name => 'Refinery::Questions::Question'
 
-      attr_accessible :election_type_id, :held, :description, :position            
+      attr_accessible :election_type_id, :held, :description, :position, :done
     end
   end
 end

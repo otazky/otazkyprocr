@@ -6,15 +6,29 @@
   
   <div class='field'>
     <%= f.label :firstname -%>
-    <%= f.text_field :firstname, :class => 'larger widest'  -%>
-
+    <%= f.text_field :firstname -%>
   </div>
   
   <div class='field'>
     <%= f.label :lastname -%>
     <%= f.text_field :lastname  -%>
-
   </div>
+  
+  <ul class="ui-sortable">
+    <% @politician.elections.each do |election| %>
+      <li class="clearfix record no-nest">
+      <span class="title"><%= election.election_type.name %> <%= election.held.strftime('%Y') %></span>
+      <span class="actions">
+         <%= link_to refinery_icon_tag("delete.png"), 
+                refinery.delete_election_politicians_admin_politician_path(@politician, :election_id => election.id),
+            :class => "cancel confirm-delete",
+            :title => 'Delete',
+            :confirm => 'Deaktivovat politika v těchto volbách?',
+            :method => :post %>
+      </span>
+      </li>
+    <% end %>
+  </ul>
   
   <%= render '/refinery/admin/form_actions', :f => f,
              :continue_editing => false,

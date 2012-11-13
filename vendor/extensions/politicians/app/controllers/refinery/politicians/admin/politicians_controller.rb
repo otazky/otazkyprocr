@@ -25,6 +25,18 @@ module Refinery
           end
         end
 
+        def delete_election
+          politician = Politician.find(params[:id])
+
+          # disable politician's questions for specified election
+          politician.questions.update_all({ :disabled => true }, { :election_id => params[:election_id] })
+
+          # delete association to specified election 
+          politician.elections.delete(politician.elections.find(params[:election_id]))
+
+          redirect_to refinery.edit_politicians_admin_politician_path(politician), :flash => { notice: 'Updated.'}
+        end
+
       end
     end
   end

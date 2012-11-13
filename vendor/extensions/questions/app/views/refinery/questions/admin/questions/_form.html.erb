@@ -34,6 +34,11 @@
     <%= label_tag 'citizens_question_teamleader', 'Vyberte teamleadera' %>
     <%= select 'citizens_question', 'teamleader', @citizens.collect { |c| [c.email, c.id] }, { :include_blank => true } %>    
   </div>
+
+  <div class='field'>
+    <%= f.label :disabled -%>
+    <%= f.check_box :disabled -%>
+  </div>
   
   <%= render '/refinery/admin/form_actions', :f => f,
              :continue_editing => false,

@@ -10,12 +10,14 @@ module Refinery
       has_many :citizens, through: :citizens_questions
       has_many :tasks, class_name: 'Task'
 
-      attr_accessible :title, :content, :election_id, :subject_id, :position, :done
+      attr_accessible :title, :content, :election_id, :subject_id, :position, :done, :disabled
 
       acts_as_indexed :fields => [:title, :content]
 
       validate :permited_question_count, on: :create
       validates :title, :presence => true, :uniqueness => true      
+
+      scope :enabled, where(disabled: false)
 
       def permited_question_count
         if (self.election.election_type.name == 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 2) || (self.election.election_type.name != 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 1) 
@@ -24,7 +26,7 @@ module Refinery
       end
 
       def get_questions_count_for_subject(subject_id)
-        Question.where("subject_id = #{subject_id}").count('id')
+        Question.where("subject_id = ? and disabled = ?", subject_id, false).count('id')
       end
     end
   end

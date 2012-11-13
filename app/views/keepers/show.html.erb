@@ -18,6 +18,7 @@
       </thead>
       <tbody>
       <% @politicians.each do |politician| %>
+        <% next if politician.elections.empty? %>
         <tr>
           <td>
             <%= link_to "#{politician.firstname} #{politician.lastname}", edit_keeper_politician_path(@keeper, politician) %>
@@ -27,7 +28,7 @@
                  #{politician.elections.last.held}" %>
           </td>
           <td>
-            <% politician.questions.each do |question| %>     
+            <% politician.questions.enabled.each do |question| %>     
               <%= link_to question.title, 
                   main_app.keeper_politician_question_path(@keeper, politician, question) %>
               <hr>
@@ -63,7 +64,7 @@
                  #{party.elections.last.held}" %>
           </td>
           <td>
-            <% party.questions.each do |question| %>        
+            <% party.questions.enabled.each do |question| %>        
               <%= link_to question.title, 
                   main_app.keeper_party_question_path(@keeper, party, question) %>
               <hr>

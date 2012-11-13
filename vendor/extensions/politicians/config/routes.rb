@@ -12,6 +12,9 @@ Refinery::Core::Engine.routes.append do
         collection do
           post :update_positions
         end
+        member do
+            post :delete_election
+        end
       end
     end
   end

@@ -11,6 +11,10 @@ module Refinery
           @election_types = ElectionType.all          
         end
 
+        def edit
+          @election_types = ElectionType.all          
+        end
+
         def create
           @election = Election.new(params[:election])                              
 

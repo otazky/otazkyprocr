@@ -6,6 +6,11 @@ module Refinery
 
         crudify :'refinery/questions/question', :xhr_paging => true          
 
+        def new
+          @question = Question.new
+          @citizens = @question.citizens
+        end
+
         def edit
           @question = Question.find(params[:id])
           @citizens = @question.citizens
@@ -18,7 +23,7 @@ module Refinery
           end
 
           if @question.update_attributes(params[:question])
-            if @citizens_question.update_attributes(teamleader: 1)
+            if @citizens_question && @citizens_question.update_attributes(teamleader: 1)
               CitizensQuestion.where('question_id = ? AND citizen_id != ? AND teamleader = 1', @question.id, params[:citizens_question][:teamleader]).each do |c|
                 c.update_attributes(teamleader: 0)
               end

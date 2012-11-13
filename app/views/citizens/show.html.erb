@@ -38,7 +38,7 @@
 	<section id="account_questions">
 		<h2>Strategické otázky</h2>
 
-		<% @citizen.questions.each do |question| %>
+		<% @citizen.questions.enabled.each do |question| %>
 			<article id="question_<%= question.id %>">
 				<h3 class="pull-left">
 					<%= truncate(question.title, length: 100, separator: ' ') %>					

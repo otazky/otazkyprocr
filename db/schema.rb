@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121001225018) do
+ActiveRecord::Schema.define(:version => 20121113162639) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -93,12 +93,13 @@ ActiveRecord::Schema.define(:version => 20121001225018) do
   add_index "refinery_election_types", ["name"], :name => "index_refinery_election_types_on_name", :unique => true
 
   create_table "refinery_elections", :force => true do |t|
-    t.integer  "election_type_id", :null => false
-    t.date     "held",             :null => false
+    t.integer  "election_type_id",                    :null => false
+    t.date     "held",                                :null => false
     t.text     "description"
     t.integer  "position"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "done",             :default => false
   end
 
   add_index "refinery_elections", ["election_type_id", "held"], :name => "index_refinery_elections_on_election_type_id_and_held", :unique => true
@@ -238,6 +239,7 @@ ActiveRecord::Schema.define(:version => 20121001225018) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.boolean  "done",        :default => false
+    t.boolean  "disabled",    :default => false
   end
 
   add_index "refinery_questions", ["title"], :name => "index_refinery_questions_on_title", :unique => true
