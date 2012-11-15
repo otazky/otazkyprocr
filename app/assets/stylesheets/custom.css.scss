@@ -236,3 +236,21 @@ section#stats {
     }
 }
 
+#politicians-tree {
+    li {
+        position: relative;
+        .result {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            width: 100px;
+            display: block;
+        }
+    }
+    .active {
+        background-color: #88ff88;
+    }
+    .inactive {
+        background-color: #ff8888;
+    }
+}

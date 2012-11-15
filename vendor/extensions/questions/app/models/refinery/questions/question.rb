@@ -20,6 +20,10 @@ module Refinery
       scope :enabled, where(disabled: false)
       scope :active, enabled.joins(:election).where(refinery_elections: {done: false})
 
+        def counties
+            Refinery::Counties::County.uniq.joins(citizens: :questions).where(refinery_questions: {id: id})
+        end
+
       def permited_question_count
         if (self.election.election_type.name == 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 2) || (self.election.election_type.name != 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 1) 
             errors.add(:count, 'dosáhli ste maximálni počet otázek pro Váš účet.')
