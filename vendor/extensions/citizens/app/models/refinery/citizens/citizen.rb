@@ -15,6 +15,8 @@ module Refinery
 
       acts_as_indexed :fields => [:firstname, :lastname, :email, :street, :postal_code, :city, :gender]
 
+      scope :active, joins(questions: :election).where(refinery_elections: {done: false})
+
       validate :email_availability, :if => :user_step?
       validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
         :message => 'musí být ve tvaru email@example.com', :if => :user_step?
@@ -83,21 +85,6 @@ module Refinery
 
       def create_activation_code
         self.activation_code = SecureRandom.urlsafe_base64(64)
-      end
-
-      def hours_on_question(question_id)
-        CitizensQuestion.select('hours').where("citizen_id = ? AND question_id = ?",
-          id, question_id).first.hours
-      end
-
-      def hours_done_on_question(question_id)
-        CitizensQuestion.select('hours_done').where("citizen_id = ? AND question_id = ?",
-          id, question_id).first.hours_done
-      end
-
-      def get_citizen_question_by_id(question_id)
-        CitizensQuestion.select('id').where("citizen_id = ? AND question_id = ?",
-          id, question_id).first.id
       end
 
       def get_random_team_member_id(question_id)

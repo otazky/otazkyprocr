@@ -6,7 +6,7 @@ class Map::CitizensController < ApplicationController
   def index
     @title = 'Voliči'
     @counties = Refinery::Counties::County.all
-    @questions = Refinery::Questions::Question.order('created_at DESC').enabled
+    @questions = Refinery::Questions::Question.order('created_at DESC').active
     @map_data = :citizens
     @citizens = true    
   end

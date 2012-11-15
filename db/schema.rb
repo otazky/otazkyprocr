@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113162639) do
+ActiveRecord::Schema.define(:version => 20121114173425) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20121113162639) do
     t.datetime "updated_at",                 :null => false
     t.integer  "hours_done",  :default => 0
     t.integer  "teamleader",  :default => 0
+    t.integer  "hours_moved", :default => 0
   end
 
   add_index "citizens_questions", ["citizen_id", "question_id"], :name => "index_citizens_questions_on_citizen_id_and_question_id", :unique => true
@@ -226,6 +227,7 @@ ActiveRecord::Schema.define(:version => 20121113162639) do
     t.integer  "position"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "photo_id"
   end
 
   add_index "refinery_politicians", ["firstname", "lastname"], :name => "index_refinery_politicians_on_firstname_and_lastname", :unique => true
@@ -323,12 +325,5 @@ ActiveRecord::Schema.define(:version => 20121113162639) do
   end
 
   add_index "tasks", ["question_id"], :name => "index_tasks_on_question_id"
-
-  create_table "team_exits", :force => true do |t|
-    t.integer  "question_id"
-    t.integer  "citizen_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
 
 end

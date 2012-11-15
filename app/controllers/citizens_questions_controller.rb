@@ -7,7 +7,7 @@ class CitizensQuestionsController < ApplicationController
       redirect_to main_app.new_session_path, notice: 'Pro řešení otázky musíte být přihlášen(a).'
     else
       @question = Refinery::Questions::Question.find(params[:question_id])
-      @citizens_question = CitizensQuestion.new(citizen_id: current_user.id, question_id: @question.id)    
+      @citizens_question = CitizensQuestion.new(citizen_id: current_user.id, question_id: @question.id)
     end      
   end
 
@@ -57,30 +57,43 @@ class CitizensQuestionsController < ApplicationController
   end
 
   def move
-    @current_citizens_question = CitizensQuestion.find(params[:id])
-    @current_question = Refinery::Questions::Question.find(@current_citizens_question.question_id)
-    @new_citizens_question = CitizensQuestion.new    
+    model_for_move
   end
 
-  def relocate_hours  
-    @from_citizens_question = CitizensQuestion.find(params[:id])    
-    @to_citizens_question = CitizensQuestion.new(citizen_id: params[:citizen_id], question_id: params[:citizens_question][:question_id],
-      hours: params[:citizens_question][:hours])
+  def relocate_hours
+    model_for_move
 
-    from_question_hours = @from_citizens_question.hours - @to_citizens_question.hours    
-    
-    if @from_citizens_question.update_attributes(hours: from_question_hours) &&
-      @to_citizens_question.save
-      if @from_citizens_question.hours == 0
-        TeamExit.create(question_id: @from_citizens_question.question_id, citizen_id: @from_citizens_question.citizen_id)
+    @new_citizens_question = CitizensQuestion.find_or_initialize_by_citizen_id_and_question_id(
+      params[:citizen_id], 
+      params[:citizens_question][:question_id]
+    )
+
+    hours = params[:citizens_question][:hours].to_i
+    @current_citizens_question.hours = @current_citizens_question.hours.to_i - hours
+    @new_citizens_question.hours     = @new_citizens_question.hours.to_i     + hours
+    @current_citizens_question.hours_moved += hours
+
+    begin
+      CitizensQuestion.transaction do 
+          @current_citizens_question.save!
+          @new_citizens_question.save!
       end
-      redirect_to citizen_path(@to_citizens_question.citizen_id)
-    else
-      redirect_to citizen_path(@to_citizens_question.citizen_id)
+      redirect_to citizen_path(@new_citizens_question.citizen_id)
+    rescue
+      @current_citizens_question.reload # original #hours on error
+      render 'move'
     end
   end
 
   def payment
 
+  end
+
+  protected
+
+  def model_for_move
+    @current_citizens_question = CitizensQuestion.find(params[:id])
+    @current_question = Refinery::Questions::Question.find(@current_citizens_question.question_id)
+    @new_citizens_question = CitizensQuestion.new    
   end
 end

@@ -4,21 +4,40 @@
   </p>
 
   <%= form_for @new_citizens_question, url: "/citizens_question/#{@current_citizens_question.id}/relocate_hours" do |f| %>
+    <% if @current_citizens_question.errors.any? or @new_citizens_question.errors.any? %>
+      <div class="error_messages">
+        <div class="alert alert-error">
+          <strong>Formulář byl vyplněn chybně. Opravte prosím následující chyby:</strong>
+            <% @current_citizens_question.errors.full_messages.each do |m| %>
+              <div><%= m %></div>
+            <% end %>
+            <% @new_citizens_question.errors.full_messages.each do |m| %>
+              <div><%= m %></div>
+            <% end %>
+        </div>
+      </div>
+    <% end %>
     <%= hidden_field_tag 'citizen_id', @current_citizens_question.citizen_id %>
     <%= hidden_field_tag 'question_id', @current_citizens_question.question_id %>
     
     <div class="field">
       <%= f.label :hours, 'Vyberte, kolik hodin chcete přenést' %>
-      <%= f.select :hours, (1..@current_citizens_question.hours) %>
+      <%= f.select :hours, 1..@current_citizens_question.hours_remaining %>
     </div>
 
     <div class="select">
       <%= label_tag 'asdf', 'Vyberte prosím, na kterou otázku chcete hodiny přenést' %>
-      <%= collection_select(:citizens_question, :question_id, Refinery::Questions::Question.all, :id, :title) %>    
+      <%= collection_select(
+            :citizens_question, 
+            :question_id, 
+            Refinery::Questions::Question.active.reject {|q| q.id == @current_citizens_question.question_id}, 
+            :id, 
+            :title
+          ) %>
     </div>    
 
     <div class="actions">
-      <%= f.submit, 'Provést změnu' %>
+      <%= f.submit  'Provést změnu' %>
     </div>    
   <% end %>
 </section>

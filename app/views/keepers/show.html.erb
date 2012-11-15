@@ -28,7 +28,7 @@
                  #{politician.elections.last.held}" %>
           </td>
           <td>
-            <% politician.questions.enabled.each do |question| %>     
+            <% politician.questions.active.each do |question| %>     
               <%= link_to question.title, 
                   main_app.keeper_politician_question_path(@keeper, politician, question) %>
               <hr>
@@ -64,7 +64,7 @@
                  #{party.elections.last.held}" %>
           </td>
           <td>
-            <% party.questions.enabled.each do |question| %>        
+            <% party.questions.active.each do |question| %>        
               <%= link_to question.title, 
                   main_app.keeper_party_question_path(@keeper, party, question) %>
               <hr>

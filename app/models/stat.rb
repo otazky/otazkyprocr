@@ -27,7 +27,7 @@ class Stat
   end
 
   def questions_count
-    Refinery::Questions::Question.count
+    Refinery::Questions::Question.active.count
   end
 
   def citizens_count
@@ -47,11 +47,11 @@ class Stat
   end
 
   def promised_workhours_sum
-    CitizensQuestion.sum('hours')
+    CitizensQuestion.active.sum('hours')
   end
 
   def done_workhours_sum
-    CitizensQuestion.sum('hours_done')
+    CitizensQuestion.active.sum('hours_done')
   end
 
   def citizens_average_age
@@ -59,15 +59,12 @@ class Stat
   end
 
   def team_count
-    CitizensQuestion.find_by_sql("
-      SELECT COUNT (DISTINCT question_id)
-      FROM citizens_questions"      
-    ).first.count
+    CitizensQuestion.active.group(:question_id).count.size
   end
 
   def questions_without_team_count
-    result = Refinery::Questions::Question.count - self.team_count.to_i
-    if Refinery::Questions::Question.count - self.team_count.to_i < 0
+    result = Refinery::Questions::Question.active.count - self.team_count.to_i
+    if Refinery::Questions::Question.active.count - self.team_count.to_i < 0
       result = 0
     end
     result
@@ -91,19 +88,20 @@ class Stat
   end
 
   def count_team_exits
-    TeamExit.count
+    CitizensQuestion.sum(:hours_moved)
   end
 
   def question_with_highest_exit_rate
-    team_exit = TeamExit.group(:question_id).count(:citizen_id).max
-    if !team_exit.nil?
-      return exits = { question: Refinery::Questions::Question.find(team_exit[0].to_i), count: team_exit[1].to_i }
+    h = CitizensQuestion.group(:question_id).sum(:hours_moved).max_by {|k, v| v}
+    if h 
+        Refinery::Questions::Question.find(h[0])
+    else
+        nil
     end
-    nil
   end
 
   def adepts_for_reward
-    citizen_question = CitizensQuestion.group(:citizen_id).sum(:hours).max
+    citizen_question = CitizensQuestion.group(:citizen_id).sum(:hours).max_by {|k, v| v}
     if !citizen_question.nil?
       return adept = { citizen: Refinery::Citizens::Citizen.find(citizen_question[0]), hours: citizen_question[1] }
     end

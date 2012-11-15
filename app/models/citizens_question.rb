@@ -14,13 +14,21 @@
 #
 
 class CitizensQuestion < ActiveRecord::Base
-  attr_accessible :citizen_id, :hours, :hours_done, :question_id, :teamleader
+  attr_accessible :citizen_id, :hours, :hours_done, :hours_moved, :question_id, :teamleader
   belongs_to :citizen, :class_name => 'Refinery::Citizens::Citizen'
   belongs_to :question, :class_name => 'Refinery::Questions::Question'
 
-  validate :format_of_promised_hours, :allowed_time_before_elections
+  scope :active, joins(question: :election).where(refinery_elections: {done: false})
+
   # validate :no_more_promised_hours, on: :update
-  validates :hours, numericality: { greater_than: 0, less_than_or_equal_to: 200, message: 'Zadejte prosím číslo v rozmezí 1 - 200' }, on: :create
+  validates :hours, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200, message: 'Zadejte prosím celé číslo v rozmezí 1 - 200' }, on: :create
+  validates :hours, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, on: :update
+  validate :allowed_time_before_elections
+
+  def hours_remaining
+      h = hours.to_i - hours_done
+      h < 0 ? 0 : h
+  end
 
   def paypal_url
     values = {
@@ -53,12 +61,6 @@ class CitizensQuestion < ActiveRecord::Base
     end
 
     "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=ceskaprezidentka@seznam.cz&item_name=#{values[:item_name]}&amount=#{values[:amount]}&quantity=#{values[:item_quantity]}&currency_code=CZK&return_url=http://otazkyprocr.cz/payments/paypal/"
-  end
-
-  def format_of_promised_hours    
-    if !hours.is_a?(Numeric) || !(hours > 0)
-      errors.add(:hours, 'hodnota musí být kladné číslo')
-    end    
   end
 
   def no_more_promised_hours

@@ -18,6 +18,7 @@ module Refinery
       validates :title, :presence => true, :uniqueness => true      
 
       scope :enabled, where(disabled: false)
+      scope :active, enabled.joins(:election).where(refinery_elections: {done: false})
 
       def permited_question_count
         if (self.election.election_type.name == 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 2) || (self.election.election_type.name != 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 1) 

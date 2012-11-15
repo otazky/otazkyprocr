@@ -6,18 +6,18 @@ class MapController < ApplicationController
   def index
     @title = 'Voliči'
     @counties = Refinery::Counties::County.all
-    @questions = Refinery::Questions::Question.order('created_at DESC').enabled
+    @questions = Refinery::Questions::Question.order('created_at DESC').active
   end
 
   def promised_hours
     @title = 'Přislíbené hodiny'
     @counties = Refinery::Counties::County.all
-    @questions = Refinery::Questions::Question.order('created_at DESC').enabled
+    @questions = Refinery::Questions::Question.order('created_at DESC').active
   end
 
   def worked_hours
     @title = 'Odrobené hodiny'
     @counties = Refinery::Counties::County.all
-    @questions = Refinery::Questions::Question.order('created_at DESC').enabled
+    @questions = Refinery::Questions::Question.order('created_at DESC').active
   end  
 end

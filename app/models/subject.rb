@@ -17,4 +17,16 @@ class Subject < ActiveRecord::Base
   has_many :election_subject_elections
   has_many :elections, :through => :election_subject_elections
   has_many :questions, :class_name => 'Refinery::Questions::Question'
+
+  def citizens_questions
+      CitizensQuestion.joins(question: :subject).where(subjects: {id: id})
+  end
+
+  def citizens
+      Refinery::Citizens::Citizen.uniq.joins(questions: :subject).where(subjects: {id: id})
+  end
+
+  def counties
+      Refinery::Counties::County.uniq.joins(citizens: {questions: :subject}).where(subjects: {id: id})
+  end
 end

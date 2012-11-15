@@ -8,6 +8,8 @@ module Refinery
 
       acts_as_indexed :fields => [:name]
 
+      scope :active, joins(citizens: {questions: :election}).where(refinery_elections: {done: false})
+
       validates :name, :presence => true, :uniqueness => true      
 
       def count_citizens        

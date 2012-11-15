@@ -8,6 +8,8 @@ module Refinery
       has_many :questions, :class_name => 'Refinery::Questions::Question'
 
       attr_accessible :election_type_id, :held, :description, :position, :done
+
+      scope :active, where(done: false)
     end
   end
 end

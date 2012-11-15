@@ -27,7 +27,7 @@ module Map::MapHelper
         end
 
       else
-        Refinery::Questions::Question.all.each do |question|
+        Refinery::Questions::Question.active.each do |question|
           case map_data
             when :citizens
               question_data += "q#{question_counter}:[#{county.percentage_of_citizens_for(question.id)}],"

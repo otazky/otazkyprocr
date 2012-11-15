@@ -4,11 +4,15 @@ module Refinery
       self.table_name = 'refinery_politicians'
       inherits_from :subject
 
-      attr_accessible :firstname, :lastname, :position
+      attr_accessible :firstname, :lastname, :position, :photo_id
 
       acts_as_indexed :fields => [:firstname, :lastname]
       
       validates_presence_of :firstname, :lastname
+
+      belongs_to :photo, :class_name => '::Refinery::Image'
+
+      scope :active, joins(subject: :elections).where(refinery_elections: {done: false})
     end
   end
 end

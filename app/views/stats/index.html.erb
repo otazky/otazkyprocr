@@ -46,13 +46,66 @@
 
 	<hr>
 
-	<table>		
+	<table>
 		<tbody>
 			<tr>
-				<th>Počet týmů</th>
-				<td><%= @stats.team_count %></td>
+                <th><%= @politics ? link_to('[-]', stats_path) : link_to('[+]', stats_path(:show_politicians => 't')) %> 
+                    Počet týmů</th>
+                <td><%= @stats.team_count %></td>
 			</tr>
+            <% if @politics %>
+              <% @politics.each do |pol| %>
+                <tr>
+                  <td colspan="2">
+                    <ul>
+                      <% if params[:show_politicians] == pol.id.to_s %>
+                          <li><%= pol.firstname %> <%= pol.lastname %> 
+                          <ul>
+                            <% citizens_questions = pol.subject.citizens_questions.active.to_a %>
 
+                            <li>Počet otázek kandidáta: <%= pol.questions.active.size %></li>
+                            <li>Počet aktivních týmů kandidáta/tky: 
+                                  <%= citizens_questions.map {|q| q.question_id}.uniq.size %></li>
+                            <li>Počet aktivních voličů celkem (všechny otázky dohromady):
+                                  <%= pol.subject.citizens.active.to_a.size %> <%# count does not work (used DISTINCT) %></li>
+                            <li>Zastoupenost okresů (počet celkem):
+                                  <%= pol.subject.counties.active.to_a.size %> <%# count does not work (used DISTINCT) %></li>
+                            <li>Počet přislíbených hodin celkem: 
+                                  <%= citizens_questions.reduce(0) {|sum, q| sum + q.hours} %></li>
+                            <li>Počet odpracovaných hodin celkem:
+                                  <%= citizens_questions.reduce(0) {|sum, q| sum + q.hours_done} %></li>
+                            <li>Počet odchodů (převodů hodin) k jinému kandidátovi: 
+                                  <%= citizens_questions.reduce(0) {|sum, q| sum + q.hours_moved} %></li>
+                            <li>Voliči podporují otázku: 
+                                <%# questions.values.find_all {|sum| sum > 0} %></li>
+                            <li>Otázka bez zájmu voličů: 
+                                <%# questions.values.find_all {|sum| sum > 0} %></li>
+                          </ul> 
+                          </li>
+                        <% else %>
+                          <li><%= link_to '[+]', stats_path(:show_politicians => pol.id) %> <%= pol.firstname %> <%= pol.lastname %></li>
+                        <% end %>
+                     </ul>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+<%#
+ (číslo + zobrazení záhlaví otázky na
+zeleném podkladu)
+1. počet aktivních voličů
+2. zastoupenost okresů
+3. nejaktivnější (1) okres
+4. počet přislíbených hodin celkem
+5. počet odpracovaných hodin celkem
+ix.
+ (číslo + zobrazení záhlaví otázky na
+červeném podkladu)
+1. počet aktivních voličů
+2. zastoupenost okresů
+3. nejaktivnější (1) okres
+4. počet přislíbených hodin celkem
+5. počet odpracovaných hodin celkem%>
 			<tr>
 				<th>Počet otázek bez týmů</th>
 				<td><%= @stats.questions_without_team_count %></td>
@@ -75,14 +128,22 @@
 
 			<tr>
 				<th>Odchody z týmů</th>
-				<td><%= @stats.count_team_exits %></td>
+				<td><%= @stats.count_team_exits %> hodin</td>
 			</tr>			
 
 			<tr>
 				<th>Otázka s největším počtem odchodů</th>								
-				<% if !@stats.question_with_highest_exit_rate.nil? %>
-					<% exit = @stats.question_with_highest_exit_rate %>
-					<td><%= exit[:question].title %> | <%= exit[:count] %> odchodů</td>
+                <% question = @stats.question_with_highest_exit_rate %>
+				<% if question %>
+                    <td> 
+                        <% if question.subject.subtype == 'Refinery::Politicians::Politician' %>
+                            <%= question.subject.firstname %> <%= question.subject.lastname %>
+                        <% else %>    
+                            <%= question.subject.name %>
+                        <% end %>     
+                        |
+                        <%= truncate(question.title, length: 30, separator: ' ') %>
+                    </td>
 				<% else %>
 					<td> - </td>
 				<% end %>

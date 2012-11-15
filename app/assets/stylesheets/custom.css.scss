@@ -21,6 +21,10 @@ a {
     }
 }
 
+.hidden {
+    display: none;
+}
+
 #main-content {
     a {
         text-decoration: underline;
@@ -231,3 +235,4 @@ section#stats {
         }
     }
 }
+

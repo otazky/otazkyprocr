@@ -3,22 +3,26 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :get_all_questions, :get_all_elections, :get_root_pages, :get_child_pages
+  before_filter :get_all_questions, :get_all_politicians, :get_all_elections, :get_root_pages, :get_child_pages
 
   protected
 
     def block_citizen_without_question
-      if session[:user_type] == 'Refinery::Citizens::Citizen' && current_user.questions.enabled.empty?
+      if session[:user_type] == 'Refinery::Citizens::Citizen' && current_user.questions.active.empty?
         redirect_to main_app.questions_path, :notice => 'Vyberte otázku!!!'
       end
     end
 
     def get_all_questions
-      @questions = Refinery::Questions::Question.enabled.joins(:election).where(refinery_elections: {done: false}).shuffle
+      @questions = Refinery::Questions::Question.active.shuffle
+    end
+
+    def get_all_politicians
+      @politicians = Refinery::Politicians::Politician.where('photo_id is not NULL').active.shuffle
     end
 
     def get_all_elections
-      @elections ||= Refinery::Elections::Election.order(:created_at).where(done: false)
+      @elections = Refinery::Elections::Election.active.order(:created_at)
     end
 
   protected

@@ -1,18 +1,27 @@
-<% if @questions.any? %>
+<% if @questions.any? or @politicians.any?%>
     <section id="questions-list">    
         <div id="carousel">
-        <% @questions.each do |question| %>
-            <div class="carousel-item">
-                <a href="<%= main_app.question_path(question) %>" class="block-link">
-                    <h4>
-                        <%= truncate(question.title, length: 300, separator: ' ') %>
-                    </h4>
-                </a>
-                <div class="carousel-question-links">                                  
-                    <a href="<%= main_app.question_path(question) %>" class="pull-left"><span class="badge badge-info">Zobrazit otázku</span></a>                                            
-                    <a href="/solve-question/<%= question.id %>/" class="pull-right"><span class="badge badge-success">Řešit otázku</span></a>                                            
+        <% @questions.zip(@politicians).flatten.compact.each do |obj| %>
+            <% case obj %>
+            <% when Refinery::Questions::Question %>
+                <div class="carousel-item">
+                    <a href="<%= main_app.question_path(obj) %>" class="block-link">
+                        <h4>
+                            <%= truncate(obj.title, length: 300, separator: ' ') %>
+                        </h4>
+                    </a>
+                    <div class="carousel-question-links">                                  
+                        <a href="<%= main_app.question_path(obj) %>" class="pull-left"><span class="badge badge-info">Zobrazit otázku</span></a>                                            
+                        <a href="/solve-question/<%= obj.id %>/" class="pull-right"><span class="badge badge-success">Řešit otázku</span></a>                                            
+                    </div>
                 </div>
-            </div>        
+            <% when Refinery::Politicians::Politician %>
+                <div class="carousel-item">
+                    <a href="<%= main_app.politician_path(obj) %>" class="block-link">
+                        <%= image_fu obj.photo, "200x230#" %>
+                    </a>
+                </div>
+            <% end %>
         <% end %>
         </div>
             
