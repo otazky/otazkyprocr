@@ -83,6 +83,8 @@ class CitizensQuestionsController < ApplicationController
       @current_citizens_question.reload # original #hours on error
       render 'move'
     end
+
+
   end
 
   def payment

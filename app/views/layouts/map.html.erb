@@ -86,7 +86,7 @@
           <!--generating pies, single-question markers-->
           <script>
             var qTitle = new Array();
-            var qData = new Array();                                      
+            var qData = new Array();
               
             <% if params[:id] %>
               <% number_of_q = 1 %>
@@ -110,7 +110,7 @@
                 ]
               
 
-              var a = questions[0].number_of_q;  //NUM OG QUESTIONS
+              var a = questions[0].number_of_q; //NUM OG QUESTIONS
                   
                 var w = 900,
                     h = 500,
@@ -171,7 +171,7 @@
                 .font("bold 10px sans-serif")
                 .textStyle("#848484")
                 .textShadow("5px 5px 5px rgba(0,0,0,0.5)")
-                .text(function(d, c) 
+                .text(function(d, c)
                               {
                                 var label = [c.name];
                                   return label;
@@ -190,10 +190,10 @@
                                     if(j==(a-1))
                                     {
                                         for(var l=0;l<j;l++)
-                                        {                                               
+                                        {
                                             sum += qData[l][0];
                                             sum = parseFloat(sum);
-                                        } 
+                                        }
                                         qData[j] = (100 - sum);
                                     }
                                     else{
@@ -225,10 +225,10 @@
                                       if(j==(a-1))
                                       {
                                           for(var l=0;l<j;l++)
-                                          {   
+                                          {
                                               sum += qTitle[l][0];
                                               sum = parseFloat(sum);
-                                            } 
+                                            }
                                           qTitle[j] = (100 - sum);
                                           qTitle[j+1] = [c.name];
                                       }
@@ -253,7 +253,7 @@
                         var qLegend = new Array(a);
                         //var q = "q";
                         <% if @question %>
-                          isDefault = false; 
+                          isDefault = false;
                         <% end %>
 
                         if(isDefault == true)
@@ -294,7 +294,7 @@
                       var titleValue = $(this).attr("title");
                       var titleValue = titleValue.split(',');
                       var count = titleValue.length;
-                      var qNames = new Array();                      
+                      var qNames = new Array();
                   
                       for(var i=0;i<a;i++)
                       {
@@ -323,10 +323,14 @@
                       
                   
                       $('#infoHead').append('<h3>Okres: ' + titleValue[count-1] + '</h3>');
-                      $('#infoHead').append('<h4>Spolu: ' + total_in_county[titleValue[count-1]] + '</h4>');
-                  
+                      $('#infoHead').append('<h4>Celkem: ' + total_in_county[titleValue[count-1]] + '</h4>');
+                                            
+
                       for(var i=0;i<count-1;i++)
                       {
+                        <% if @question %>
+                          qNames[i] = '<%= @question.title %>'                          
+                        <% end %>
                         $('#infoHead').append('<p>' + qNames[i] + ': ' + titleValue[i] + ' %</p>');
                       }
                   

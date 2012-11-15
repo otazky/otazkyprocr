@@ -17,6 +17,7 @@ class CitizensQuestion < ActiveRecord::Base
   attr_accessible :citizen_id, :hours, :hours_done, :hours_moved, :question_id, :teamleader
   belongs_to :citizen, :class_name => 'Refinery::Citizens::Citizen'
   belongs_to :question, :class_name => 'Refinery::Questions::Question'
+  belongs_to :partner, :class_name => 'Refinery::Citizens::Citizen'
 
   scope :active, joins(question: :election).where(refinery_elections: {done: false})
 
@@ -28,6 +29,16 @@ class CitizensQuestion < ActiveRecord::Base
   def hours_remaining
       h = hours.to_i - hours_done
       h < 0 ? 0 : h
+  end
+
+  before_save(on: :create) do
+    citizens_question = CitizensQuestion.where('question_id = ?', self.question_id).shuffle
+    citizen = Refinery::Citizens::Citizen.find(citizens_question.first.citizen_id)
+    if citizens_question.first.citizen_id == citizen.id
+      citizens_question = citizens_question.last
+      citizen = Refinery::Citizens::Citizen.find(citizens_question.citizen_id)
+    end
+    self.partner = citizen
   end
 
   def paypal_url

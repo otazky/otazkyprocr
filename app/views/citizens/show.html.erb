@@ -54,6 +54,7 @@
 					<% end %>
 				</div>
 				<h4 class="clear"><%= question.subject.firstname %> <%= question.subject.lastname %></h4>
+				<h5>Spolupracovník: <%= @citizen.get_partner_for(question.id).email if @citizen.get_partner_for(question.id) %></h5>
 				<table id="account_question_table">
 					<tr>
 						<th>Přislíbených hodin:</th>
@@ -85,6 +86,10 @@
 					</ul>
 				<% end %>
 			</article>
+
+			<% unless @questions.last == question || @citizen.questions.count == 1 %>
+				<hr>
+			<% end %>
 		<% end %>	
 	</section>
 </section>  
