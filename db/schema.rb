@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116103605) do
+ActiveRecord::Schema.define(:version => 20121116144811) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -317,6 +317,13 @@ ActiveRecord::Schema.define(:version => 20121116103605) do
   end
 
   add_index "subjects", ["keeper_id"], :name => "index_subjects_on_keeper_id"
+
+  create_table "subtasks", :force => true do |t|
+    t.integer  "task_id"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "tasks", :force => true do |t|
     t.text     "content"

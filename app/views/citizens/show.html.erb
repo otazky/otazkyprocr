@@ -84,6 +84,16 @@
                             <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if @citizen.is_team_manager_for?(question.id) %>
                             <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if @citizen.is_team_manager_for?(question.id) %>
 
+                            <%= link_to('pridat podukol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task)) %>
+
+                          <% if task.subtasks.any?%>
+                                <ul id="task_subtasks">
+                                    <% task.subtasks.each do |subtask|%>
+                                           <li><%=subtask.content %></li>
+                                    <%end%>
+                                </ul>
+                          <% end %>
+
 						</li>
 					<% end %>
 					</ul>

@@ -19,7 +19,7 @@ class TasksController < ApplicationController
 
     @task = Task.find(params[:id])
     if @task.update_attributes params[:task]
-      redirect_to main_app.citizen_path(params[:citizen_id]), flash: { success: 'Úkol byl upraven.' }
+      redirect_to main_app.citizen_path(params[:citizen_id]), flash: { success:'Úkol byl upraven.' }
     else
       render 'edit'
     end

@@ -1,0 +1,19 @@
+<%= form_for(@subtask, url:citizen_question_task_subtasks_path) do |f| %>
+  <% if @subtask.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subtask.errors.count, "error") %> prohibited this subtask from being saved:</h2>
+
+      <ul>
+      <% @subtask.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.text_area :content, {rows:3, cols:60} %>
+
+  <div class="actions">
+    <%= f.submit 'Přidat', :class => 'btn btn-primary' %>
+  </div>
+<% end %>
