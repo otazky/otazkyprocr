@@ -8,6 +8,24 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+
+  def edit
+     @task = Task.find(params[:id])
+
+  end
+
+
+  def update
+
+    @task = Task.find(params[:id])
+    if @task.update_attributes params[:task]
+      redirect_to main_app.citizen_path(params[:citizen_id]), flash: { success: 'Úkol byl upraven.' }
+    else
+      render 'edit'
+    end
+
+  end
+
   def create
     @task = Task.new(params[:task])
     @task.question_id = params[:question_id]
