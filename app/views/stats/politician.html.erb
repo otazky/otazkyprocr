@@ -1,0 +1,15 @@
+<ul class="tree-with-values">
+
+  <% @stat.values.each do |label, value| %>
+    <li><%= label %>: <span class="value"><%= value %></span></li>
+  <% end %>
+
+  <% @stat.questions_stats.each do |q_stat| %>
+    <li>
+      Otázka: <span class="<%= q_stat.citizens_count == 0 ? 'inactive' : 'active' %>">
+        <%= truncate(q_stat.question.title, length: 50, separator: ' ') %></span>
+      <%= render partial: "question", locals: { stat: q_stat } %>
+    </li>
+  <% end %>
+
+</ul> 

@@ -228,29 +228,45 @@ footer {
     }
 }
 
+.tree-with-values {
+    li {
+        position: relative;
+
+        .value {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            width: 200px;
+            display: block;
+        }
+    }
+}
+
+
 section#stats {
     table {
         th {
             text-align: left;
         }
     }
-}
 
-#politicians-tree {
-    li {
-        position: relative;
-        .result {
-            position: absolute;
-            right: 0px;
-            top: 0px;
-            width: 100px;
-            display: block;
+    .politicians {
+        a { 
+            background-color: white; 
+            margin-left: -18px; 
+        }
+
+        .active {
+            background-color: #88ff88;
+        }
+
+        .inactive {
+            background-color: #ff8888;
         }
     }
-    .active {
-        background-color: #88ff88;
-    }
-    .inactive {
-        background-color: #ff8888;
-    }
 }
+
+section#question-stats {
+    width: 500px;
+}
+

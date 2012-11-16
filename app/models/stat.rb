@@ -1,6 +1,99 @@
+# encoding: UTF-8
+
 class Stat  
   include ActiveModel::Conversion
   extend ActiveModel::Naming  
+
+  class Politician
+    attr_reader :politician
+
+    def initialize(politician)
+      @politician = politician
+    end
+
+    def values
+      [
+         ["Počet otázek kandidáta",                                   questions.size],
+         ["Počet aktivních týmů kandidáta/tky",                       team_count],
+         ["Počet aktivních voličů celkem (všechny otázky dohromady)", citizens_count],
+         ["Zastoupenost okresů (počet celkem)",                       counties_count],
+         ["Počet přislíbených hodin celkem",                          hours_count],
+         ["Počet odpracovaných hodin celkem",                         hours_done_count],
+         ["Počet odchodů (převodů hodin) k jinému kandidátovi",       hours_moved_count],
+      ]
+    end
+
+    def citizens_questions
+      @citizens_questions ||= @politician.subject.citizens_questions.active.to_a
+    end
+
+    def questions
+      @questions ||= @politician.questions.active.to_a
+    end
+
+    def team_count
+      citizens_questions.map {|q| q.question_id }.uniq.size
+    end
+
+    def citizens_count
+      citizens_questions.map {|q| q.citizen_id }.uniq.size
+    end
+
+    def counties_count
+      @politician.subject.counties.active.to_a.size # count does not work (used DISTINCT)
+    end
+
+    def hours_count
+      citizens_questions.reduce(0) {|sum, q| sum + q.hours }
+    end
+
+    def hours_done_count
+      citizens_questions.reduce(0) {|sum, q| sum + q.hours_done }
+    end
+
+    def hours_moved_count
+      citizens_questions.reduce(0) {|sum, q| sum + q.hours_moved }
+    end
+
+    def questions_stats
+      questions.map {|q| Question.new(q) }.sort_by(&:citizens_count).reverse
+    end
+  end
+
+  class Question
+    attr_reader :question
+
+    def initialize(question)
+      @question = question
+    end
+
+    def values
+      [
+         ["Počet aktivních voličů",           citizens_count],
+         ["Zastoupenost okresů",              counties.size],
+         ["Nejaktivnější (1) okres",          most_active_county],
+         ["Počet přislíbených hodin celkem",  @question.citizens_questions.sum(:hours)],
+         ["Počet odpracovaných hodin celkem", question.citizens_questions.sum(:hours_done)],
+      ]
+    end
+
+    def citizens
+      @citizens ||= @question.citizens.to_a
+    end
+
+    def counties
+      @counties ||= citizens.group_by {|c| c.county_id}
+    end
+    
+    def citizens_count
+      citizens.size
+    end
+
+    def most_active_county
+      counties.empty? ? '-' : counties.values.sort_by {|a| a.size}.last.first.county.name
+    end
+  end
+
 
   def self.attr_accessor(*vars)
     @attributes ||= []

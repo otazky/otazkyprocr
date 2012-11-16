@@ -13,6 +13,10 @@ module Refinery
       belongs_to :photo, :class_name => '::Refinery::Image'
 
       scope :active, joins(subject: :elections).where(refinery_elections: {done: false})
+
+      def full_name
+        "#{firstname} #{lastname}"
+      end
     end
   end
 end

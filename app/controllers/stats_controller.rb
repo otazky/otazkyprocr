@@ -3,6 +3,11 @@
 class StatsController < ApplicationController
   def index
     @stats = Stat.new
-    @politics = Refinery::Politicians::Politician.active if params[:show_politicians]
+    @politicians = Refinery::Politicians::Politician.active
+  end
+
+  def politician
+      @stat = Stat::Politician.new(Refinery::Politicians::Politician.find(params[:id]))
+      render :layout => !request.xhr?
   end
 end

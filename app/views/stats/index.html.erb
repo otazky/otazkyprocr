@@ -49,8 +49,8 @@
 	<table>
 		<tbody>
 			<tr>
-                <th>Počet týmů</th>
-                <td><%= @stats.team_count %></td>
+				<th>Počet týmů</th>
+				<td><%= @stats.team_count %></td>
 			</tr>
 
 			<tr>
@@ -103,71 +103,20 @@
 		</tbody>
 	</table>
 
-    <% if @politics %>
-         <%= link_to(tag('span', class: 'icon-minus-sign'), stats_path) %>
-    <% else %>
-         <%= link_to(tag('span', class: 'icon-plus-sign'), stats_path(:show_politicians => 't')) %>
-    <% end %>
-    <b>Statistiky jednotlivých politiků</b>
+  <a href="#" class="show-politicians"><span class="icon-plus-sign"></span></a> <b>Statistiky jednotlivých politiků</b>
                     
-    <% if @politics %>
-        <% @politics.each do |pol| %>
-        <tr>
-            <td colspan="2">
-            <ul>
-                <% if params[:show_politicians] == pol.id.to_s %>
-                    <li><%= pol.firstname %> <%= pol.lastname %> 
-                    <ul id="politicians-tree">
-                    <% citizens_questions = pol.subject.citizens_questions.active.to_a %>
-                    <% questions = pol.questions.active.to_a %>
-
-                    <li>Počet otázek kandidáta: <span class="result"><%= questions.size %></span></li>
-                    <li>Počet aktivních týmů kandidáta/tky: <span class="result">
-                        <%= citizens_questions.map {|q| q.question_id}.uniq.size %>
-                        </span></li>
-                    <li>Počet aktivních voličů celkem (všechny otázky dohromady): <span class="result">
-                        <%= pol.subject.citizens.active.to_a.size %> <%# count does not work (used DISTINCT) %>
-                        </span></li>
-                    <li>Zastoupenost okresů (počet celkem): <span class="result">
-                        <%= pol.subject.counties.active.to_a.size %> <%# count does not work (used DISTINCT) %>
-                        </span></li>
-                    <li>Počet přislíbených hodin celkem: <span class="result">
-                        <%= citizens_questions.reduce(0) {|sum, q| sum + q.hours} %>
-                        </span></li>
-                    <li>Počet odpracovaných hodin celkem: <span class="result">
-                        <%= citizens_questions.reduce(0) {|sum, q| sum + q.hours_done} %>
-                        </span></li>
-                    <li>Počet odchodů (převodů hodin) k jinému kandidátovi: <span class="result">
-                        <%= citizens_questions.reduce(0) {|sum, q| sum + q.hours_moved} %>
-                        </span></li>
-
-                    <% questions.each do |question| %>
-                        <% citizens = question.citizens.to_a %>
-                        <% counties = citizens.group_by {|c| c.county_id} %>
-                        <li>Otázka: <span class="<%= citizens.empty? ? 'inactive' : 'active' %>"><%= truncate(question.title, length: 50, separator: ' ') %></span></li>
-                        <ul>
-                            <li>Počet aktivních voličů: <span class="result"><%= citizens.size %></span></li>
-                            <li>Zastoupenost okresů: <span class="result"><%= counties.size %></span></li>
-                            <li>Nejaktivnější (1) okres: <span class="result">
-                                <%= counties.empty? ? '-' : counties.values.sort_by {|a| a.size}.last.first.county.name %></span></li>
-                            <li>Počet přislíbených hodin celkem: <span class="result">
-                                <%= question.citizens_questions.sum(:hours) %></span></li>
-                            <li>Počet odpracovaných hodin celkem: <span class="result">
-                                <%= question.citizens_questions.sum(:hours_done) %></span></li>
-                        </ul>
-                        </li>
-                    <% end %>
-                    </ul> 
-                    </li>
-                <% else %>
-                    <li><%= link_to tag('span', class: 'icon-plus-sign'), stats_path(:show_politicians => pol.id) %> 
-                        <%= pol.firstname %> <%= pol.lastname %></li>
-                <% end %>
-                </ul>
-            </td>
-        </tr>
-        <% end %>
+  <div class="politicians hidden">
+    <% @politicians.each do |politician| %>
+      <ul>
+        <li>
+            <%= link_to tag('span', class: 'icon-plus-sign'), politician_stat_path(id: politician.id), 
+                        remote: true, data: {type: "html", target: "#politician-#{politician.id}"} %> 
+            <%= politician.full_name %> 
+            <div id="politician-<%= politician.id %>"></div>
+        </li>
+      </ul>
     <% end %>
+  </div>
 
 	<hr>
 
@@ -189,3 +138,19 @@
 			</tr>
 		</tbody>
 	</table>
+
+</section>
+
+<% content_for :javascripts do %>
+  <script>
+    $(".show-politicians").click(function() { 
+      $(".politicians").slideDown();
+      $(this).hide();
+    });
+
+    $("a[data-target]").on('ajax:success', function(e, data) { 
+      var $el = $(this).hide();
+      $($el.data('target')).hide().html(data).slideDown();
+    });
+  </script>
+<% end %>
