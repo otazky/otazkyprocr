@@ -72,7 +72,7 @@ class Stat
          ["Počet aktivních voličů",           citizens_count],
          ["Zastoupenost okresů",              counties.size],
          ["Nejaktivnější (1) okres",          most_active_county],
-         ["Počet přislíbených hodin celkem",  @question.citizens_questions.sum(:hours)],
+         ["Počet přislíbených hodin celkem",  question.citizens_questions.sum(:hours)],
          ["Počet odpracovaných hodin celkem", question.citizens_questions.sum(:hours_done)],
       ]
     end
