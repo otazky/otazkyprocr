@@ -19,6 +19,15 @@ $(document).ready(function() {
     }
   });
 
+
+    $('.new_citizen_task').bind("ajax:success", function(evt, data, status, xhr){
+
+        $('#dialog_citizen').html(data);
+        $('#dialog_citizen').dialog();
+    })
+
+
+
   // COMPUTE COST OF PROMISED HOURS
   $(function() {
     $('#citizens_question_hours').change(function() {

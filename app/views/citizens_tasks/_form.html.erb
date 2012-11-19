@@ -1,0 +1,21 @@
+<%= form_for(@citizens_task) do |f| %>
+  <% if @citizens_task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@citizens_task.errors.count, "error") %> prohibited this citizens_task from being saved:</h2>
+
+      <ul>
+      <% @citizens_task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    kolik času chcete úklu věnovat:
+    <%= f.text_field :hours %> h
+
+  <div class="actions">
+    <%= f.submit "Uložit"%>
+  </div>
+<% end %>

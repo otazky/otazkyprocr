@@ -22,4 +22,13 @@ class CitizensMailer < ActionMailer::Base
     @citizen = citizen
     mail :to => @citizen.email, :subject => "Změna hesla"
   end
+
+
+  def question_info(citizen, question)
+    @citizen=citizen
+    @question=question
+    @citizen_question=@citizens_question = CitizensQuestion.where(citizen_id: citizen.id, question_id: question.id).first
+    mail :to => @citizen.email, :subject => "Připojil/a jste se do týmu"
+  end
+
 end
