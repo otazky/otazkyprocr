@@ -85,9 +85,13 @@
                             <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if @citizen.is_team_manager_for?(question.id) %>
 
                             <%= link_to('pridat podukol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task)) %>
-                            <%= link_to('řešit otázku',
-                                        {:action=>'new',:controller=>'citizens_tasks', :citizen_id=>@citizen.id, :task_id=>task.id },
-                                         :remote=>true , :class=>'new_citizen_task'          ) %>
+                            <%= link_to('přijímám bez výhrad',
+                                        {:action=>'new', :controller=>'citizens_tasks', :citizen_id=>@citizen.id, :task_id=>task.id },
+                                         :remote=>true , :class=>'new_citizen_task_dialog'          ) %>
+                          <%= link_to('přijímám se změnou',
+                                      {:action=>'new', :controller=>'citizens_tasks',:change=>true, :citizen_id=>@citizen.id, :task_id=>task.id },
+                                      :remote=>true , :class=>'new_citizen_task_dialog' , :title=>'přijímám se změnou'         ) %>
+
                           <% if task.subtasks.any?%>
                                 <ul id="task_subtasks">
                                     <% task.subtasks.each do |subtask|%>
