@@ -42,3 +42,8 @@ ul li.headline {
 ul li.active a {
 	font-weight: bold;
 }
+
+.warning {
+    background-color: #ff8888;
+    padding: 5px;
+}
