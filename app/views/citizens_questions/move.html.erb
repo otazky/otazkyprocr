@@ -1,6 +1,6 @@
 <section id="move_question">
   <p>
-    Zde můžete přenést <strong><%= @current_citizens_question.hours %></strong> hodin z otázky <strong><%= @current_question.title %></strong> na jinou otázku.
+    Zde můžete přenést až <strong><%= @current_citizens_question.hours %></strong> hodin z otázky <strong><%= @current_question.title %></strong> na jinou otázku.
   </p>
 
   <%= form_for @new_citizens_question, url: "/citizens_question/#{@current_citizens_question.id}/relocate_hours" do |f| %>
@@ -37,7 +37,7 @@
     </div>    
 
     <div class="actions">
-      <%= f.submit 'Provést změnu' %>
+      <%= submit_tag "Provést změnu", :class => 'btn btn-primary' %>
     </div>    
   <% end %>
 </section>
