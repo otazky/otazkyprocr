@@ -47,7 +47,7 @@ class CitizensTasksController < ApplicationController
 
     respond_to do |format|
       if @citizens_task.save
-        format.html { redirect_to @citizens_task, notice: 'Citizens task was successfully created.' }
+        format.html { redirect_to @citizens_task, notice: 'Úkol byl úspěšně přidán.' }
         format.json { render json: @citizens_task, status: :created, location: @citizens_task }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class CitizensTasksController < ApplicationController
 
     respond_to do |format|
       if @citizens_task.update_attributes(params[:citizens_task])
-        format.html { redirect_to @citizens_task, notice: 'Citizens task was successfully updated.' }
+        format.html { redirect_to @citizens_task, notice: 'Úkol byl úspěšně upraven.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
