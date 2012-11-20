@@ -1,0 +1,47 @@
+
+
+Zapojil(a) jste se do řešení otázky:
+
+<h3 class="pull-left">    <%=@question.title %>  </h3>
+<h4 class="clear"><%= @question.subject.firstname %> <%= @question.subject.lastname %></h4>
+
+
+  <h5>Spolupracovník: <%= @citizen.get_partner_for(@question.id).email if @citizen.get_partner_for(@question.id) %></h5>
+            <table id="account_question_table">
+              <tr>
+                <th>Přislíbených hodin:</th>
+                <td><%= @citizen_question.hours %>
+                <td></td>
+              </tr>
+              <tr>
+                <th>Odpracovaných hodin:</th>
+                <td><%= @citizen_question.hours_done %>
+                <td> </td>
+              </tr>
+            </table>
+
+            <% if @question.tasks.any? %>
+                <h5>Úkoly</h5>
+                <ul id="question_tasks">
+                    <% @question.tasks.each do |task| %>
+                        <li>
+                            <%= task.content %>
+                            <%="(#{task.hours}h)" if task.hours>0 %>
+
+                            <% if task.subtasks.any?%>
+                                <ul id="task_subtasks">
+                                    <% task.subtasks.each do |subtask|%>
+                                        <li><%=subtask.content %></li>
+                                    <%end%>
+                                </ul>
+                            <% end %>
+
+                        </li>
+                    <% end %>
+                </ul>
+            <% end %>
+
+
+<div>
+  Ujměte se některého z úkolů.
+</div>

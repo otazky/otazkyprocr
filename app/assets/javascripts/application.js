@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require jquery-carousel
+//=require jquery-ui
 //= require custom

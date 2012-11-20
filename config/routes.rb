@@ -14,9 +14,9 @@ Otazkyprocr::Application.routes.draw do
   match 'map/worked-hours' => 'map#worked_hours'
 
   namespace :map do
-    resources :citizens,       only: [:index, :show]
-    resources :promised_hours, only: [:index, :show]
-    resources :worked_hours,   only: [:index, :show]
+    resources :citizens,       only:[:index, :show]
+    resources :promised_hours, only:[:index, :show]
+    resources :worked_hours,   only:[:index, :show]
   end
 
   resources :questions
@@ -26,9 +26,12 @@ Otazkyprocr::Application.routes.draw do
       resources :tasks do
         resources :subtasks
       end
+
     end
+
   end  
   resources :citizens_questions
+  resources :citizens_tasks
   resources :elections
   resources :password_resets
   resources :parties

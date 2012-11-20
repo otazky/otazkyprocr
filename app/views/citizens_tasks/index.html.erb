@@ -1,0 +1,21 @@
+<h1>Listing citizens_tasks</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @citizens_tasks.each do |citizens_task| %>
+  <tr>
+    <td><%= link_to 'Show', citizens_task %></td>
+    <td><%= link_to 'Edit', edit_citizens_task_path(citizens_task) %></td>
+    <td><%= link_to 'Destroy', citizens_task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Citizens task', new_citizens_task_path %>

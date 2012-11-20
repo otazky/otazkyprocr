@@ -18,6 +18,7 @@ class CitizensQuestionsController < ApplicationController
     if @citizens_question.valid?
       if @citizens_question.hours <= 3
         @citizens_question.save
+        CitizensMailer.question_info(current_user, @question).deliver
         redirect_to '/', flash: { notice: 'Ok' }
       else
         session[:c_q_question_id] = @citizens_question.question_id
