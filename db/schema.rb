@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(:version => 20121119151154) do
     t.datetime "updated_at",                 :null => false
     t.integer  "hours_done",  :default => 0
     t.integer  "teamleader",  :default => 0
-    t.integer  "partner_id"
     t.integer  "hours_moved", :default => 0
+    t.integer  "partner_id"
   end
 
   add_index "citizens_questions", ["citizen_id", "question_id"], :name => "index_citizens_questions_on_citizen_id_and_question_id", :unique => true

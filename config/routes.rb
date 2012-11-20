@@ -20,7 +20,7 @@ Otazkyprocr::Application.routes.draw do
   end
 
   resources :questions
-  #resources :subtasks
+  resources :subtasks
   resources :citizens do
     resources :questions do
       resources :tasks do

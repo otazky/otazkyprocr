@@ -10,6 +10,10 @@ module Refinery
       attr_accessible :election_type_id, :held, :description, :position, :done
 
       scope :active, where(done: false)
+      
+      def title 
+        election_type.name + ' ' + held.strftime('%Y')
+      end
     end
   end
 end

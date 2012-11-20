@@ -17,7 +17,14 @@ class SessionsController < ApplicationController
           session[:return_url] = nil
           redirect_to return_url
         else
-          redirect_to '/'
+          case user
+          when Refinery::Citizens::Citizen
+            redirect_to(citizen_path(user))
+          when Refinery::Keepers::Keeper
+            redirect_to(keeper_path(user))
+          else
+            redirect_to '/'
+          end
         end        
       else
         redirect_to '/', :notice => 'Váš účet nebyl aktivován.'

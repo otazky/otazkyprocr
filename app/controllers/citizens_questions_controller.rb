@@ -19,7 +19,7 @@ class CitizensQuestionsController < ApplicationController
       if @citizens_question.hours <= 3
         @citizens_question.save
         CitizensMailer.question_info(current_user, @question).deliver
-        redirect_to '/', flash: { notice: 'Ok' }
+        redirect_to '/', flash: { notice: 'Skvělé! Ve Správě účtu najdete nyní jméno jednoho z týmových spolupracovníků a první úkoly k vypracování. Z nich si můžete vybrat. Pokud jste si ovšem danou otázku vybral(a) jako první, je na Vás, abyste vymyslel(a) první úkoly pro tým sám(a). Pusťte se do toho. Budeme Vám držet palce.' }
       else
         session[:c_q_question_id] = @citizens_question.question_id
         session[:c_q_citizen_id]  = current_user.id

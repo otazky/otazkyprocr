@@ -17,7 +17,7 @@ class PaymentsController < ApplicationController
       end
 
       Payment.create(hours: @citizens_question.hours, total: @total)
-      @status = 'Vaše platba proběhla úspěšne. Doklad o platbě byl zaslán na Váš email. Pro více detailů se múžete přihlásit do svého
+      @status = 'Vaše platba proběhla úspěšně. Doklad o platbě byl zaslán na Váš email. Pro více detailů se můžete přihlásit do svého
         paypal účtu: www.paypal.com/us. Děkujeme.'
     else
       @status = 'Byly zaznamenány problémy s platbou. Prosím kontaktujte administrátora.'

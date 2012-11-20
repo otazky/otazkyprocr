@@ -45,7 +45,7 @@ class SubtasksController < ApplicationController
 
     respond_to do |format|
       if @subtask.save
-        format.html { redirect_to main_app.citizen_path(params[:citizen_id]), notice: 'Subtask was successfully created.' }
+        format.html { redirect_to main_app.citizen_path(params[:citizen_id]), notice: 'Podúkol byl úspěšně vytvořen.' }
         format.json { render json: @subtask, status: :created, location: @subtask }
       else
         format.html { render action: "new" }
@@ -61,7 +61,7 @@ class SubtasksController < ApplicationController
 
     respond_to do |format|
       if @subtask.update_attributes(params[:subtask])
-        format.html { redirect_to main_app.citizen_path(params[:citizen_id]), notice: 'Subtask was successfully updated.' }
+        format.html { redirect_to main_app.citizen_path(params[:citizen_id]), notice: 'Podúkol byl úspěšně změněn.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

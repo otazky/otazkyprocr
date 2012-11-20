@@ -35,7 +35,7 @@
         <% if current_user %>
           <li>
             <a href="<%= main_app.keeper_path(current_user) %>">
-              Jste přihlášen jako: <i class="icon-user"></i>
+              Jste přihlášen(a) jako: <i class="icon-user"></i>
               <% if !current_user.firstname.blank? && !current_user.lastname.blank? %>
                 <%= current_user.firstname %> <%= current_user.lastname %>
               <% else %>

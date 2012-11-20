@@ -3,14 +3,11 @@
   <p><%= @election.description %></p>
   <% if @election.subjects.any? %>
   <ul>
-    <% @election.subjects.each do |subject| %>
-      <% if subject.subtype == "Refinery::Parties::Party" %>
-        <li><%= link_to subject.name, main_app.party_path(subject.id) %></li>
-      <% end %>
-
-      <% if subject.subtype == "Refinery::Politicians::Politician" %>
-        <li><%= link_to subject.firstname + ' ' + subject.lastname, main_app.politician_path(subject.id) %></li>
-      <% end %>
+    <% @parties.each do |party| %>
+      <li><%= link_to party.name, party.party_path(party.id) %></li>
+    <% end %>
+    <% @politicians.each do |politician| %>
+      <li><%= link_to politician.full_name, main_app.politician_path(politician.id) %></li>
     <% end %>
   </ul>
   <% end %>
