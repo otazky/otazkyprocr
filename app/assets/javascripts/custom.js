@@ -20,11 +20,29 @@ $(document).ready(function() {
   });
 
 
-    $('.new_citizen_task').bind("ajax:success", function(evt, data, status, xhr){
+
+
+
+    $('.new_citizen_task_dialog').bind("ajax:success", function(evt, data, status, xhr){
 
         $('#dialog_citizen').html(data);
-        $('#dialog_citizen').dialog();
-    })
+      //  $('#dialog_citizen').dialog();
+        $('#dialog_citizen').dialog({title:$(this).attr('title') });
+
+
+
+        $('#new_citizens_task').bind("ajax:success", function(evt, data, status, xhr){
+
+
+            $('#dialog_citizen').html(evt +", "+status+ ", "+data['id'] );
+
+        });
+
+
+
+    });
+
+
 
 
 

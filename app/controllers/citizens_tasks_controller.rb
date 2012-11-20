@@ -29,11 +29,21 @@ class CitizensTasksController < ApplicationController
   def new
     @citizens_task = CitizensTask.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @citizens_task }
+    task=Task.find(params[:task_id])
+
+    @citizens_task.hours=  task.hours
+    if params[:change]
+
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @citizens_task }
+      end
+    else
+      render 'accepted'
     end
+
   end
+
 
   # GET /citizens_tasks/1/edit
   def edit
@@ -47,7 +57,7 @@ class CitizensTasksController < ApplicationController
 
     respond_to do |format|
       if @citizens_task.save
-        format.html { redirect_to @citizens_task, notice: 'Citizens task was successfully created.' }
+
         format.json { render json: @citizens_task, status: :created, location: @citizens_task }
       else
         format.html { render action: "new" }

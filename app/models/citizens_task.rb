@@ -1,3 +1,4 @@
 class CitizensTask < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :hours
+
 end
