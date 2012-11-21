@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class SubtasksController < ApplicationController
   # GET /subtasks
   # GET /subtasks.json
