@@ -39,7 +39,9 @@
 		<h2>Strategické otázky</h2>
 
 		<% @citizen_questions.each do |citizen_question| %>
-            <% question = citizen_question.question %>
+            <% question = citizen_question.question
+                needed=question.needed
+            %>
             <% is_teamleader = question.is_teamleader?(@citizen) %>
 			<article id="question_<%= question.id %>">
 				<h3 class="pull-left">
@@ -84,6 +86,11 @@
 						<td> </td>
 					</tr>					
 				</table>
+
+                <div class="needed_hours">
+                    Vašemu týmu chybí ke splnění podmínky <%=needed[0] %>
+                    lidí a <%=needed[1]%> hodin
+                </div>
 
 				<% if question.tasks.any? %>
 					<h5>Úkoly</h5>

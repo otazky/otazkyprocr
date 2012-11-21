@@ -105,4 +105,5 @@ class CitizensQuestion < ActiveRecord::Base
       nil
     end
   end
+
 end

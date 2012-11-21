@@ -18,8 +18,17 @@
   <aside id="tasks">
     <h3>Úkoly</h3>
     <ul>
+
       <% @question.tasks.each do |task| %>
-        <li><%= task.content %>  <%="(#{task.hours}h)" if task.hours>0 %></li>
+        <li><%= task.content %>  <%="(#{task.hours}h)" if task.hours>0 %>
+          <% if task.subtasks.any?%>
+              <ul class="task_subtasks">
+                <% task.subtasks.each do |subtask|%>
+                    <li><%=subtask.content %></li>
+                <%end%>
+              </ul>
+          <% end %>
+        </li>
       <% end %>
     </ul>
   </aside>

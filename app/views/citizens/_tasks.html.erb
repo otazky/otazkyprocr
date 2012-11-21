@@ -17,12 +17,11 @@
                   :remote=>true , :class=>'new_citizen_task_dialog' , :title=>'přijímám se změnou') if !@citizen.tasks.include? task %>
 
       <% if task.subtasks.any?%>
-          <ul id="task_subtasks">
+          <ul class="task_subtasks">
             <% task.subtasks.each do |subtask|%>
                 <li><%=subtask.content %></li>
             <%end%>
           </ul>
       <% end %>
-
     </li>
 <% end %>

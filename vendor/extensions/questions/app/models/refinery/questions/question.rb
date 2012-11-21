@@ -43,6 +43,50 @@ module Refinery
           cq = citizens_questions.to_a
           (cq.size == 1 && cq.first.citizen_id == citizen.id) or citizen == teamleader
       end
+
+
+
+
+
+      def hours_sum(minimal_hours)
+        CitizensQuestion.where(question_id: id, citizen_id: self.citizens.where("hours>#{minimal_hours}")).sum('hours')
+      end
+
+      # buď  100 lidí v týmu a celkem 100 hodin a každý volič/ka aspoň 1 hodina
+      # anebo   50 lidí a 150 hodin celkem a každý volič/ka aspoň 2 hodiny a časový práh!!!!
+      # nebo    25 lidí a 200 hodin celkem a každý volič/ka aspoň 5 hodin a časový práh!!!!
+      # nebo     20 lidí a 300 hodin celkem a každý volič/ka aspoň 10 hodin a časový práh!!!!
+
+      def citizens_with_hours(hours)
+            CitizensQuestion.where("question_id=#{id} AND hours>#{hours}").count
+      end
+      def needed
+
+        c=   citizens_with_hours 1
+
+        if c<100
+          need_c=100-c
+          need_h=100-hours_sum(1)
+        end
+        c=   citizens_with_hours 2
+        if c<50
+          need_c=50-c
+          need_h=150-hours_sum(2)
+        end
+
+        c=   citizens_with_hours 5
+        if c<25
+          need_c=25-c
+          need_h=200-hours_sum(5)
+        end
+        c=   citizens_with_hours 10
+        if c<20
+          need_c=20-c
+          need_h=300-hours_sum(10)
+        end
+
+        return [need_c, need_h]
+      end
     end
   end
 end
