@@ -4,16 +4,24 @@
 </p>
 </section>
 
-<%= form_for @citizens_question do |f| %>
+<%= form_for @citizens_question, html: { class: 'well' } do |f| %>
+  <% if @citizens_question.errors.any? %>
+    <div class="error_messages">
+      <div class="alert alert-error">
+        <strong>Opravte prosím následující chyby:</strong>
+      </div>      
+    </div>
+  <% end %>
   <%= f.hidden_field :citizen_id %>
   <%= f.hidden_field :question_id %>
 
   <div class="field">
-    <%= f.label :hours, 'Hodiny (zadejte kolik hodin chcete přidat)' %>
-    <%= f.number_field :hours, value: '' %>    
-  </div>  
+    <%= f.label :hours, 'Kolik hodin chcete přidat' %> 
+    <%= f.text_field :hours, value: 0 %>
+    <span class="fieldWithErrors"><%= @citizens_question.errors[:hours].first %></span>
+  </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Navýšit', class: 'btn btn-primary' %>
   </div>
 <% end %>

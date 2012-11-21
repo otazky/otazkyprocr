@@ -15,7 +15,7 @@ module Refinery
       scope :active, joins(subject: :elections).where(refinery_elections: {done: false})
 
       def full_name
-        "#{firstname} #{lastname}"
+        "#{lastname}, #{firstname}"
       end
     end
   end

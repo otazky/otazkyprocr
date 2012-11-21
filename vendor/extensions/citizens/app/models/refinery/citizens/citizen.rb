@@ -99,11 +99,6 @@ module Refinery
         team.shuffle.first.id
       end      
 
-      def is_team_manager_for?(question_id)
-        citizens_question = CitizensQuestion.where("question_id = #{question_id} AND teamleader = 1").order('hours DESC').first
-        return true if citizens_question && self.id == citizens_question.citizen_id
-      end   
-
       def get_citizen_with_most_hours_for(question_id)
         citizens_question = CitizensQuestion.where("question_id = #{question_id}").order('hours DESC').first
         Refinery::Citizens::Citizen.find(citizens_question.citizen_id)
@@ -111,10 +106,6 @@ module Refinery
 
       def get_most_hours_count_for(question_id)
         citizens_question = CitizensQuestion.where("question_id = #{question_id}").order('hours DESC').first.hours
-      end
-
-      def get_partner_for(question_id)
-        CitizensQuestion.where("question_id = #{question_id} AND citizen_id = #{self.id}").first.partner
       end
     end
   end

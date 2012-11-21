@@ -3,7 +3,7 @@
 class StatsController < ApplicationController
   def index
     @stats = Stat.new
-    @politicians = Refinery::Politicians::Politician.active
+    @politicians = Refinery::Politicians::Politician.active.order(:lastname, :firstname)
   end
 
   def politician

@@ -41,16 +41,13 @@ class CitizensQuestionsController < ApplicationController
 
   def edit    
     @citizens_question = CitizensQuestion.find(params[:id])
-    redirect_to citizen_path(@citizens_question.citizen_id), notice: 'Pro přidání hodin musíte nejprve vyčerpat hodiny přislíbené.'
   end
 
   def update
     @citizens_question = CitizensQuestion.find(params[:id])
-    redirect_to citizen_path(@citizens_question.citizen_id), notice: 'Pro přidání hodin musíte nejprve vyčerpat hodiny přislíbené.'
-    
-    params[:citizens_question][:hours] = params[:citizens_question][:hours].to_i + @citizens_question.hours
+    @citizens_question.hours += params[:citizens_question][:hours].to_i
 
-    if @citizens_question.update_attributes(params[:citizens_question])
+    if @citizens_question.save
       redirect_to citizen_path(@citizens_question.citizen_id), notice: 'Počet hodin byl upraven.' 
     else
       render 'edit'
@@ -79,13 +76,11 @@ class CitizensQuestionsController < ApplicationController
           @current_citizens_question.save!
           @new_citizens_question.save!
       end
-      redirect_to citizen_path(@new_citizens_question.citizen_id)
-    rescue
+      redirect_to citizen_path(@new_citizens_question.citizen_id), notice: 'Hodiny byly přeneseny.' 
+    rescue ActiveRecord::RecordInvalid
       @current_citizens_question.reload # original #hours on error
       render 'move'
     end
-
-
   end
 
   def payment

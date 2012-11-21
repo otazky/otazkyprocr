@@ -38,15 +38,16 @@
 	<section id="account_questions">
 		<h2>Strategické otázky</h2>
 
-		<% @citizen.citizens_questions.active.order('created_at ASC').each do |citizen_question| %>
+		<% @citizen_questions.each do |citizen_question| %>
             <% question = citizen_question.question %>
+            <% is_teamleader = question.citizens_questions.size == 1 || question.teamleader == @citizen %>
 			<article id="question_<%= question.id %>">
 				<h3 class="pull-left">
 					<%= truncate(question.title, length: 100, separator: ' ') %>					
 				</h3>				
 				<div class="pull-right">
-					<% if @citizen.is_team_manager_for?(question.id) == true %>
-						<%= form_tag(refinery.root_path+'mark-question-as-solved/'+question.id.to_s+'/') %>						
+					<% if is_teamleader %>
+						<%= form_tag(refinery.root_path+'mark-question-as-solved/'+question.id.to_s+'/') %>
 							<%= hidden_field_tag 'citizen_id', @citizen.id %>
 							<%= submit_tag 'Označit za vyřešenou', class: 'btn btn-success' if question.done != true %>
 						</form>
@@ -54,7 +55,17 @@
 					<% end %>
 				</div>
 				<h4 class="clear"><%= question.subject.firstname %> <%= question.subject.lastname %></h4>
-				<h5>Spolupracovník: <%= @citizen.get_partner_for(question.id).email if @citizen.get_partner_for(question.id) %></h5>
+                <h5>Spolupracovník: 
+                    <% if is_teamleader %>
+                        <% if question.tasks.any? %>
+                            Jste Správce týmu.
+                        <% else %>
+                            Jste první člen/ka týmu, tzn. Správce týmu a je na Vás napsat první úkoly.
+                        <% end %>
+                    <% else %>
+                        <%= citizen_question.partner.email if citizen_question.partner %>
+                    <% end %>
+                </h5>
 				<table id="account_question_table">
 					<tr>
 						<th>Přislíbených hodin:</th>
@@ -81,8 +92,8 @@
 						<li>
 							<%= task.content %>
                             <%="(#{task.hours}h)" if task.hours>0 %>
-                            <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if @citizen.is_team_manager_for?(question.id) %>
-                            <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if @citizen.is_team_manager_for?(question.id) %>
+                            <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if is_teamleader %>
+                            <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if is_teamleader %>
 
                             <%= link_to('pridat podukol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task)) %>
                             <%= link_to('řešit otázku',

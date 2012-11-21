@@ -22,7 +22,7 @@ class CitizensQuestion < ActiveRecord::Base
   scope :active, joins(question: :election).where(refinery_elections: {done: false})
 
   # validate :no_more_promised_hours, on: :update
-  validates :hours, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200, message: 'Zadejte prosím celé číslo v rozmezí 1 - 200' }, on: :create
+  validates :hours, numericality: { only_integer: true, greater_than: 0 }, on: :create
   validates :hours, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, on: :update
   validate :allowed_time_before_elections
 
@@ -32,13 +32,11 @@ class CitizensQuestion < ActiveRecord::Base
   end
 
   before_save(on: :create) do
-    citizens_question = CitizensQuestion.where('question_id = ?', self.question_id).shuffle
-    citizen = Refinery::Citizens::Citizen.find(citizens_question.first.citizen_id)
-    if citizens_question.first.citizen_id == citizen.id
-      citizens_question = citizens_question.last
-      citizen = Refinery::Citizens::Citizen.find(citizens_question.citizen_id)
+    citizens_question = CitizensQuestion.where(question_id: self.question_id).shuffle
+    if citizens_question.any?
+      partner = citizens_question.first.citizen
+      self.partner = partner.id == self.citizen.id ? citizens_question.last.citizen : partner
     end
-    self.partner = citizen
   end
 
   def paypal_url
@@ -83,13 +81,20 @@ class CitizensQuestion < ActiveRecord::Base
   end
 
   def allowed_time_before_elections
-    question = Refinery::Questions::Question.find(question_id)
-    election = question.election
-    time_to_election = (election.held.to_time - Time.now().to_time) / 60 / 60 / 24
-    allowed_hours = (time_to_election * 4).round
-
     if allowed_hours < hours
-      errors.add(:hours, "pro danou otázku je k dispozici maximálně #{allowed_hours} hodin.")
+      errors.add(:hours, "je nerealistické vzhledem k datu voleb, k dispozici je maximálně #{allowed_hours} hodin.")
+    end
+  end
+
+  def allowed_hours
+    held = question.election.held
+    to_election = held - Date.today
+    if to_election <= 0
+      0
+    elsif to_election == 1
+      [((held.to_time - Time.now) / 1.hour).to_i, 4].min
+    else
+      (to_election * 4).to_i
     end
   end
 

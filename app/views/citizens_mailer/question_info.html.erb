@@ -6,7 +6,9 @@ Zapojil(a) jste se do řešení otázky:
 <h4 class="clear"><%= @question.subject.firstname %> <%= @question.subject.lastname %></h4>
 
 
-  <h5>Spolupracovník: <%= @citizen.get_partner_for(@question.id).email if @citizen.get_partner_for(@question.id) %></h5>
+  <% partner = @citizen_question.partner %>
+  <h5>Spolupracovník: <%= partner.email if partner %></h5>
+
             <table id="account_question_table">
               <tr>
                 <th>Přislíbených hodin:</th>

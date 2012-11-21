@@ -1,9 +1,11 @@
 <section id="move_question">
   <p>
-    Zde můžete přenést až <strong><%= @current_citizens_question.hours %></strong> hodin z otázky <strong><%= @current_question.title %></strong> na jinou otázku.
+    Zde můžete přenést až <strong><%= @current_citizens_question.hours_remaining %></strong> hodin z otázky <strong><%= @current_question.title %></strong> na jinou otázku.
   </p>
 
-  <%= form_for @new_citizens_question, url: "/citizens_question/#{@current_citizens_question.id}/relocate_hours" do |f| %>
+  <%= form_for @new_citizens_question, 
+        url: "/citizens_question/#{@current_citizens_question.id}/relocate_hours", 
+        html: { class: 'well' } do |f| %>
     <% if @current_citizens_question.errors.any? or @new_citizens_question.errors.any? %>
       <div class="error_messages">
         <div class="alert alert-error">
