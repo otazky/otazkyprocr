@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121119151154) do
+ActiveRecord::Schema.define(:version => 20121121142151) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -343,6 +343,7 @@ ActiveRecord::Schema.define(:version => 20121119151154) do
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
     t.integer  "hours",       :default => 0
+    t.integer  "state",       :default => 0
   end
 
   add_index "tasks", ["question_id"], :name => "index_tasks_on_question_id"

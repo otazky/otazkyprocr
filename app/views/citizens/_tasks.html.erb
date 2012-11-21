@@ -15,7 +15,11 @@
       <%= link_to('přijímám se změnou',
                   {:action=>'new', :controller=>'citizens_tasks',:change=>true, :citizen_id=>@citizen.id, :task_id=>task.id },
                   :remote=>true , :class=>'new_citizen_task_dialog' , :title=>'přijímám se změnou') if !@citizen.tasks.include? task %>
-
+      <% if ct=@citizen.citizens_task(task) %>
+        přislíbeno:<%= ct.hours %>
+        <%=link_to "označ za odpracovaný", {controller:'tasks', action: :set_as_done, id:task.id, citizen_id:@citizen.id}, :remote=>true, :class=>'set_done' if task.state==0%>
+          <%= "hotovo?" if task.state==1%>
+      <% end %>
       <% if task.subtasks.any?%>
           <ul class="task_subtasks">
             <% task.subtasks.each do |subtask|%>

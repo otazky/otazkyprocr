@@ -41,4 +41,17 @@ class TasksController < ApplicationController
     @task.destroy
     redirect_to main_app.citizen_path(params[:citizen_id]), flash: { success: 'Úkol byl smazán.' }
   end
+
+
+  def set_as_done
+    @task = Task.find(params[:id])
+    @task.update_attribute(:state, 1)
+    respond_to do |format|
+        @citizen = Refinery::Citizens::Citizen.find(params[:citizen_id])
+        @question = @task.question
+        format.html {render 'citizens_tasks/tasks', layout:false}
+    end
+
+  end
 end
+

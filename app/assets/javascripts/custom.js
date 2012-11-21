@@ -40,7 +40,9 @@ $(document).ready(function() {
 
     });
 
-
+      $('.set_done').bind("ajax:success", function(evt, data, status, xhr){
+          $('#question_tasks').html(data);
+      });
 
 
 

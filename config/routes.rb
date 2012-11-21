@@ -7,7 +7,7 @@ Otazkyprocr::Application.routes.draw do
   get "tasks/new"
 
   get "tasks/edit"
-
+  get "citizen/:citizen_id/tasks/:id/set_as_done"   => 'tasks#set_as_done'
   get "password_resets/new"
   match 'payments/paypal' => 'payments#paypal'
   match 'map/promised-hours' => 'map#promised_hours'
