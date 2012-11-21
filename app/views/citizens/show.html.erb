@@ -40,7 +40,7 @@
 
 		<% @citizen_questions.each do |citizen_question| %>
             <% question = citizen_question.question %>
-            <% is_teamleader = question.citizens_questions.size == 1 || question.teamleader == @citizen %>
+            <% is_teamleader = question.is_teamleader?(@citizen) %>
 			<article id="question_<%= question.id %>">
 				<h3 class="pull-left">
 					<%= truncate(question.title, length: 100, separator: ' ') %>					

@@ -36,7 +36,12 @@ module Refinery
 
       def teamleader
           citizens_question = citizens_questions.where(teamleader: 1).order('hours DESC').first
-          citizens_question ? citizens_question.partner : nil
+          citizens_question ? citizens_question.citizen : nil
+      end
+
+      def is_teamleader?(citizen)
+          cq = citizens_questions.to_a
+          (cq.size == 1 && cq.first.citizen_id == citizen.id) or citizen == teamleader
       end
     end
   end

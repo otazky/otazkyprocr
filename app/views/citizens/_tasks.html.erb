@@ -1,9 +1,10 @@
+<% is_teamleader = question.is_teamleader?(@citizen) %>
 <% question.tasks.each do |task| %>
     <li>
       <%= task.content %>
       <%="(#{task.hours}h)" if task.hours>0 %>
-      <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if @citizen.is_team_manager_for?(question.id) %>
-      <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if @citizen.is_team_manager_for?(question.id) %>
+      <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if is_teamleader %>
+      <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if is_teamleader %>
 
       <%= link_to('pridat podukol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task)) %>
 
