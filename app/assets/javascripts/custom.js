@@ -32,10 +32,8 @@ $(document).ready(function() {
 
 
         $('#new_citizens_task').bind("ajax:success", function(evt, data, status, xhr){
-
-
-            $('#dialog_citizen').html(evt +", "+status+ ", "+data['id'] );
-
+            $('#question_tasks').html(data);
+             $('#dialog_citizen').hide();
         });
 
 
