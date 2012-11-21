@@ -30,12 +30,21 @@ class CitizensTasksController < ApplicationController
   # GET /citizens_tasks/new.json
   def new
     @citizens_task = CitizensTask.new
+    @citizens_task.task= Task.find(params[:task_id])
+    @citizens_task.citizen_id=params[:citizen_id]
+    @citizens_task.hours=  @citizens_task.task.hours
+    if params[:change]
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @citizens_task }
+      respond_to do |format|
+        format.html # new.html.erb
+      end
+    else
+      @citizens_task.save
+      render 'accepted'
     end
+
   end
+
 
   # GET /citizens_tasks/1/edit
   def edit
@@ -47,42 +56,27 @@ class CitizensTasksController < ApplicationController
   def create
     @citizens_task = CitizensTask.new(params[:citizens_task])
 
+
+    if params[:subtask][:body]
+      subtask=Subtask.new(:content=>params[:subtask][:body], :task_id=>@citizens_task.task_id)
+      subtask.save
+    end
+
+
     respond_to do |format|
       if @citizens_task.save
-        format.html { redirect_to @citizens_task, notice: 'Úkol byl úspěšně přidán.' }
-        format.json { render json: @citizens_task, status: :created, location: @citizens_task }
+        @question=@citizens_task.task.question
+        @citizen= Refinery::Citizens::Citizen.find( @citizens_task.citizen_id )
+
+
+
+        format.html {render :action=>'tasks'}
+        #format.json { render json: @citizens_task, status: :created, location: @citizens_task }
       else
-        format.html { render action: "new" }
-        format.json { render json: @citizens_task.errors, status: :unprocessable_entity }
+        #format.html { render action: "new" }
+        format.json { render layout:false, json: @citizens_task.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /citizens_tasks/1
-  # PUT /citizens_tasks/1.json
-  def update
-    @citizens_task = CitizensTask.find(params[:id])
-
-    respond_to do |format|
-      if @citizens_task.update_attributes(params[:citizens_task])
-        format.html { redirect_to @citizens_task, notice: 'Úkol byl úspěšně upraven.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @citizens_task.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /citizens_tasks/1
-  # DELETE /citizens_tasks/1.json
-  def destroy
-    @citizens_task = CitizensTask.find(params[:id])
-    @citizens_task.destroy
-
-    respond_to do |format|
-      format.html { redirect_to citizens_tasks_url }
-      format.json { head :no_content }
-    end
-  end
 end

@@ -2,4 +2,5 @@ class Task < ActiveRecord::Base
   belongs_to :question, class_name: 'Refinery::Questions::Question'
   attr_accessible :content  , :hours
   has_many :subtasks
+  belongs_to :citizens_task
 end

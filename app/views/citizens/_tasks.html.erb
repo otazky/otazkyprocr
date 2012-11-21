@@ -1,0 +1,27 @@
+<% question.tasks.each do |task| %>
+    <li>
+      <%= task.content %>
+      <%="(#{task.hours}h)" if task.hours>0 %>
+      <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if @citizen.is_team_manager_for?(question.id) %>
+      <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if @citizen.is_team_manager_for?(question.id) %>
+
+      <%= link_to('pridat podukol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task)) %>
+
+
+      <%= link_to('přijímám bez výhrad',
+                  {:action=>'new', :controller=>'citizens_tasks', :citizen_id=>@citizen.id, :task_id=>task.id },
+                  :remote=>true , :class=>'new_citizen_task_dialog'          ) if !@citizen.tasks.include? task %>
+      <%= link_to('přijímám se změnou',
+                  {:action=>'new', :controller=>'citizens_tasks',:change=>true, :citizen_id=>@citizen.id, :task_id=>task.id },
+                  :remote=>true , :class=>'new_citizen_task_dialog' , :title=>'přijímám se změnou') if !@citizen.tasks.include? task %>
+
+      <% if task.subtasks.any?%>
+          <ul id="task_subtasks">
+            <% task.subtasks.each do |subtask|%>
+                <li><%=subtask.content %></li>
+            <%end%>
+          </ul>
+      <% end %>
+
+    </li>
+<% end %>

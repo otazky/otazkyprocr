@@ -9,6 +9,7 @@ group :development do
   gem 'debugger',     '1.2.0'
   gem 'letter_opener'
   gem 'annotate',     '>=2.5.0'
+  gem 'therubyracer'
 end
 
 group :production do
