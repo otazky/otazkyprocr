@@ -82,7 +82,7 @@ class CitizensQuestion < ActiveRecord::Base
 
   def allowed_time_before_elections
     if allowed_hours < hours
-      errors.add(:hours, "je nerealistické vzhledem k datu voleb, k dispozici je maximálně #{allowed_hours} hodin.")
+      errors.add(:hours, "K dispozici je maximálně #{allowed_hours} hodin.")
     end
   end
 
