@@ -28,22 +28,27 @@ class CitizensTasksController < ApplicationController
 
   # GET /citizens_tasks/new
   # GET /citizens_tasks/new.json
-  def new
+  def accept_wchange
     @citizens_task = CitizensTask.new
     @citizens_task.task= Task.find(params[:task_id])
     @citizens_task.citizen_id=params[:citizen_id]
     @citizens_task.hours=  @citizens_task.task.hours
-    if params[:change]
-
-      respond_to do |format|
-        format.html # new.html.erb
-      end
-    else
-      @citizens_task.save
-      render 'accepted'
-    end
-
+    render 'new'
   end
+
+
+  def accept_task
+    @citizens_task = CitizensTask.new
+    @citizens_task.task= Task.find(params[:task_id])
+    @citizens_task.citizen_id=params[:citizen_id]
+    @citizens_task.hours=  @citizens_task.task.hours
+    @citizens_task.save
+
+    @question=@citizens_task.task.question
+    @citizen= Refinery::Citizens::Citizen.find(@citizens_task.citizen_id )
+    render 'tasks'
+  end
+
 
 
   # GET /citizens_tasks/1/edit
@@ -55,28 +60,14 @@ class CitizensTasksController < ApplicationController
   # POST /citizens_tasks.json
   def create
     @citizens_task = CitizensTask.new(params[:citizens_task])
-
-
     if params[:subtask][:body]
       subtask=Subtask.new(:content=>params[:subtask][:body], :task_id=>@citizens_task.task_id)
       subtask.save
     end
+    @question=@citizens_task.task.question
+    @citizen= Refinery::Citizens::Citizen.find( @citizens_task.citizen_id )
+    render 'tasks'
 
-
-    respond_to do |format|
-      if @citizens_task.save
-        @question=@citizens_task.task.question
-        @citizen= Refinery::Citizens::Citizen.find( @citizens_task.citizen_id )
-
-
-
-        format.html {render :action=>'tasks'}
-        #format.json { render json: @citizens_task, status: :created, location: @citizens_task }
-      else
-        #format.html { render action: "new" }
-        format.json { render layout:false, json: @citizens_task.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
 end

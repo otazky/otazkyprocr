@@ -1,0 +1,12 @@
+Kolik času chcete věnovat tomuto podůkolu?
+<p><i><%= @subtask.content %></i></p>
+<%= form_for :subtask, url: subtask_accept_step2_path(@subtask), html:{id:'accept_step2_subtask'}, remote: true do |f|%>
+    <div id="error_explanation">
+
+    </div>
+    <%= f.text_field :hours %> h
+    <div class="actions">
+      <%= f.submit 'Přijmout', :class => 'btn btn-primary' %>
+    </div>
+<%end%>
+<div></div>

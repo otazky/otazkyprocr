@@ -1,6 +1,9 @@
 # encoding: UTF-8
 
 class TasksController < ApplicationController
+
+  before_filter :authorized_citizen_access?
+
   def index
   end
 
@@ -43,9 +46,9 @@ class TasksController < ApplicationController
   end
 
 
-  def set_as_done
+  def for_approval
     @task = Task.find(params[:id])
-    @task.update_attribute(:state, 1)
+    @task.update_attribute(:state, Taks::FOR_APPROVAL)
     respond_to do |format|
         @citizen = Refinery::Citizens::Citizen.find(params[:citizen_id])
         @question = @task.question
@@ -53,5 +56,16 @@ class TasksController < ApplicationController
     end
 
   end
+
+  def set_as_done
+    @task = Task.find(params[:id])
+    @task.update_attribute(:state, Taks::DONE )
+    respond_to do |format|
+      @citizen = Refinery::Citizens::Citizen.find(params[:citizen_id])
+      @question = @task.question
+      format.html {render 'citizens_tasks/tasks', layout:false}
+    end
+  end
+
 end
 

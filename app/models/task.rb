@@ -3,4 +3,15 @@ class Task < ActiveRecord::Base
   attr_accessible :content  , :hours
   has_many :subtasks
   belongs_to :citizens_task
+
+
+  DONE         = 3
+  FOR_APPROVAL = 2
+
+
+  def responsible_citizen
+    ct=CitizensTask.where(task_id:self.id).first
+    ct.citizen if ct
+  end
+
 end

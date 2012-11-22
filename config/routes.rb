@@ -8,6 +8,11 @@ Otazkyprocr::Application.routes.draw do
 
   get "tasks/edit"
   get "citizen/:citizen_id/tasks/:id/set_as_done"   => 'tasks#set_as_done'
+  get "citizen/:citizen_id/tasks/:id/for_approval"   => 'task#for_approval' , :as=>  'for_approval'
+  get "citizen/:citizen_id/accept_task/:task_id" => 'citizens_tasks#accept_task' , :as => 'citizen_accept_task'
+  get "citizen/:citizen_id/accept_task_with_change/:task_id" => 'citizens_tasks#accept_wchange' , :as => 'citizen_accept_change_task'
+
+
   get "password_resets/new"
   match 'payments/paypal' => 'payments#paypal'
   match 'map/promised-hours' => 'map#promised_hours'
@@ -54,6 +59,9 @@ Otazkyprocr::Application.routes.draw do
   match 'citizens_question/:id/relocate_hours' => 'citizens_questions#relocate_hours', via: :post
   match 'map/' => 'map#index'
   match '/mark-question-as-solved/:question_id' => 'citizens#mark_question_as_solved', via: :post
+
+  get 'subtask/:id/accept' => "subtasks#accept" , as: :accept_subtask
+  post 'subtask/:id/accept_step2' => "subtasks#accept_step2" , as: :subtask_accept_step2
 
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.

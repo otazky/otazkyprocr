@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121121142151) do
+ActiveRecord::Schema.define(:version => 20121122171030) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -333,8 +333,12 @@ ActiveRecord::Schema.define(:version => 20121121142151) do
   create_table "subtasks", :force => true do |t|
     t.integer  "task_id"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.decimal  "hours",      :precision => 6, :scale => 1
+    t.decimal  "hours_done", :precision => 6, :scale => 1
+    t.integer  "state",                                    :default => 0
+    t.integer  "citizen_id"
   end
 
   create_table "tasks", :force => true do |t|

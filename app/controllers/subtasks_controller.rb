@@ -1,19 +1,13 @@
 # encoding: UTF-8
 
 class SubtasksController < ApplicationController
-  # GET /subtasks
-  # GET /subtasks.json
-  def index
-    @subtasks = Subtask.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @subtasks }
-    end
-  end
 
   # GET /subtasks/1
   # GET /subtasks/1.json
+
+  before_filter :authorized_citizen_access?
+  layout:false
+
   def show
     @subtask = Subtask.find(params[:id])
 
@@ -83,4 +77,24 @@ class SubtasksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def accept
+    @subtask = Subtask.find(params[:id])
+
+  end
+
+  def accept_step2
+    @subtask = Subtask.find(params[:id])
+    @subtask.citizen_id=current_user.id
+    @subtask.hours=params[:subtask][:hours]
+
+    if @subtask.save
+      @citizen = current_user
+      @question = @subtask.task.question
+      render json:{ html:render_to_string('citizens_tasks/tasks'), status:'ok'}
+    else
+      render json:{ html:render_to_string( :partial=>'errors'), status:'nok'}
+    end
+  end
+
 end
