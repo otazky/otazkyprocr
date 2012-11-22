@@ -1,8 +1,3 @@
-<h1>Nový podúkol</h1>
-
-<p>úkol: <%= @task.content %>
-   </p>
+<p>k úkolu: <q><%= @task.content %></q></p>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', subtasks_path %>

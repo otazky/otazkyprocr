@@ -24,7 +24,8 @@
           <% if task.subtasks.any?%>
               <ul class="task_subtasks">
                 <% task.subtasks.each do |subtask|%>
-                    <li><%=subtask.content %></li>
+
+                    <li><span <%="class=accepted" if subtask.citizen%>><%=subtask.content %> (<%= subtask.hours %>h)</span></li>
                 <%end%>
               </ul>
           <% end %>

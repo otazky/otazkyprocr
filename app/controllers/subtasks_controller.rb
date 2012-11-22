@@ -2,24 +2,10 @@
 
 class SubtasksController < ApplicationController
 
-  # GET /subtasks/1
-  # GET /subtasks/1.json
-
   before_filter :authorized_citizen_access?
   layout:false
 
-  def show
-    @subtask = Subtask.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @subtask }
-    end
-  end
-
-  # GET /subtasks/new
-  # GET /subtasks/new.json
-  def new
+   def new
     @subtask = Subtask.new
     @task = Task.find(params[:task_id])
     respond_to do |format|
@@ -28,25 +14,20 @@ class SubtasksController < ApplicationController
     end
   end
 
-  # GET /subtasks/1/edit
   def edit
     @subtask = Subtask.find(params[:id])
   end
 
-  # POST /subtasks
-  # POST /subtasks.json
   def create
     @subtask = Subtask.new(params[:subtask])
     @subtask.task_id=params[:task_id]
 
-    respond_to do |format|
-      if @subtask.save
-        format.html { redirect_to main_app.citizen_path(params[:citizen_id]), notice: 'Podúkol byl úspěšně vytvořen.' }
-        format.json { render json: @subtask, status: :created, location: @subtask }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @subtask.errors, status: :unprocessable_entity }
-      end
+    if @subtask.save
+      @citizen = current_user
+      @question = @subtask.task.question
+      render json:{ html:render_to_string('citizens_tasks/tasks'), status:'ok'}
+    else
+      render json:{ html:render_to_string( :partial=>'errors'), status:'nok'}
     end
   end
 
@@ -80,7 +61,10 @@ class SubtasksController < ApplicationController
 
   def accept
     @subtask = Subtask.find(params[:id])
-
+    @subtask.update_attribute(:citizen, current_user)
+    @citizen = current_user
+    @question = @subtask.task.question
+    render 'citizens_tasks/tasks'
   end
 
   def accept_step2

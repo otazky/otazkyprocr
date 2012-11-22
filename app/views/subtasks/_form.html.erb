@@ -1,18 +1,12 @@
-<%= form_for(@subtask, url:citizen_question_task_subtasks_path) do |f| %>
-  <% if @subtask.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@subtask.errors.count, "error") %> brání uložení:</h2>
+<%= form_for(@subtask, url:citizen_question_task_subtasks_path, remote: true) do |f| %>
+    <div id="error_explanation"></div>
 
-      <ul>
-      <% @subtask.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+    podúkol:
     <%= f.text_area :content, {rows:3, cols:60} %>
 
+    <p>kolik hodin to bude trvat:
+    <%= f.text_field :hours %> h
+    </p>
   <div class="actions">
     <%= f.submit 'Přidat', :class => 'btn btn-primary' %>
   </div>

@@ -1,15 +1,15 @@
 <%= form_for(@citizens_task, :remote=>true) do |f| %>
-
+    <div id="error_explanation"></div>
     <%= f.hidden_field :task_id %>
     <%= f.hidden_field :citizen_id %>
 
    <p>
     Přidejte podúkol:
-    <%= text_area :subtask,:body, :rows=>2, :cols=>20 %>
+    <%= text_area :subtask,:content, :rows=>2, :cols=>20 %>
             </p>
    <p> Kolik času chcete úkolu věnovat:
 
-    <%= f.text_field :hours %> h
+    <%= text_field :subtask, :hours %> h
    </p>
   <div class="actions">
     <%= f.submit "Uložit", :class=>'btn btn-primary'%>

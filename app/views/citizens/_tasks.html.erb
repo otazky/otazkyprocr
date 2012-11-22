@@ -1,22 +1,24 @@
 <% is_teamleader = question.is_teamleader?(@citizen) %>
-<% question.tasks.each do |task| %>
-    <li>
-      <%= task.content %>
-      <%="(#{task.hours}h)" if task.hours>0 %> <br/>
+<% question.tasks.each do |task|
+  ct=@citizen.citizens_task(task)
+%>
+    <li><span <%="class=accepted" if ct%>>
+      <b><%= task.content %></b>
+      <%="(#{task.hours}h)" if task.hours>0 %> <br/>  </span>
+
       <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if is_teamleader %>
       <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if is_teamleader %>
-
-      <%= link_to('pridat podukol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task)) %>
+       <%= link_to('přidat podúkol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task), :remote=>true, :class=>'add_subtask', :title=>"Přidat podúkol") %>
 
       <% if  task.responsible_citizen %>
         <%=task.responsible_citizen.email %>
-      <%else%>
+      <% else %>
         <%= link_to('přijímám bez výhrad', citizen_accept_task_path(@citizen,task), :remote=>true,:class=>'citizen_task_nochange'          ) if !@citizen.tasks.include? task %>
-        <%= link_to('přijímám se změnou',citizen_accept_change_task_path(@citizen,task), :remote=>true,:class=>'new_citizen_task_dialog', :title=>'přijímám se změnou') if !@citizen.tasks.include? task %>
-      <%end%>
-      <% if ct=@citizen.citizens_task(task) %>
-        přislíbeno:<%= ct.hours %>
-        <%=link_to "označ za odpracovaný", for_approval_path(task.id, @citizen.id), :remote=>true, :class=>'set_done' if task.state==0%>
+        <%= link_to('přijímám se změnou',citizen_accept_change_task_path(@citizen,task),
+                    :remote=>true,:class=>'new_citizen_task_dialog', :title=>'přijímám se změnou') if !@citizen.tasks.include? task %>
+      <% end %>
+      <% if ct %>
+         <%=link_to "označ za odpracovaný", for_approval_path(task.id, @citizen.id), :remote=>true, :class=>'set_done' if task.state==0%>
           <%= "hotovo?" if task.state==Task::FOR_APPROVAL%>
       <% end %>
 
@@ -31,9 +33,9 @@
       <% if task.subtasks.any?%>
           <ul class="task_subtasks">
             <% task.subtasks.each do |subtask|%>
-                <li><%=subtask.content %>
+                <li><span <%="class=accepted" if subtask.citizen%>><%=subtask.content %> (<%= subtask.hours %>h)</span>
                   <% if subtask.citizen %>
-                    <%= subtask.citizen.email %> (<%= subtask.hours %>h)
+                    <%= subtask.citizen.email %>
                   <%else%>
                     <%=link_to "přijmout", accept_subtask_path(subtask),remote:true, class:'accept_subtask', title:"Přijmout podúkol" %>
                   <% end %>

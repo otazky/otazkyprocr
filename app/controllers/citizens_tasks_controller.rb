@@ -36,6 +36,19 @@ class CitizensTasksController < ApplicationController
     render 'new'
   end
 
+  def create
+    @citizens_task = CitizensTask.new(params[:citizens_task])
+    @subtask=Subtask.new(params[:subtask])
+    @subtask.task_id=@citizens_task.task_id
+    @subtask.citizen=current_user
+    if @subtask.save
+      @citizen = current_user
+      @question=@citizens_task.task.question
+      render json:{ html:render_to_string('citizens_tasks/tasks'), status:'ok'}
+    else
+      render json:{ html:render_to_string( :partial=>'subtasks/errors'), status:'nok'}
+    end
+  end
 
   def accept_task
     @citizens_task = CitizensTask.new
@@ -51,23 +64,5 @@ class CitizensTasksController < ApplicationController
 
 
 
-  # GET /citizens_tasks/1/edit
-  def edit
-    @citizens_task = CitizensTask.find(params[:id])
-  end
-
-  # POST /citizens_tasks
-  # POST /citizens_tasks.json
-  def create
-    @citizens_task = CitizensTask.new(params[:citizens_task])
-    if params[:subtask][:body]
-      subtask=Subtask.new(:content=>params[:subtask][:body], :task_id=>@citizens_task.task_id)
-      subtask.save
-    end
-    @question=@citizens_task.task.question
-    @citizen= Refinery::Citizens::Citizen.find( @citizens_task.citizen_id )
-    render 'tasks'
-
-  end
 
 end
