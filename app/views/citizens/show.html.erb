@@ -47,15 +47,7 @@
 				<h3 class="pull-left">
 					<%= truncate(question.title, length: 100, separator: ' ') %>					
 				</h3>				
-				<div class="pull-right">
-					<% if is_teamleader %>
-						<%= form_tag(refinery.root_path+'mark-question-as-solved/'+question.id.to_s+'/') %>
-							<%= hidden_field_tag 'citizen_id', @citizen.id %>
-							<%= submit_tag 'Označit za vyřešenou', class: 'btn btn-success' if question.done != true %>
-						</form>
-						<%= link_to 'Přidat úkol', main_app.new_citizen_question_task_path(@citizen, question), class: 'btn btn-primary' %>
-					<% end %>
-				</div>
+			
 				<h4 class="clear"><%= question.subject.firstname %> <%= question.subject.lastname %></h4>
                 <h5>Spolupracovník: 
                     <% if is_teamleader %>
@@ -94,6 +86,17 @@
 
 				<% if question.tasks.any? %>
 					<h5>Úkoly</h5>
+					
+						<div class="pull-right">
+						<% if is_teamleader %>
+						<%= form_tag(refinery.root_path+'mark-question-as-solved/'+question.id.to_s+'/') %>
+						<%= hidden_field_tag 'citizen_id', @citizen.id %>
+						<%= submit_tag 'Označit za vyřešenou', class: 'btn btn-success' if question.done != true %>
+						</form>
+						<%= link_to 'Přidat úkol', main_app.new_citizen_question_task_path(@citizen, question), class: 'btn btn-primary' %>
+						<% end %>
+						</div>
+					
 					<ul id="question_tasks">
                       <%= render :partial=>'tasks', :locals=>{:question=>question}%>
 					</ul>
