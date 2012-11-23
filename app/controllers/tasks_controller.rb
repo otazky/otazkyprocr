@@ -56,7 +56,8 @@ class TasksController < ApplicationController
   def for_approval
     @task = Task.find(params[:id])
     @task.state= Task::FOR_APPROVAL
-    @citizens_task=CitizensTask.where(task_id: @task.id, citizen_id: current_user.id).first
+    @citizen = Refinery::Citizens::Citizen.find(params[:citizen_id])
+    @citizens_task=CitizensTask.where(task_id: @task.id, citizen_id: @citizen.id).first
     h=params[:task][:hours]
     if @task.hours>=h.to_i
       @citizens_task.hours=h
@@ -66,7 +67,7 @@ class TasksController < ApplicationController
     end
 
     if !@err && @task.save && @citizens_task.save
-      @citizen = Refinery::Citizens::Citizen.find(params[:citizen_id])
+
       @question = @task.question
       render json:{ html:render_to_string('citizens_tasks/tasks'), status:'ok'}
     else
@@ -79,8 +80,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.update_attribute(:state, Task::DONE )
 
+    @citizen = Refinery::Citizens::Citizen.find(params[:citizen_id])
+    @citizens_task=CitizensTask.where(task_id: @task.id, citizen_id: @citizen.id).first
+    @citizens_task.update_attribute(:hours_done, @citizens_task.hours)
     respond_to do |format|
-      @citizen = Refinery::Citizens::Citizen.find(params[:citizen_id])
+
       @question = @task.question
       format.html {render 'citizens_tasks/tasks', layout:false}
     end
