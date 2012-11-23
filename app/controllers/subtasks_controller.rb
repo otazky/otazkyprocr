@@ -81,4 +81,41 @@ class SubtasksController < ApplicationController
     end
   end
 
+
+  def edit_done
+    @subtask = Subtask.find(params[:id])
+  end
+
+
+  def done
+    @subtask = Subtask.find(params[:id])
+    h=params[:subtask][:hours]
+    if @subtask.hours>=h.to_i
+      @subtask.hours=h
+      @subtask.state= Task::FOR_APPROVAL
+    else
+      @err="Nová časová dotace nesmí být větší než původní"
+    end
+
+    if !@err && @subtask.save
+      @citizen = current_user
+      @question = @subtask.task.question
+      render json:{ html:render_to_string('citizens_tasks/tasks'), status:'ok'}
+    else
+      render json:{ html:render_to_string( :partial=>'errors'), status:'nok'}
+    end
+  end
+
+  def verify
+    @subtask = Subtask.find(params[:id])
+    @citizen = current_user
+    @question = @subtask.task.question
+
+    if @question.is_teamleader?(@citizen)
+      @subtask.hours_done=@subtask.hours
+      @subtask.state=Task::DONE
+      @subtask.save
+    end
+    render 'citizens_tasks/tasks'
+  end
 end

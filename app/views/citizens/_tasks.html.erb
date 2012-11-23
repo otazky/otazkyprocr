@@ -39,6 +39,10 @@
                   <%else%>
                     <%=link_to "přijmout", accept_subtask_path(subtask),remote:true, class:'accept_subtask', title:"Přijmout podúkol" %>
                   <% end %>
+
+                  <%= link_to("označ jako hotový" , subtask_edit_done_path(subtask),remote:true, class:'subtask_edit_done', title:"Označ jako hotový" ) if subtask.state<Task::FOR_APPROVAL && subtask.citizen==current_user %>
+                  <%= "čeká na schválení" if subtask.state==Task::FOR_APPROVAL %>
+                  <%= link_to("schválit", subtask_verify_path(subtask), remote:true, class:'subtask_verify') if subtask.state==Task::FOR_APPROVAL and is_teamleader%>
                 </li>
             <%end%>
           </ul>

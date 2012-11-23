@@ -62,7 +62,9 @@ Otazkyprocr::Application.routes.draw do
 
   get 'subtask/:id/accept' => "subtasks#accept" , as: :accept_subtask
   post 'subtask/:id/accept_step2' => "subtasks#accept_step2" , as: :subtask_accept_step2
-
+  get 'subtask/:id/edit_done' =>'subtasks#edit_done', as: :subtask_edit_done
+  post 'subtask/:id/done'      =>'subtasks#done',  as: :subtask_done
+  get 'subtask/:id/verify'   =>  'subtasks#verify',as: :subtask_verify
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
   # If you would like to change where this extension is mounted, simply change the :at option to something different.

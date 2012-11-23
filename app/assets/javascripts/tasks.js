@@ -48,18 +48,23 @@ $('.new_citizen_task_dialog').bind("ajax:success", function(evt, data, status, x
     //  $('#dialog_citizen').dialog();
     $('#dialog_citizen').dialog({title:$(this).attr('title') });
 
-
-
     $('#new_citizens_task').bind("ajax:success", function(evt, data, status, xhr){
         error_or_tasklist(data);
     });
 
-
-
 });
 
-$('.set_done').bind("ajax:success", function(evt, data, status, xhr){
-    $('#question_tasks').html(data);
-});
+    $('.set_done, .subtask_verify').bind("ajax:success", function(evt, data, status, xhr){
+        $('#question_tasks').html(data);
+    });
+
+    $('.subtask_edit_done').bind("ajax:success", function(evt, data, status, xhr){
+        $('#dialog_citizen').html(data);
+        $('#dialog_citizen').dialog({title:$(this).attr('title') });
+        $('form#subtask_done').bind("ajax:success", function(evt, data, status, xhr){
+            error_or_tasklist(data);
+        });
+    });
+
 
 }
