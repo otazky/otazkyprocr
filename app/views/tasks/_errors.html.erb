@@ -1,0 +1,24 @@
+<% if @task.errors.any? %>
+    <h3><%= pluralize(@task.errors.count, "error") %> brání uložení:</h3>
+    <ul>
+      <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+    </ul>
+<% end %>
+
+
+<% if @citizens_task.errors.any? %>
+    <h3><%= pluralize(@citizens_task.errors.count, "error") %> brání uložení:</h3>
+    <ul>
+      <% @citizens_task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+    </ul>
+<% end %>
+
+
+
+<% if @err %>
+    <p><%= @err %></p>
+<% end%>

@@ -38,7 +38,7 @@ function tasklist_init(){
 
 
 
-$('.citizen_task_nochange').bind("ajax:success", function(evt, data, status, xhr){
+$('.citizen_task_nochange, .subtask_verify, .task_verify').bind("ajax:success", function(evt, data, status, xhr){
     $('#question_tasks').html(data);
 });
 
@@ -54,8 +54,13 @@ $('.new_citizen_task_dialog').bind("ajax:success", function(evt, data, status, x
 
 });
 
-    $('.set_done, .subtask_verify').bind("ajax:success", function(evt, data, status, xhr){
-        $('#question_tasks').html(data);
+    $('.set_done').bind("ajax:success", function(evt, data, status, xhr){
+
+        $('#dialog_citizen').html(data);
+        $('#dialog_citizen').dialog({title:$(this).attr('title') });
+        $('form#task_approv').bind("ajax:success", function(evt, data, status, xhr){
+            error_or_tasklist(data);
+        });
     });
 
     $('.subtask_edit_done').bind("ajax:success", function(evt, data, status, xhr){

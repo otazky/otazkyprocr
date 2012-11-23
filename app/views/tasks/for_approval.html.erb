@@ -1,0 +1,13 @@
+<p>Zde může skutečnou časovou dotaci už jen ponížit
+  (pokud ji chcete navýšit, musíte ji rozepsat v novém úkolu)
+</p>
+<p><i><%= @task.content %></i></p>
+<%= form_for :task, url: for_approval_path(current_user, @task), html:{id:'task_approv'}, remote: true do |f|%>
+<div id="error_explanation">
+
+</div>
+<%= f.text_field :hours %> h
+<div class="actions">
+  <%= f.submit 'Uložit', :class => 'btn btn-primary' %>
+</div>
+<%end%>

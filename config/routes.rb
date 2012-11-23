@@ -7,8 +7,11 @@ Otazkyprocr::Application.routes.draw do
   get "tasks/new"
 
   get "tasks/edit"
-  get "citizen/:citizen_id/tasks/:id/set_as_done"   => 'tasks#set_as_done'
-  get "citizen/:citizen_id/tasks/:id/for_approval"   => 'task#for_approval' , :as=>  'for_approval'
+
+  get "citizen/:citizen_id/tasks/:id/verify"    => 'tasks#verify'
+  post "citizen/:citizen_id/tasks/:id/for_approval"   => 'tasks#for_approval' , :as=>  'for_approval'
+  get "citizen/:citizen_id/tasks/:id/new_for_approval"   => 'tasks#for_approval_new' , :as=>  'new_for_approval'
+
   get "citizen/:citizen_id/accept_task/:task_id" => 'citizens_tasks#accept_task' , :as => 'citizen_accept_task'
   get "citizen/:citizen_id/accept_task_with_change/:task_id" => 'citizens_tasks#accept_wchange' , :as => 'citizen_accept_change_task'
 

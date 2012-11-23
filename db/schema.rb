@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122171030) do
+ActiveRecord::Schema.define(:version => 20121123112017) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -32,9 +32,10 @@ ActiveRecord::Schema.define(:version => 20121122171030) do
   create_table "citizens_tasks", :force => true do |t|
     t.integer  "task_id"
     t.integer  "citizen_id"
-    t.integer  "hours"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.decimal  "hours",      :precision => 5, :scale => 1
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.decimal  "hours_done", :precision => 5, :scale => 1
   end
 
   add_index "citizens_tasks", ["citizen_id", "task_id"], :name => "index_citizens_tasks_on_citizen_id_and_task_id", :unique => true
@@ -344,10 +345,10 @@ ActiveRecord::Schema.define(:version => 20121122171030) do
   create_table "tasks", :force => true do |t|
     t.text     "content"
     t.integer  "question_id"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.integer  "hours",       :default => 0
-    t.integer  "state",       :default => 0
+    t.datetime "created_at",                                                 :null => false
+    t.datetime "updated_at",                                                 :null => false
+    t.decimal  "hours",       :precision => 5, :scale => 1, :default => 0.0
+    t.integer  "state",                                     :default => 0
   end
 
   add_index "tasks", ["question_id"], :name => "index_tasks_on_question_id"

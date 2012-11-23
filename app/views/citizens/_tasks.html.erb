@@ -4,31 +4,34 @@
 %>
     <li><span <%="class=accepted" if ct%>>
       <b><%= task.content %></b>
-      <%="(#{task.hours}h)" if task.hours>0 %> <br/>  </span>
-
-      <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if is_teamleader %>
-      <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if is_teamleader %>
-       <%= link_to('přidat podúkol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task), :remote=>true, :class=>'add_subtask', :title=>"Přidat podúkol") %>
+      <%="(#{task.hours}h)" if task.hours>0 %>  </span>
 
       <% if  task.responsible_citizen %>
         <%=task.responsible_citizen.email %>
       <% else %>
         <%= link_to('přijímám bez výhrad', citizen_accept_task_path(@citizen,task), :remote=>true,:class=>'citizen_task_nochange'          ) if !@citizen.tasks.include? task %>
-        <%= link_to('přijímám se změnou',citizen_accept_change_task_path(@citizen,task),
-                    :remote=>true,:class=>'new_citizen_task_dialog', :title=>'přijímám se změnou') if !@citizen.tasks.include? task %>
+          <%= link_to('přijímám se změnou',citizen_accept_change_task_path(@citizen,task),
+                      :remote=>true,:class=>'new_citizen_task_dialog', :title=>'přijímám se změnou') if !@citizen.tasks.include? task %>
       <% end %>
+
+
+      <br/>
+
+      <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if is_teamleader %>
+      <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if is_teamleader %>
+       <%= link_to('přidat podúkol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task), :remote=>true, :class=>'add_subtask', :title=>"Přidat podúkol") if !ct %>
+
+
       <% if ct %>
-         <%=link_to "označ za odpracovaný", for_approval_path(task.id, @citizen.id), :remote=>true, :class=>'set_done' if task.state==0%>
+         <%=link_to "označ za odpracovaný", new_for_approval_path(@citizen,task), :remote=>true, :class=>'set_done', :title=>'označ úkol jako odpracovaný' if task.state<2 %>
           <%= "hotovo?" if task.state==Task::FOR_APPROVAL%>
+
       <% end %>
 
-      <% if is_teamleader || true %>
-            <% if task.state==Task::FOR_APPROVAL %>
-
-              <%=link_to "označ za odpracovaný", {controller:'tasks', action: :set_as_done, id:task.id, citizen_id:@citizen.id}, :remote=>true, :class=>'set_done' %>
-
-             <% end %>
+      <% if is_teamleader && task.state==Task::FOR_APPROVAL %>
+              <%=link_to "potvrďit (#{ct.hours}h)", {controller:'tasks', action: :verify, id:task.id, citizen_id:@citizen.id}, :remote=>true, :class=>'task_verify' %>
       <% end%>
+
 
       <% if task.subtasks.any?%>
           <ul class="task_subtasks">
