@@ -17,7 +17,7 @@
                 <div class="row">
                   <div class="span12"> 
                     <%= link_to(image_tag('logo.png', width: '230', height: '125', alt: 'Otázky pro ČR logo'), refinery.root_path) %>                                            
-                   <h1><%= @stats.citizens_count %></h1> voličů
+                   <h1><%= @stats.citizens_count if @stats %></h1> voličů
                       
                   </div>                
                 </div>
