@@ -9,27 +9,27 @@
       <% if  task.responsible_citizen %>
         <%=task.responsible_citizen.email %>
       <% else %>
-        <%= link_to('přijímám bez výhrad', citizen_accept_task_path(@citizen,task), :remote=>true,:class=>'citizen_task_nochange'          ) if !@citizen.tasks.include? task %>
-          <%= link_to('přijímám se změnou',citizen_accept_change_task_path(@citizen,task),
-                      :remote=>true,:class=>'new_citizen_task_dialog', :title=>'přijímám se změnou') if !@citizen.tasks.include? task %>
+        <%= link_to('Přijímám bez výhrad |', citizen_accept_task_path(@citizen,task), :remote=>true,:class=>'citizen_task_nochange'          ) if !@citizen.tasks.include? task %>
+          <%= link_to('Přijímám se změnou |',citizen_accept_change_task_path(@citizen,task),
+                      :remote=>true,:class=>'new_citizen_task_dialog', :title=>'Přijímám se změnou') if !@citizen.tasks.include? task %>
       <% end %>
 
 
       <br/>
 
-      <%= link_to('Upravit', main_app.edit_citizen_question_task_path(@citizen, question, task)) if is_teamleader %>
-      <%= link_to('Odstranit', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if is_teamleader %>
-       <%= link_to('přidat podúkol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task), :remote=>true, :class=>'add_subtask', :title=>"Přidat podúkol") if !ct %>
+      <%= link_to('Upravit |', main_app.edit_citizen_question_task_path(@citizen, question, task)) if is_teamleader %>
+      <%= link_to('Odstranit |', [@citizen, question, task], method: :delete, confirm: 'Jste si jistý(á)?') if is_teamleader %>
+       <%= link_to('Přidat podúkol', main_app.new_citizen_question_task_subtask_path(@citizen, question, task), :remote=>true, :class=>'add_subtask', :title=>"Přidat podúkol") if !ct %>
 
 
       <% if ct %>
-         <%=link_to "označ za odpracovaný", new_for_approval_path(@citizen,task), :remote=>true, :class=>'set_done', :title=>'označ úkol jako odpracovaný' if task.state<2 %>
-          <%= "hotovo?" if task.state==Task::FOR_APPROVAL%>
+         <%=link_to "Označ za odpracovaný", new_for_approval_path(@citizen,task), :remote=>true, :class=>'set_done', :title=>'Označ úkol jako odpracovaný' if task.state<2 %>
+          <%= "Hotovo?" if task.state==Task::FOR_APPROVAL%>
 
       <% end %>
 
       <% if is_teamleader && task.state==Task::FOR_APPROVAL %>
-              <%=link_to "potvrďit (#{ct.hours}h)", {controller:'tasks', action: :verify, id:task.id, citizen_id:@citizen.id}, :remote=>true, :class=>'task_verify' %>
+              <%=link_to "Potvrdit (#{ct.hours}h)", {controller:'tasks', action: :verify, id:task.id, citizen_id:@citizen.id}, :remote=>true, :class=>'task_verify' %>
       <% end%>
 
 
@@ -40,12 +40,12 @@
                   <% if subtask.citizen %>
                     <%= subtask.citizen.email %>
                   <%else%>
-                    <%=link_to "přijmout", accept_subtask_path(subtask),remote:true, class:'accept_subtask', title:"Přijmout podúkol" %>
+                    <%=link_to "Přijmout", accept_subtask_path(subtask),remote:true, class:'accept_subtask', title:"Přijmout podúkol" %>
                   <% end %>
 
-                  <%= link_to("označ jako hotový" , subtask_edit_done_path(subtask),remote:true, class:'subtask_edit_done', title:"Označ jako hotový" ) if subtask.state<Task::FOR_APPROVAL && subtask.citizen==current_user %>
-                  <%= "čeká na schválení" if subtask.state==Task::FOR_APPROVAL %>
-                  <%= link_to("schválit", subtask_verify_path(subtask), remote:true, class:'subtask_verify') if subtask.state==Task::FOR_APPROVAL and is_teamleader%>
+                  <%= link_to("Označ jako hotový" , subtask_edit_done_path(subtask),remote:true, class:'subtask_edit_done', title:"Označ jako hotový" ) if subtask.state<Task::FOR_APPROVAL && subtask.citizen==current_user %>
+                  <%= "Čeká na schválení" if subtask.state==Task::FOR_APPROVAL %>
+                  <%= link_to("Schválit", subtask_verify_path(subtask), remote:true, class:'subtask_verify') if subtask.state==Task::FOR_APPROVAL and is_teamleader%>
                 </li>
             <%end%>
           </ul>
