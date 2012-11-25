@@ -60,9 +60,9 @@
                 <h5>Spolupracovník:
                     <% if is_teamleader %>
                         <% if question.tasks.any? %>
-                            Jste Správce týmu.
+                            Jste Správce/kyně týmu.
                         <% else %>
-                            Jste první člen/ka týmu, tzn. Správce týmu a je na Vás napsat první úkoly.
+                            Jste první člen/ka týmu, tzn. Správce/kyně týmu a je na Vás napsat první úkoly.
                         <% end %>
                     <% else %>
                         <%= citizen_question.partner.email if citizen_question.partner %>
