@@ -123,7 +123,7 @@ class Stat
     Refinery::Questions::Question.active.count
   end
 
-  def citizens_count
+  def self.citizens_count
     Refinery::Citizens::Citizen.count
   end
 
