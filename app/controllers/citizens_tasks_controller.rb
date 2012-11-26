@@ -41,7 +41,16 @@ class CitizensTasksController < ApplicationController
     @subtask=Subtask.new(params[:subtask])
     @subtask.task_id=@citizens_task.task_id
     @subtask.citizen=current_user
-    if @subtask.save
+
+    @citizen = current_user
+    @question=@citizens_task.task.question
+    cq=@citizen.citizen_question(@question.id)
+
+    if cq.available_hours < @subtask.hours
+      @err="Počet hodin, který chcete věnovat podúkolu přeshauje počet přislýbených hodin k otázce."
+    end
+
+    if !@err && @subtask.save
       @citizen = current_user
       @question=@citizens_task.task.question
       render json:{ html:render_to_string('citizens_tasks/tasks'), status:'ok'}

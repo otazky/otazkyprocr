@@ -1,1 +1,1 @@
-<%= render :partial=>'citizens/tasks', :locals=>{:question=>@question}%>
+<%= render :partial=>'citizens/tasks', :locals=>{:question=>@question,  :citizen_question=>@citizen.citizen_question(@question.id)}%>

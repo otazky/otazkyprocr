@@ -106,4 +106,10 @@ class CitizensQuestion < ActiveRecord::Base
     end
   end
 
+  def available_hours
+    h=CitizensTask.where("citizen_id=#{citizen_id} AND task_id IN (SELECT id from tasks WHERE question_id=#{question_id})").sum(:hours)
+    hours_subtask = Subtask.where("citizen_id=#{citizen_id} AND task_id IN (SELECT id from tasks WHERE question_id=#{question_id})").sum(:hours)
+    hours - h - hours_subtask
+  end
+
 end

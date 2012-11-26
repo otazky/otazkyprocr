@@ -95,7 +95,7 @@
 				<% if question.tasks.any? %>
 					<h5>Návrhy úkolů</h5>
 					<ul id="question_tasks">
-                      <%= render :partial=>'tasks', :locals=>{:question=>question}%>
+                      <%= render :partial=>'tasks', :locals=>{:question=>question, :citizen_question=>citizen_question}%>
 					</ul>
 				<% end %>
 			</article>

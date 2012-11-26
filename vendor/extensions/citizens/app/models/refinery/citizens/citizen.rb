@@ -113,6 +113,10 @@ module Refinery
       def citizens_task(task)
         CitizensTask.where("task_id=#{task.id} AND citizen_id=#{id}").first
       end
+
+      def citizen_question(question_id)
+        CitizensQuestion.where(:question_id => question_id, :citizen_id => id).first
+      end
     end
   end
 end
