@@ -53,7 +53,7 @@
 							<%= hidden_field_tag 'citizen_id', @citizen.id %>
 							<%= submit_tag 'Označit za vyřešenou', class: 'btn btn-success' if question.done != true %>
 						</form>
-						<%= link_to 'Přidat úkol', main_app.new_citizen_question_task_path(@citizen, question), class: 'btn btn-primary' %>
+
 					<% end %>
 				</div>
 				<h4 class="clear"><%= question.subject.firstname %> <%= question.subject.lastname %></h4>
@@ -87,13 +87,46 @@
 					</tr>
 				</table>
 
-                <div class="needed_hours">
+                                  <div class="alert alert-error">
+                                                	   <strong>Možnost zveřejnit svůj návrh řešení otázky na webu získáte při splnění jedné z následujících podmínek:</strong>
+                                                	   <table>
+                                                	     <tr>
+                                                	     	<td>Tým</td>
+                                                	     	<td>Počet odpracovaných hodin</td>
+                                               	     	<td>Průměrně 1 volič/ka</td>
+                                                	     </tr>
+                                                	     <tr>
+                                                	     	<td>100 lidí</td>
+                                                	     	<td>100 hodin</td>
+                                                	     	<td>1 hod</td>
+                                                	     </tr>
+                                                	     <tr>
+                                                	      	<td>50 lidí</td>
+                                                	     	<td>150 hodin</td>
+                                                	     	<td>min. 2 hod</td>
+                                                	     </tr>
+                                                	     <tr>
+                                                	     	<td>25 lidí</td>
+                                                	     	<td>200 hodin</td>
+                                                	     	<td>min. 5 hodin</td>
+                                                	     </tr>
+                                                	     <tr>
+                                                	     	<td>20 lidí</td>
+                                                	     	<td>300 hodin</td>
+                                                	     	<td>min. 10 hod</td>
+                                                	     </tr>
+                                                	   </table>
+                                             </div>
+
+
+                                  <div class="needed_hours">
                     Vašemu týmu chybí ke splnění podmínky <%=needed[0] %>
                     lidí a <%=needed[1]%> hodin
                 </div>
 
 				<% if question.tasks.any? %>
 					<h5>Návrhy úkolů</h5>
+                    <%= link_to 'Přidat úkol', main_app.new_citizen_question_task_path(@citizen, question), class: 'btn btn-primary' if is_teamleader %>
 					<ul id="question_tasks">
                       <%= render :partial=>'tasks', :locals=>{:question=>question, :citizen_question=>citizen_question}%>
 					</ul>
