@@ -35,7 +35,9 @@ class CitizensQuestion < ActiveRecord::Base
     citizens_question = CitizensQuestion.where("question_id=#{self.question_id} AND citizen_id>0").shuffle
     if citizens_question.any?
       partner_c = citizens_question.first.citizen
-      self.partner = partner_c.id == self.citizen.id ? citizens_question.last.citizen : partner_c
+      if  partner_c && self.citizen_id &&  self.citizen
+        self.partner = partner_c.id == self.citizen.id ? citizens_question.last.citizen : partner_c
+      end
     end
   end
 
