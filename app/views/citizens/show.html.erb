@@ -124,10 +124,11 @@
                     lidí a <%=needed[1]%> hodin
                 </div>
 
-				<% if question.tasks.any? %>
+
 					<h5>Návrhy úkolů</h5>
                     <%= link_to 'Přidat úkol', main_app.new_citizen_question_task_path(@citizen, question), class: 'btn btn-primary' if is_teamleader %>
-					<ul id="question_tasks">
+                <% if question.tasks.any? %>
+						<ul id="question_tasks">
                       <%= render :partial=>'tasks', :locals=>{:question=>question, :citizen_question=>citizen_question}%>
 					</ul>
 				<% end %>
