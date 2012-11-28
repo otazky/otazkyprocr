@@ -62,6 +62,9 @@ class SubtasksController < ApplicationController
   def accept
     @subtask = Subtask.find(params[:id])
     @subtask.update_attribute(:citizen, current_user)
+    @subtask.accepted_at=Time.now
+    @subtask.save
+
     @citizen = current_user
     @question = @subtask.task.question
     render 'citizens_tasks/tasks'
@@ -71,7 +74,7 @@ class SubtasksController < ApplicationController
     @subtask = Subtask.find(params[:id])
     @subtask.citizen_id=current_user.id
     @subtask.hours=params[:subtask][:hours]
-
+    @subtask.accepted_at=Time.now
     if @subtask.save
       @citizen = current_user
       @question = @subtask.task.question
@@ -81,20 +84,24 @@ class SubtasksController < ApplicationController
     end
   end
 
-
   def edit_done
     @subtask = Subtask.find(params[:id])
   end
 
-
   def done
     @subtask = Subtask.find(params[:id])
-    h=params[:subtask][:hours]
-    if @subtask.hours>=h.to_i
+    h=params[:subtask][:hours].to_d
+    if @subtask.hours>=h
       @subtask.hours=h
       @subtask.state= Task::FOR_APPROVAL
     else
-      @err="Nová časová dotace nesmí být větší než původní"
+      @err="Nová časová dotace nesmí být větší než původní. "
+    end
+
+    if (Time.now - @subtask.accepted_at) < h.hours
+      @err ||=""
+      @err += "Chyba, od přijetí úkolu uběhlo méně času než bylo přislíbeno."
+      @subtask.state = 0
     end
 
     if !@err && @subtask.save

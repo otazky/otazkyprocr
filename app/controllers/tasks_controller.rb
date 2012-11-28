@@ -58,12 +58,18 @@ class TasksController < ApplicationController
     @task.state= Task::FOR_APPROVAL
     @citizen = Refinery::Citizens::Citizen.find(params[:citizen_id])
     @citizens_task=CitizensTask.where(task_id: @task.id, citizen_id: @citizen.id).first
-    h=params[:task][:hours]
-    if @task.hours>=h.to_i
+    h=params[:task][:hours].to_d
+    if @task.hours>=h
       @citizens_task.hours=h
       @task.state= Task::FOR_APPROVAL
     else
-      @err="Nová časová dotace nesmí být větší než původní"
+      @err="Nová časová dotace nesmí být větší než původní #{@task.hours}. "
+    end
+
+    if (Time.now - @citizens_task.created_at) < h.hours
+       @err ||=""
+      @err += "Chyba, od přijetí úkolu uběhlo méně času než bylo odpracováno."
+      @task.state = 0
     end
 
     if !@err && @task.save && @citizens_task.save

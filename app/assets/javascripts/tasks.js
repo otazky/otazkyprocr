@@ -40,6 +40,7 @@ function tasklist_init(){
 
 $('.citizen_task_nochange, .subtask_verify, .task_verify').bind("ajax:success", function(evt, data, status, xhr){
     $('#question_tasks').html(data);
+    tasklist_init();
 });
 
 $('.new_citizen_task_dialog').bind("ajax:success", function(evt, data, status, xhr){
