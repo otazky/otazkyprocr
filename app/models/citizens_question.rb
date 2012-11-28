@@ -32,10 +32,10 @@ class CitizensQuestion < ActiveRecord::Base
   end
 
   before_save(on: :create) do
-    citizens_question = CitizensQuestion.where(question_id: self.question_id).shuffle
+    citizens_question = CitizensQuestion.where("question_id=#{self.question_id} AND citizen_id>0").shuffle
     if citizens_question.any?
-      partner = citizens_question.first.citizen
-      self.partner = partner.id == self.citizen.id ? citizens_question.last.citizen : partner
+      partner_c = citizens_question.first.citizen
+      self.partner = partner_c.id == self.citizen.id ? citizens_question.last.citizen : partner_c
     end
   end
 
