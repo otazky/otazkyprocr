@@ -230,7 +230,9 @@ class Stat
 
   end
 
-
+  def self.ophs
+    Refinery::Questions::Question.where("NOT disabled").order("cache_oph desc").limit(3)
+  end
 
 
 

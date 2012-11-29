@@ -10,8 +10,18 @@
     <li><a href="/map/citizens/" target="_blank" title="Pro správné zobrazení mapy použijte poslední verzi prohlížeče Mozzila Firefox">Mapa</a></li>
     <li class="divider"></li>
     <li class="nav-header">Kandidující s nejvyšší OPH</li>
-    <li class="disabled"><a href="#">Zatím nejsou dostupné žádné výsledky</a></li>
-    <li class="divider"></li>
+
+    <li class="">
+      <% Stat.ophs.each do |q|%>
+          <%=raw(q.title)[0..20]%>... <%= q.cache_oph%><br/>
+      <%end%>
+
+    </li>
+
+
+
+        <li class="divider"></li>
+
      <li class="nav-header">Publikované návrhy řešení</li>
     <li class="disabled"><a href="#">Zatím voliči nevypracovali žádné návrhy</a></li>
 </ul>
