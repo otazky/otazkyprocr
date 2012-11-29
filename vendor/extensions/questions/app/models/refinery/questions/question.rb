@@ -48,7 +48,7 @@ module Refinery
       def averege_hours_done
         n=CitizensQuestion.where(question_id: id).count
         if n>0
-          hours_done_sum.to_d / n
+          hours_done_sum / n
         else
           0
         end

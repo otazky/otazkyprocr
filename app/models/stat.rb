@@ -216,7 +216,7 @@ class Stat
       pn=question.averege_hours_done
       k = (vv-vn)*pn
       oph=hn-k
-      puts "vn:#{vn}, h:#{hn}, pn:#{pn}, k:#{k} OPH : #{oph}"
+   #   puts "vn:#{vn}, h:#{hn}, pn:#{pn}, k:#{k} OPH : #{oph}"
       question.update_attribute(:cache_oph, oph)
     end
 
