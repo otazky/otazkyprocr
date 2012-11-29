@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128155409) do
+ActiveRecord::Schema.define(:version => 20121128235517) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -247,15 +247,16 @@ ActiveRecord::Schema.define(:version => 20121128155409) do
   add_index "refinery_politicians", ["firstname", "lastname"], :name => "index_refinery_politicians_on_firstname_and_lastname", :unique => true
 
   create_table "refinery_questions", :force => true do |t|
-    t.string   "title",                          :null => false
-    t.text     "content",                        :null => false
+    t.string   "title",                                                         :null => false
+    t.text     "content",                                                       :null => false
     t.integer  "election_id"
     t.integer  "subject_id"
     t.integer  "position"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.boolean  "done",        :default => false
-    t.boolean  "disabled",    :default => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
+    t.boolean  "done",                                       :default => false
+    t.boolean  "disabled",                                   :default => false
+    t.decimal  "cache_oph",   :precision => 10, :scale => 5
   end
 
   add_index "refinery_questions", ["title"], :name => "index_refinery_questions_on_title", :unique => true

@@ -45,7 +45,20 @@ module Refinery
       end
 
 
+      def averege_hours_done
+        n=CitizensQuestion.where(question_id: id).count
+        if n>0
+          hours_done_sum.to_d / n
+        else
+          0
+        end
+      end
 
+
+      def hours_done_sum
+        CitizensQuestion.where(question_id: id).sum('hours_done')
+
+      end
 
 
       def hours_sum(minimal_hours)

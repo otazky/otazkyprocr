@@ -4,6 +4,7 @@ class StatsController < ApplicationController
   def index
     @stats = Stat.new
     @politicians = Refinery::Politicians::Politician.active.order(:lastname, :firstname)
+    Stat.compute_oph
   end
 
   def politician

@@ -204,4 +204,41 @@ class Stat
   def reward_fond_amount
     Payment.sum(:total)
   end
+
+
+  def self.compute_oph
+    vv=CitizensQuestion.count_by_sql("select count(citizen_id) from citizens_questions group by question_id ORDER BY count(citizen_id) DESC LIMIT 1")
+
+
+    Refinery::Questions::Question.all.each do |question|
+      vn=question.citizens_questions.count
+      hn=question.hours_done_sum
+      pn=question.averege_hours_done
+      k = (vv-vn)*pn
+      oph=hn-k
+      puts "vn:#{vn}, h:#{hn}, pn:#{pn}, k:#{k} OPH : #{oph}"
+      question.update_attribute(:cache_oph, oph)
+    end
+
+    # nejvyšší počet voličů ze všech týmů = V vv
+    # celkový počet voličů v týmu (dané otázky) = v(n)
+    # celkový počet odpracovaných hodin = h(n)
+    # průměrný počet hodin na 1 voliče toho kterého týmu = p(n)
+    # penalizace (korekce) za počet voličů menší než V (nejvyšší dosažený počet) = k
+    # k = (V-v)*p
+    # OPH = h-k
+
+  end
+
+
+
+
+
+
+
+
+
+
+
+
 end
