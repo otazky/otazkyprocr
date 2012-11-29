@@ -1,0 +1,31 @@
+en:
+  refinery:
+    plugins:
+      notices:
+        title: Notices
+    notices:
+      admin:
+        notices:
+          actions:
+            create_new: Add New Notice
+            reorder: Reorder Notices
+            reorder_done: Done Reordering Notices
+          records:
+            title: Notices
+            sorry_no_results: Sorry! There are no results found.
+            no_items_yet: There are no Notices yet. Click "Add New Notice" to add your first notice.
+          notice:
+            view_live_html: View this notice live <br/><em>(opens in a new window)</em>
+            edit: Edit this notice
+            delete: Remove this notice forever
+      notices:
+        show:
+          other: Other Notices
+  activerecord:
+    attributes:
+      'refinery/notices/notice':
+        title: Title
+        content: Content
+        link: Link
+        img: Img
+        type: Type

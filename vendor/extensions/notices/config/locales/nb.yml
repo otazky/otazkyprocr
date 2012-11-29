@@ -1,0 +1,31 @@
+nb:
+  refinery:
+    plugins:
+      notices:
+        title: Notices
+    notices:
+      admin:
+        notices:
+          actions:
+            create_new: Lag en ny Notice
+            reorder: Endre rekkefølgen på Notices
+            reorder_done: Ferdig å endre rekkefølgen Notices
+          records:
+            title: Notices
+            sorry_no_results: Beklager! Vi fant ikke noen resultater.
+            no_items_yet: Det er ingen Notices enda. Klikk på "Lag en ny Notice" for å legge til din første notice.
+          notice:
+            view_live_html: Vis hvordan denne notice ser ut offentlig <br/><em>(åpner i et nytt vindu)</em>
+            edit: Rediger denne notice
+            delete: Fjern denne notice permanent
+      notices:
+        show:
+          other: Andre Notices
+  activerecord:
+    attributes:
+      'refinery/notices/notice':
+        title: Title
+        content: Content
+        link: Link
+        img: Img
+        type: Type

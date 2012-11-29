@@ -15,7 +15,6 @@ Otazkyprocr::Application.routes.draw do
   get "citizen/:citizen_id/accept_task/:task_id" => 'citizens_tasks#accept_task' , :as => 'citizen_accept_task'
   get "citizen/:citizen_id/accept_task_with_change/:task_id" => 'citizens_tasks#accept_wchange' , :as => 'citizen_accept_change_task'
 
-
   get "password_resets/new"
   match 'payments/paypal' => 'payments#paypal'
   match 'map/promised-hours' => 'map#promised_hours'

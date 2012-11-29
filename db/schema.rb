@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128235517) do
+ActiveRecord::Schema.define(:version => 20121129113911) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -160,6 +160,17 @@ ActiveRecord::Schema.define(:version => 20121128235517) do
   end
 
   add_index "refinery_keepers", ["email"], :name => "index_refinery_keepers_on_email", :unique => true
+
+  create_table "refinery_notices", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "link"
+    t.integer  "img_id"
+    t.integer  "type"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "refinery_page_part_translations", :force => true do |t|
     t.integer  "refinery_page_part_id"

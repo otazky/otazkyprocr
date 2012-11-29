@@ -1,0 +1,31 @@
+fr:
+  refinery:
+    plugins:
+      notices:
+        title: Notices
+    notices:
+      admin:
+        notices:
+          actions:
+            create_new: Créer un(e) nouve(au/l/lle) Notice
+            reorder: Réordonner les Notices
+            reorder_done: Fin de réordonnancement des Notices
+          records:
+            title: Notices
+            sorry_no_results: "Désolé ! Aucun résultat."
+            no_items_yet: 'Il n''y a actuellement aucun(e) Notice. Cliquer sur "Créer un(e) nouve(au/l/lle) Notice" pour créer votre premi(er/ère) notice.'
+          notice:
+            view_live_html: Voir ce(t/tte) notice <br/><em>(Ouvre une nouvelle fenêtre)</em>
+            edit: Modifier ce(t/tte) notice
+            delete: Supprimer définitivement ce(t/tte) notice
+      notices:
+        show:
+          other: Autres Notices
+  activerecord:
+    attributes:
+      'refinery/notices/notice':
+        title: Title
+        content: Content
+        link: Link
+        img: Img
+        type: Type

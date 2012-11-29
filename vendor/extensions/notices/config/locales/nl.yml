@@ -1,0 +1,31 @@
+nl:
+  refinery:
+    plugins:
+      notices:
+        title: Notices
+    notices:
+      admin:
+        notices:
+          actions:
+            create_new: Maak een nieuwe Notice
+            reorder: Wijzig de volgorde van de Notices
+            reorder_done: Klaar met het wijzingen van de volgorde van de Notices
+          records:
+            title: Notices
+            sorry_no_results: Helaas! Er zijn geen resultaten gevonden.
+            no_items_yet: Er zijn nog geen Notices. Druk op 'Maak een nieuwe Notice' om de eerste aan te maken.
+          notice:
+            view_live_html: Bekijk deze notice op de website <br/><em>(opent een nieuw venster)</em>
+            edit: Bewerk deze notice
+            delete: Verwijder deze notice voor eeuwig
+      notices:
+        show:
+          other: Andere Notices
+  activerecord:
+    attributes:
+      'refinery/notices/notice':
+        title: Title
+        content: Content
+        link: Link
+        img: Img
+        type: Type

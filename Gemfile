@@ -57,3 +57,5 @@ gem 'refinerycms-parties', :path => 'vendor/extensions'
 gem 'refinerycms-elections', :path => 'vendor/extensions'
 gem 'refinerycms-questions', :path => 'vendor/extensions'
 gem 'refinerycms-emails', :path => 'vendor/extensions'
+
+gem 'refinerycms-notices', :path => 'vendor/extensions'

@@ -1,0 +1,25 @@
+<ul>
+  <% if ::Refinery::Notices::Admin::NoticesController.searchable? %>
+    <li>
+      <%= render '/refinery/admin/search', :url => refinery.notices_admin_notices_path %>
+    </li>
+  <% end %>
+  <li>
+    <%= link_to t('.create_new'), refinery.new_notices_admin_notice_path,
+                 :class => "add_icon" %>
+  </li>
+<% if !searching? && ::Refinery::Notices::Admin::NoticesController.sortable? && ::Refinery::Notices::Notice.any? %>
+  <li>
+    <%= link_to t('.reorder', :what => "Notices"),
+                 refinery.notices_admin_notices_path,
+                 :id => "reorder_action",
+                 :class => "reorder_icon" %>
+
+    <%= link_to t('.reorder_done', :what => "Notices"),
+                 refinery.notices_admin_notices_path,
+                 :id => "reorder_action_done",
+                 :style => "display: none;",
+                 :class => "reorder_icon" %>
+  </li>
+<% end %>
+</ul>

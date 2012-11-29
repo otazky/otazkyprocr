@@ -22,6 +22,11 @@ $(document).ready(function() {
     tasklist_init();
 
 
+    $('.closenotice').click(function(){
+         $("#notice1").hide();
+    })  ;
+
+
 
   // COMPUTE COST OF PROMISED HOURS
   $(function() {

@@ -1,0 +1,13 @@
+<div class="notice_container">
+
+
+
+    <div id="notice1">
+      <div class="noticebox">
+        <% notice=Refinery::Notices::Notice.first %>
+        <%= raw notice.content %>
+      </div>
+      <a class='closenotice' >zavřít</a>
+    </div>
+
+</div>

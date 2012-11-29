@@ -13,4 +13,5 @@
  *= require bootstrap
  *= require custom
  *= require tasks
+ *= require notices
  */

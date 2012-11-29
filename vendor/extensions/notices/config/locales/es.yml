@@ -1,0 +1,32 @@
+es:
+  refinery:
+    plugins:
+      notices:
+        title: Notices
+#        article: masculino/femenino
+    notices:
+      admin:
+        notices:
+          actions:
+            create_new: Crear nuevo notice
+            reorder: Reordenar notices
+            reorder_done: Reordenación de notices completada
+          records:
+            title: Notices
+            sorry_no_results: Lo siento, no hay resultados
+            no_items_yet: No hay notices todavía. Pulsa en "Crear nuevo Notice" para crear tu primer notice.
+          notice:
+            view_live_html: Ver este notice como abierto al público <br/><em>(abre en ventana nueva)</em>
+            edit: Editar este notice
+            delete: Borrar este notice para siempre
+      notices:
+        show:
+          other: Otros notices
+  activerecord:
+    attributes:
+      'refinery/notices/notice':
+        title: Title
+        content: Content
+        link: Link
+        img: Img
+        type: Type

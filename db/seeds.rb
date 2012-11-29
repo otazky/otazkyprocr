@@ -199,3 +199,5 @@ CitizensQuestion.create([
   { citizen_id: 6, question_id: 1, hours: 30 },
   { citizen_id: 6, question_id: 3, hours: 30 }
 ])
+# Added by Refinery CMS Notices extension
+Refinery::Notices::Engine.load_seed

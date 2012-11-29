@@ -1,0 +1,26 @@
+
+.notice_container{
+  width:500px;
+  margin:auto;
+  position: relative;;
+
+#notice1{
+    width:500px;
+    background: white;;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0 5px 0 #222222;
+    position: fixed;
+    top:50px;
+    margin:auto;
+
+    .noticebox{
+      margin:20px;
+    }
+    .closenotice{
+        position:absolute;
+        top:2px; right:8px;
+        cursor: pointer;
+    }
+}
+
+}
