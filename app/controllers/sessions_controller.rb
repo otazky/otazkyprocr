@@ -4,6 +4,11 @@ class SessionsController < ApplicationController
   def new
   end
 
+  def no_notice
+    session[:no_notice]=true
+    render :nothing=>true
+  end
+
   def create
     user = Refinery::Citizens::Citizen.find_by_email(params[:email]) || Refinery::Keepers::Keeper.find_by_email(params[:email])
 

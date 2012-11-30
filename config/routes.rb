@@ -8,6 +8,8 @@ Otazkyprocr::Application.routes.draw do
 
   get "tasks/edit"
 
+
+
   get "citizen/:citizen_id/tasks/:id/verify"    => 'tasks#verify'
   post "citizen/:citizen_id/tasks/:id/for_approval"   => 'tasks#for_approval' , :as=>  'for_approval'
   get "citizen/:citizen_id/tasks/:id/new_for_approval"   => 'tasks#for_approval_new' , :as=>  'new_for_approval'
@@ -20,6 +22,8 @@ Otazkyprocr::Application.routes.draw do
   match 'map/promised-hours' => 'map#promised_hours'
   match 'map/worked-hours' => 'map#worked_hours'
 
+
+
   namespace :map do
     resources :citizens,       only:[:index, :show]
     resources :promised_hours, only:[:index, :show]
@@ -27,6 +31,7 @@ Otazkyprocr::Application.routes.draw do
   end
 
   resources :questions
+
   resources :subtasks
   resources :citizens do
     resources :questions do
@@ -52,6 +57,8 @@ Otazkyprocr::Application.routes.draw do
     end
   end
 
+  get 'no_notice' => 'sessions#no_notice'
+  get 'oph-stats' => 'stats#oph'  , :as=>'ophs'
   match 'stats' => 'stats#index'
   match 'stats/politicians/:id' => 'stats#politician', as: :politician_stat
   match 'solve-question/:question_id' => 'citizens_questions#new'
@@ -67,14 +74,24 @@ Otazkyprocr::Application.routes.draw do
   get 'subtask/:id/edit_done' =>'subtasks#edit_done', as: :subtask_edit_done
   post 'subtask/:id/done'      =>'subtasks#done',  as: :subtask_done
   get 'subtask/:id/verify'   =>  'subtasks#verify',as: :subtask_verify
+
+
+
+
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
   # If you would like to change where this extension is mounted, simply change the :at option to something different.
   #
   # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
+
+
   mount Refinery::Core::Engine, :at => '/'
   resources :politicians
   resources :parties
+
+
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

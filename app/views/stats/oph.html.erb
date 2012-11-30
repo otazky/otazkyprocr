@@ -1,0 +1,12 @@
+<h1>Všechny otázky s autory podle OPH</h1>
+
+<table class='ophs'>
+<% @questions.each do |q|%>
+    <tr>
+      <td class='oph_tab_title'><%=q.title  %></td>
+      <td><%=q.subject_name%></td>
+      <td><%= q.cache_oph%></td>
+    </tr>
+<%end%>
+
+</table>

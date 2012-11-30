@@ -11,14 +11,14 @@
     <li class="divider"></li>
     <li class="nav-header">Kandidující s nejvyšší OPH</li>
 
-    <li class="">
-      <% Stat.ophs.each do |q|%>
-          <%=raw(q.title)[0..20]%>... <%= q.cache_oph%><br/>
+
+      <% if  Stat.ophs.any? %>
+        <% Stat.ophs.each do |q|%>
+          <li class=""><%=q.subject_name%>: <%= q.cache_oph%></li>
+        <%end%>
+      <%else%>
+          <li class="disa bled"><%= link_to "Zatím nejsou dostupné žádné výsledky", '/oph-stats' %></li>
       <%end%>
-
-    </li>
-
-
 
         <li class="divider"></li>
 

@@ -100,6 +100,17 @@ module Refinery
 
         return [need_c, need_h]
       end
+
+      def subject_name
+        if subject.subtype == 'Refinery::Politicians::Politician'
+          name = "#{subject.firstname} #{subject.lastname}"
+        else
+          name = subject.name
+        end
+        name
+      end
+
+
     end
   end
 end

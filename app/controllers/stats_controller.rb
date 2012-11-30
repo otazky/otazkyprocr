@@ -11,4 +11,10 @@ class StatsController < ApplicationController
       @stat = Stat::Politician.new(Refinery::Politicians::Politician.find(params[:id]))
       render :layout => !request.xhr?
   end
+
+
+  def oph
+    @questions=Refinery::Questions::Question.where("NOT disabled").order("cache_oph desc")
+
+  end
 end

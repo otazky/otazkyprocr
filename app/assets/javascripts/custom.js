@@ -24,6 +24,14 @@ $(document).ready(function() {
 
     $('.closenotice').click(function(){
          $("#notice1").hide();
+
+        jQuery.ajax({
+            type: 'GET', url: "/no_notice",
+        success: function(kec){
+
+        }
+   });
+
     })  ;
 
 
