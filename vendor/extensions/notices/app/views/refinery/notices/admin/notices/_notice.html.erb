@@ -3,9 +3,12 @@
     <%= notice.title %>
 
   </span>
+  <span style="color:green; float:right;margin-right: 100px;;">
+  <%="active" if notice.active %>
+  </span>
   <span class='actions'>
     
-    <%= link_to refinery_icon_tag("application_go.png"), refinery.notices_notice_path(notice),
+    <%#= link_to refinery_icon_tag("application_go.png"), refinery.notices_notice_path(notice),
         :title => t('.view_live_html'),
         :target => "_blank" %>
     

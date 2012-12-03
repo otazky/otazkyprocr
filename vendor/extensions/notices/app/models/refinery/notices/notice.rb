@@ -3,7 +3,7 @@ module Refinery
     class Notice < Refinery::Core::BaseModel
       self.table_name = 'refinery_notices'
 
-      attr_accessible :title, :content, :link, :img, :position , :img_id
+      attr_accessible :title, :content, :link, :img, :position , :img_id, :active
 
       acts_as_indexed :fields => [:title, :content, :link]
 
