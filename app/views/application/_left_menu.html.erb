@@ -16,6 +16,7 @@
         <% Stat.ophs.each do |q|%>
           <li class=""><%=q.subject_name%>: <%= q.cache_oph%></li>
         <%end%>
+        <li class="disa bled"><%= link_to "Všichni...", '/oph-stats' %></li>
       <%else%>
           <li class="disa bled"><%= link_to "Zatím nejsou dostupné žádné výsledky", '/oph-stats' %></li>
       <%end%>

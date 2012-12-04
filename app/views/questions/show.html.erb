@@ -5,7 +5,12 @@
     <%= raw @question.content %>
   </section>
 
-  <%= link_to 'Řešit otázku', "/solve-question/#{@question.id}" %>
+
+  <% if current_user && (cq=current_user.citizen_question(@question.id)) && cq.hours>0 %>
+         Této otázce jste přislíbil(a) <%=cq.hours%>h
+  <%else%>
+      <%= link_to 'Řešit otázku', "/solve-question/#{@question.id}" %>
+  <%end%>
 
   <br>
   <br>

@@ -22,8 +22,8 @@ class CitizensQuestion < ActiveRecord::Base
   scope :active, joins(question: :election).where(refinery_elections: {done: false})
 
   # validate :no_more_promised_hours, on: :update
-  validates :hours, numericality: { only_integer: true, greater_than: 0 }, on: :create
-  validates :hours, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, on: :update
+  validates :hours, numericality: {  greater_than: 0 }, on: :create
+  validates :hours, numericality: {  greater_than_or_equal_to: 0 }, on: :update
   validate :allowed_time_before_elections
 
   def hours_remaining
@@ -109,9 +109,9 @@ class CitizensQuestion < ActiveRecord::Base
   end
 
   def available_hours
-    h=CitizensTask.where("citizen_id=#{citizen_id} AND task_id IN (SELECT id from tasks WHERE question_id=#{question_id})").sum(:hours)
-    hours_subtask = Subtask.where("citizen_id=#{citizen_id} AND task_id IN (SELECT id from tasks WHERE question_id=#{question_id})").sum(:hours)
-    hours - h - hours_subtask
+    hours_task = CitizensTask.where("citizen_id=#{citizen_id} AND task_id IN (SELECT id from tasks WHERE state<3 AND question_id=#{question_id})").sum(:hours)
+    hours_subtask = Subtask.where("state<3 AND citizen_id=#{citizen_id} AND task_id IN (SELECT id from tasks WHERE question_id=#{question_id})").sum(:hours)
+    hours - hours_task - hours_subtask
   end
 
 end

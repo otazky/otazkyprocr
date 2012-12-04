@@ -61,12 +61,17 @@ class SubtasksController < ApplicationController
 
   def accept
     @subtask = Subtask.find(params[:id])
-    @subtask.update_attribute(:citizen, current_user)
-    @subtask.accepted_at=Time.now
-    @subtask.save
 
-    @citizen = current_user
     @question = @subtask.task.question
+    @citizen = current_user
+    cq=@citizen.citizen_question(@question.id)
+
+    if cq.available_hours >= @subtask.hours
+      @subtask.update_attribute(:citizen, current_user)
+      @subtask.accepted_at=Time.now
+      @subtask.save
+    end
+
     render 'citizens_tasks/tasks'
   end
 
@@ -115,14 +120,24 @@ class SubtasksController < ApplicationController
 
   def verify
     @subtask = Subtask.find(params[:id])
-    @citizen = current_user
     @question = @subtask.task.question
 
-    if @question.is_teamleader?(@citizen)
+    if @question.is_teamleader?(current_user)
       @subtask.hours_done=@subtask.hours
       @subtask.state=Task::DONE
       @subtask.save
+
+
+      cq=CitizensQuestion.where(:question_id => @subtask.task.question_id, :citizen_id => @subtask.citizen_id).first
+      if cq
+        cq.hours_done += @subtask.hours
+        cq.hours      -= @subtask.hours
+        cq.save
+      end
     end
+
+    @citizen=current_user
+
     render 'citizens_tasks/tasks'
   end
 end

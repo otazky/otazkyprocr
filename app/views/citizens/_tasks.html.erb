@@ -28,7 +28,7 @@
 
       <% end %>
 
-      <% if is_teamleader && task.state==Task::FOR_APPROVAL %>
+      <% if is_teamleader && task.state==Task::FOR_APPROVAL && ct%>
               <%=link_to "Potvrdit (#{ct.hours}h)", {controller:'tasks', action: :verify, id:task.id, citizen_id:@citizen.id}, :remote=>true, :class=>'task_verify' %>
       <% end%>
 
@@ -40,7 +40,7 @@
                   <% if subtask.citizen %>
                     <%= subtask.citizen.email %>
                   <%else%>
-                    <%=link_to "Přijmout", accept_subtask_path(subtask),remote:true, class:'accept_subtask', title:"Přijmout podúkol" %>
+                    <%=link_to "Přijmout", accept_subtask_path(subtask),remote:true, class:'accept_subtask', title:"Přijmout podúkol"  if citizen_question.available_hours >= subtask.hours%>
                   <% end %>
 
                   <%= link_to("Označ jako hotový" , subtask_edit_done_path(subtask),remote:true, class:'subtask_edit_done', title:"Označ jako hotový" ) if subtask.state<Task::FOR_APPROVAL && subtask.citizen==current_user %>

@@ -67,7 +67,7 @@ class TasksController < ApplicationController
     end
 
     if (Time.now - @citizens_task.created_at) < h.hours
-       @err ||=""
+      @err ||=""
       @err += "Chyba, od přijetí úkolu uběhlo méně času než bylo odpracováno."
       @task.state = 0
     end
@@ -89,6 +89,11 @@ class TasksController < ApplicationController
     @citizen = Refinery::Citizens::Citizen.find(params[:citizen_id])
     @citizens_task=CitizensTask.where(task_id: @task.id, citizen_id: @citizen.id).first
     @citizens_task.update_attribute(:hours_done, @citizens_task.hours)
+
+    cq=@citizen.citizen_question(@task.question_id)
+    cq.hours_done += @citizens_task.hours
+    cq.hours -= @citizens_task.hours
+    cq.save!
     respond_to do |format|
 
       @question = @task.question
