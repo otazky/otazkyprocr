@@ -11,3 +11,17 @@
   margin-top: 0.5em;
   margin-bottom: 1em;
 }
+
+li.stat_3{
+  list-style: none;
+  padding-left:20px;margin-left: 0;;
+  background: url('ok.png') no-repeat 0 -5px;
+  position:relative;
+  left:-20px;
+
+}
+
+div.stat_3{
+  color:#909090;
+  .accepted { color:#909090;}
+}

@@ -91,7 +91,14 @@
 						<td><%= citizen_question.hours_done %>   </td>
 						<td> </td>
 					</tr>
-				</table>
+
+                    <tr>
+                        <th>Počet lidí v týmu:</th>
+                        <td> <%=question.citizens_questions.count %>            </td>
+                      <td> </td>
+                    </tr>
+
+                    </table>     <br>
 
                                   <div class="alert alert-error">
                                                 	   <strong>Možnost zveřejnit svůj návrh řešení otázky na webu získáte při splnění jedné z následujících podmínek:</strong>

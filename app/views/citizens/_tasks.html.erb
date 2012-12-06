@@ -2,7 +2,8 @@
 <% question.tasks.each do |task|
   ct=@citizen.citizens_task(task)
 %>
-    <li><span <%="class=accepted" if ct%>>
+    <li class="stat_<%= task.state%>"><div class="stat_<%= task.state%>">
+      <span <%="class=accepted" if ct%>>
       <b><%= task.content %></b>
       <%="(#{task.hours}h)" if task.hours>0 %>  </span>
 
@@ -32,11 +33,11 @@
               <%=link_to "Potvrdit (#{ct.hours}h)", {controller:'tasks', action: :verify, id:task.id, citizen_id:@citizen.id}, :remote=>true, :class=>'task_verify' %>
       <% end%>
 
-
+    </div>
       <% if task.subtasks.any?%>
           <ul class="task_subtasks">
             <% task.subtasks.each do |subtask|%>
-                <li><span <%="class=accepted" if subtask.citizen%>><%=subtask.content %> (<%= subtask.hours %>h)</span>
+                <li class="stat_<%= task.state%>"><span <%="class=accepted" if subtask.citizen%>><%=subtask.content %> (<%= subtask.hours %>h)</span>
                   <% if subtask.citizen %>
                     <%= subtask.citizen.email %>
                   <%else%>
