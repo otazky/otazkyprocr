@@ -13,10 +13,18 @@ class CitizensQuestionsController < ApplicationController
     end      
   end
 
-  def create    
-    @citizens_question = CitizensQuestion.new(params[:citizens_question])
+  def create
+    cq=CitizensQuestion.where(citizen_id: current_user.id, question_id: params["citizens_question"]["question_id"]).first
+    if cq
+      cq.update_attributes(params[:citizens_question])
+      @citizens_question =cq
+    else
+      @citizens_question = CitizensQuestion.new(params[:citizens_question])
+    end
+
+
     @question = Refinery::Questions::Question.find(@citizens_question.question_id)
-  
+
     if @citizens_question.valid?
       if @citizens_question.hours <= 3
         @citizens_question.save
