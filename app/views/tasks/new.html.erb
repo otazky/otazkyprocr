@@ -11,7 +11,7 @@
     <legend>Přidat úkol</legend>
     <div class="field">
       <%= f.label :content, 'Zadání' %>
-      <%= f.text_field :content %>
+      <%= f.text_field :content , :size=>40%>
       <span class="fieldWithErrors"><%= @task.errors[:content].first %></span>
       <%= f.label :hours, 'Hodinová dotace' %>
       <%= f.text_field :hours %>

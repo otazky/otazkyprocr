@@ -77,23 +77,23 @@ module Refinery
 
         c=   citizens_with_hours 1
 
-        if c<100
+        if c<=100
           need_c=100-c
           need_h=100-hours_sum(1)
         end
         c=   citizens_with_hours 2
-        if c<50
+        if c<=50
           need_c=50-c
           need_h=150-hours_sum(2)
         end
 
         c=   citizens_with_hours 5
-        if c<25
+        if c<=25
           need_c=25-c
           need_h=200-hours_sum(5)
         end
         c=   citizens_with_hours 10
-        if c<20
+        if c<=20
           need_c=20-c
           need_h=300-hours_sum(10)
         end

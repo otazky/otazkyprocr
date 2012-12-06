@@ -7,7 +7,9 @@ class CitizensQuestionsController < ApplicationController
       redirect_to main_app.new_session_path, notice: 'Pro řešení otázky musíte být přihlášen(a).'
     else
       @question = Refinery::Questions::Question.find(params[:question_id])
+      @cq=CitizensQuestion.where(citizen_id: current_user.id, question_id: @question.id).where("hours>0").first
       @citizens_question = CitizensQuestion.new(citizen_id: current_user.id, question_id: @question.id)
+
     end      
   end
 
