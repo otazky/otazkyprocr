@@ -1,2 +1,48 @@
-Zde budete moct zformulovat vlastní strategickou otázku a zúčastnit se kvalifikační soutěže pro voliče o otázku nejlepší a s největší podporou. Tři nejlepší otázky se pak utkají s otázkami kandidujících v nadcházejících volbách.
+<div class="span9" id="right-column">
+
+<% if @own_question.any? %>                  
+	 <table> 
+	  <tr>
+	     <td>
+	 	    <%=  @own_question(citizen_id) %> 
+	  	</td> 
+	  	<td>
+	      <%= link_to "Smazat otázku", own_question_path(own_question.citizen) %>
+		  </td>
+	  </tr>
+   </table>
+	 
+<% else %>
+
+Zde můžete zformulovat vlastní strategickou otázku a zúčastnit se kvalifikační soutěže pro voliče o otázku nejlepší a s největší podporou. Tři nejlepší otázky se pak utkají s otázkami kandidujících v nadcházejících volbách.
 Svou otázku můžete kdykoli vymazat a vložit novou. Tím se pochopitelně smažou všechny získané body.
+
+<fieldset><legend>Zformulujte svou otázku</legend>
+    <div class="field">
+      <label for="question_title">Záhlaví *</label>
+      <textarea cols="220" id="question-head" name="own_question[title]" rows="3">
+      </textarea>
+      <span class="fieldWithErrors"></span>
+    </div>  
+
+    <div class="field">
+      <label for="question_content">Otázka *</label>
+      <textarea class="tinymce" cols="120" id="question_content" name="own_question[content]" rows="40">
+      </textarea>
+      
+            <script type="text/javascript">
+           //<![CDATA[
+            tinyMCE.init({"mode":"specific_textareas","editor_selector":"tinymce","theme":"advanced","theme_advanced_toolbar_location":"top","theme_advanced_toolbar_align":"left","theme_advanced_buttons3_add":"fullscreen","plugins":"fullscreen","language":"en"});
+            //]]>
+           </script>
+          <span class="fieldWithErrors"></span>
+    </div>
+</fieldset>
+
+   <div class="actions">
+      <input class="btn btn-primary" name="commit" type="submit" value="Uložit otázku" />
+   </div>
+</form>
+      
+<% end %>
+</div>
