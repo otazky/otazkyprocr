@@ -6,7 +6,7 @@ before_filter: get_ownquestion, :only => [:show, :destroy, :index]
 
 	def get_ownquestion
 	   @oq = OwnQuestion.find(params[:id])
-	   if @citizen.ownquestion==0
+	   if @citizen.ownquestion.size==0
            redirect_to ()
            end
 	end
