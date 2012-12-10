@@ -27,7 +27,7 @@ Refinery::Questions::Engine.load_seed
 Refinery::Emails::Engine.load_seed
 
 Refinery::Elections::ElectionType.create([{ name: 'Prezidentské volby' },
-  { name: 'Senátní volby' }, { name: 'Krajské volby' }])
+  { name: 'Senátní volby' }, { name: 'Krajské volby' }, { name: 'Voličské otázky'}, { name: 'Dámská padesátka' }])
 
 Refinery::Emails::Email.create([
   { title: 'Keepers Registration Subject', content: 'Message', for: 'keepers_registration' },
@@ -37,7 +37,9 @@ Refinery::Emails::Email.create([
 Refinery::Elections::ElectionType.create([
   { name: 'Prezidentske volby' },
   { name: 'Senatni volby' },
-  { name: 'Krajske volby' }
+  { name: 'Krajske volby' },
+  { name: 'Voličské otázky' },
+  { name: 'Dámská padesátka' }
 ])
 
 Refinery::Elections::Election.create([
