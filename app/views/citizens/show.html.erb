@@ -35,12 +35,22 @@
 
 	<hr>
 
+
+     <div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Mé týmy (otázky kandidujících)</a></li>
+        <li><a href="#tabs-2">Má otázka</a></li>
+        <li><a href="#tabs-3">Mé hlasování</a></li>
+    </ul>
+    <div id="tabs-1">
+
+
 	<section id="account_questions">
 		<h2>Strategické otázky</h2>
 
 		<% @citizen_questions.each do |citizen_question| %>
             <% question = citizen_question.question
-                needed=question.needed
+                needed=question.needed_no_minimum
             %>
             <% is_teamleader = question.is_teamleader?(@citizen) %>
 			<article id="question_<%= question.id %>">
@@ -152,7 +162,23 @@
 			<% end %>
 		<% end %>
 	</section>
-</section>
+
+    </div>
+    <div id="tabs-2">
+        <%= render 'subtasks/my_question'%>
+    </div>
+    <div id="tabs-3">
+        <%= render 'subtasks/my_vote'%>
+    </div>
+ </div>
+
+                                  <script>
+                                      $(function() {
+                                          $( "#tabs" ).tabs();
+                                      });
+                                  </script>
+
+                                  </section>
 
 
 <div id="dialog_citizen"></div>

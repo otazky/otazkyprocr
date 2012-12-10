@@ -37,8 +37,8 @@ $(document).ready(function() {
 
 
   // COMPUTE COST OF PROMISED HOURS
-  $(function() {
-    $('#citizens_question_hours').change(function() {
+ // $(function() {
+    $('#citizens_question_hours').keyup(function() {
       var promisedHours = $('#citizens_question_hours').val();
       var pricePerHour = 0.00;
       var priceTotal = 0.00;
@@ -66,7 +66,7 @@ $(document).ready(function() {
 
       $('span#price').html(priceTotal.toFixed(2));
     });
-  })  
+ // })
 });
 
 $('.dropdown-toggle').dropdown()

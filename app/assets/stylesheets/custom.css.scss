@@ -269,3 +269,8 @@ section#question-stats {
 #task_content {
   width:645px;
 }
+
+#tabs{
+  .ui-state-default a {text-decoration: none;;}
+  .ui-state-active a{ color:#303030; text-decoration: none;;}
+}

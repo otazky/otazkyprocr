@@ -94,9 +94,11 @@ class TasksController < ApplicationController
     cq.hours_done += @citizens_task.hours
     cq.hours -= @citizens_task.hours
     cq.save!
+    Stat.compute_oph
     respond_to do |format|
 
       @question = @task.question
+      @citizen=current_user
       format.html {render 'citizens_tasks/tasks', layout:false}
     end
   end

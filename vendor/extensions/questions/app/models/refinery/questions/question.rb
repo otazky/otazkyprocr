@@ -101,6 +101,36 @@ module Refinery
         return [need_c, need_h]
       end
 
+      def needed_no_minimum
+        c=   citizens_with_hours 0
+        hs = hours_sum(0)
+        if c<=100
+          need_c=100-c
+          need_h=100-hs
+        end
+        if c<=50
+          need_c=50-c
+          need_h=150-hs
+        end
+        if c<=25
+          need_c=25-c
+          need_h=200-hs
+        end
+        if c<=20
+          need_c=20-c
+          need_h=300-hs
+        end
+        return [need_c, need_h]
+      end
+
+
+
+
+
+
+
+
+
       def subject_name
         if subject.subtype == 'Refinery::Politicians::Politician'
           name = "#{subject.firstname} #{subject.lastname}"

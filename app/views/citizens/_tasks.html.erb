@@ -1,6 +1,7 @@
 <% is_teamleader = question.is_teamleader?(@citizen) %>
 <% question.tasks.each do |task|
-  ct=@citizen.citizens_task(task)
+  #ct=@citizen.citizens_task(task)
+  ct=task.citizens_task
 %>
     <li class="stat_<%= task.state%>"><div class="stat_<%= task.state%>">
       <span <%="class=accepted" if ct%>>
@@ -29,8 +30,8 @@
 
       <% end %>
 
-      <% if is_teamleader && task.state==Task::FOR_APPROVAL && ct%>
-              <%=link_to "Potvrdit (#{ct.hours}h)", {controller:'tasks', action: :verify, id:task.id, citizen_id:@citizen.id}, :remote=>true, :class=>'task_verify' %>
+      <% if is_teamleader && task.state==Task::FOR_APPROVAL && ct %>
+              <%=link_to "Potvrdit (#{ct.hours}h)", {controller:'tasks', action: :verify, id:task.id, citizen_id:ct.citizen_id}, :remote=>true, :class=>'task_verify' %>
       <% end%>
 
     </div>

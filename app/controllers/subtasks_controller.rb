@@ -130,14 +130,19 @@ class SubtasksController < ApplicationController
 
       cq=CitizensQuestion.where(:question_id => @subtask.task.question_id, :citizen_id => @subtask.citizen_id).first
       if cq
-        cq.hours_done += @subtask.hours
-        cq.hours      -= @subtask.hours
+        cq.hours_done += @subtask.hours_done
+        cq.hours      -= @subtask.hours_done
         cq.save
+      else
+        render :text=>'error'
       end
+
+
+
     end
 
     @citizen=current_user
-
+    Stat.compute_oph
     render 'citizens_tasks/tasks'
   end
 end
