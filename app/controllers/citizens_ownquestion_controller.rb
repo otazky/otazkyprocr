@@ -1,3 +1,4 @@
+# encoding: utf-8
 # OwnQuestion is formulated by a citizen (only 1)
 # 3 most popular of these questions may compete with the official candidates´ strategic questions
 
@@ -7,11 +8,11 @@ class OwnQuestionController < ApplicationController
 	def get_ownquestion
 	   @oq = OwnQuestion.find(params[:id])
 	   if @citizen.ownquestion.size==0
-           redirect_to ()
-           end
+     #      redirect_to ()
+     end
 	end
 
-        def new
+  def new
 
 	end
 
@@ -31,6 +32,7 @@ class OwnQuestionController < ApplicationController
 		if session[:citizen_id] !=@ownquestion.citizen_id
 		flash[:notice] = "Opravdu chcete otázku smazat? Všechny dosud získané body od ostatních voličů se tím pádem vynulují."
 		@og.destroy
-	end
+    end
+  end
 	
 end
