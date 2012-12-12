@@ -84,7 +84,9 @@
 						<td><%= citizen_question.hours %>
 						<td>
                             <% if citizen_question.hours == 0 %>
-							    <%= link_to 'Navýšit hodiny', edit_citizens_question_path(citizen_question.id), class: 'btn btn-primary' %>
+
+                                <%= link_to 'Navýšit hodiny', "/solve-question/#{question.id}" , class: 'btn btn-primary'%>
+
                             <% else %>
                                 <%= link_to 'Přenést hodiny', "/citizens_questions/#{citizen_question.id}/move", class: 'btn btn-primary' %>
                             <% end %>

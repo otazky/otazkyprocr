@@ -1,10 +1,16 @@
-<div class="span9" id="right-column">
+<div class="" id="right-column">
+<% if !own_question_ready=false %>
 
-<% if @own_question.any? %>                  
+Zde budete moct zformulovat vlastní strategickou otázku a zúčastnit se kvalifikační soutěže pro voliče o otázku nejlepší a s největší podporou. Tři nejlepší otázky se pak utkají s otázkami kandidujících v nadcházejících volbách.
+Svou otázku můžete kdykoli vymazat a vložit novou. Tím se pochopitelně smažou všechny získané body.
+
+  <%else%>
+
+  <% if @own_question && @own_question.any? %>
 	 <table> 
 	  <tr>
 	     <td>
-	 	    <%=  @own_question(citizen_id) %> 
+	 	    <%#=  @own_question(citizen_id) %>
 	  	</td> 
 	  	<td>
 	      <%= link_to "Smazat otázku", own_question_path(own_question.citizen) %>
@@ -42,7 +48,8 @@ Svou otázku můžete kdykoli vymazat a vložit novou. Tím se pochopitelně sma
    <div class="actions">
       <input class="btn btn-primary" name="commit" type="submit" value="Uložit otázku" />
    </div>
-</form>
-      
+
 <% end %>
+        <%end%>
+  <div class="cl"></div>
 </div>
