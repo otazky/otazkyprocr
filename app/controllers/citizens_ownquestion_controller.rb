@@ -2,7 +2,7 @@
 # 3 most popular of these questions may compete with the official candidates´ strategic questions
 
 class OwnQuestionController < ApplicationController 
-before_filter: get_ownquestion, :only => [:show, :destroy, :index]
+  #before_filter: get_ownquestion, :only => [:show, :destroy, :index]
 
 	def get_ownquestion
 	   @oq = OwnQuestion.find(params[:id])
