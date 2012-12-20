@@ -59,3 +59,4 @@ gem 'refinerycms-questions', :path => 'vendor/extensions'
 gem 'refinerycms-emails', :path => 'vendor/extensions'
 
 gem 'refinerycms-notices', :path => 'vendor/extensions'
+gem 'refinerycms-own_questions', :path => 'vendor/extensions'

@@ -1,0 +1,25 @@
+<ul>
+  <% if ::Refinery::OwnQuestions::Admin::OwnQuestionsController.searchable? %>
+    <li>
+      <%= render '/refinery/admin/search', :url => refinery.own_questions_admin_own_questions_path %>
+    </li>
+  <% end %>
+  <li>
+    <%= link_to t('.create_new'), refinery.new_own_questions_admin_own_question_path,
+                 :class => "add_icon" %>
+  </li>
+<% if !searching? && ::Refinery::OwnQuestions::Admin::OwnQuestionsController.sortable? && ::Refinery::OwnQuestions::OwnQuestion.any? %>
+  <li>
+    <%= link_to t('.reorder', :what => "Own Questions"),
+                 refinery.own_questions_admin_own_questions_path,
+                 :id => "reorder_action",
+                 :class => "reorder_icon" %>
+
+    <%= link_to t('.reorder_done', :what => "Own Questions"),
+                 refinery.own_questions_admin_own_questions_path,
+                 :id => "reorder_action_done",
+                 :style => "display: none;",
+                 :class => "reorder_icon" %>
+  </li>
+<% end %>
+</ul>

@@ -1,0 +1,28 @@
+en:
+  refinery:
+    plugins:
+      own_questions:
+        title: Own Questions
+    own_questions:
+      admin:
+        own_questions:
+          actions:
+            create_new: Add New Own Question
+            reorder: Reorder Own Questions
+            reorder_done: Done Reordering Own Questions
+          records:
+            title: Own Questions
+            sorry_no_results: Sorry! There are no results found.
+            no_items_yet: There are no Own Questions yet. Click "Add New Own Question" to add your first own question.
+          own_question:
+            view_live_html: View this own question live <br/><em>(opens in a new window)</em>
+            edit: Edit this own question
+            delete: Remove this own question forever
+      own_questions:
+        show:
+          other: Other Own Questions
+  activerecord:
+    attributes:
+      'refinery/own_questions/own_question':
+        content: Content
+        title: Title

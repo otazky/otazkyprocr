@@ -203,3 +203,6 @@ CitizensQuestion.create([
 ])
 # Added by Refinery CMS Notices extension
 Refinery::Notices::Engine.load_seed
+
+# Added by Refinery CMS Own Questions extension
+Refinery::OwnQuestions::Engine.load_seed

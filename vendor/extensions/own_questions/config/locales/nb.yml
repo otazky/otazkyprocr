@@ -1,0 +1,28 @@
+nb:
+  refinery:
+    plugins:
+      own_questions:
+        title: Own Questions
+    own_questions:
+      admin:
+        own_questions:
+          actions:
+            create_new: Lag en ny Own Question
+            reorder: Endre rekkefølgen på Own Questions
+            reorder_done: Ferdig å endre rekkefølgen Own Questions
+          records:
+            title: Own Questions
+            sorry_no_results: Beklager! Vi fant ikke noen resultater.
+            no_items_yet: Det er ingen Own Questions enda. Klikk på "Lag en ny Own Question" for å legge til din første own question.
+          own_question:
+            view_live_html: Vis hvordan denne own question ser ut offentlig <br/><em>(åpner i et nytt vindu)</em>
+            edit: Rediger denne own question
+            delete: Fjern denne own question permanent
+      own_questions:
+        show:
+          other: Andre Own Questions
+  activerecord:
+    attributes:
+      'refinery/own_questions/own_question':
+        content: Content
+        title: Title

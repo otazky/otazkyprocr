@@ -16,4 +16,5 @@
 //= require jquery-carousel
 //= require jquery-ui
 //= require tasks
+//= require tinymce-jquery
 //= require custom

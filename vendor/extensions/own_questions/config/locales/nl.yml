@@ -1,0 +1,28 @@
+nl:
+  refinery:
+    plugins:
+      own_questions:
+        title: Own Questions
+    own_questions:
+      admin:
+        own_questions:
+          actions:
+            create_new: Maak een nieuwe Own Question
+            reorder: Wijzig de volgorde van de Own Questions
+            reorder_done: Klaar met het wijzingen van de volgorde van de Own Questions
+          records:
+            title: Own Questions
+            sorry_no_results: Helaas! Er zijn geen resultaten gevonden.
+            no_items_yet: Er zijn nog geen Own Questions. Druk op 'Maak een nieuwe Own Question' om de eerste aan te maken.
+          own_question:
+            view_live_html: Bekijk deze own question op de website <br/><em>(opent een nieuw venster)</em>
+            edit: Bewerk deze own question
+            delete: Verwijder deze own question voor eeuwig
+      own_questions:
+        show:
+          other: Andere Own Questions
+  activerecord:
+    attributes:
+      'refinery/own_questions/own_question':
+        content: Content
+        title: Title

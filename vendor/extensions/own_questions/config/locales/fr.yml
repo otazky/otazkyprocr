@@ -1,0 +1,28 @@
+fr:
+  refinery:
+    plugins:
+      own_questions:
+        title: Own Questions
+    own_questions:
+      admin:
+        own_questions:
+          actions:
+            create_new: Créer un(e) nouve(au/l/lle) Own Question
+            reorder: Réordonner les Own Questions
+            reorder_done: Fin de réordonnancement des Own Questions
+          records:
+            title: Own Questions
+            sorry_no_results: "Désolé ! Aucun résultat."
+            no_items_yet: 'Il n''y a actuellement aucun(e) Own Question. Cliquer sur "Créer un(e) nouve(au/l/lle) Own Question" pour créer votre premi(er/ère) own question.'
+          own_question:
+            view_live_html: Voir ce(t/tte) own question <br/><em>(Ouvre une nouvelle fenêtre)</em>
+            edit: Modifier ce(t/tte) own question
+            delete: Supprimer définitivement ce(t/tte) own question
+      own_questions:
+        show:
+          other: Autres Own Questions
+  activerecord:
+    attributes:
+      'refinery/own_questions/own_question':
+        content: Content
+        title: Title

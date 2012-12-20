@@ -40,8 +40,9 @@ Otazkyprocr::Application.routes.draw do
       end
 
     end
+  end
 
-  end  
+  resources :own_questions , :only=>[:create, :update, :edit]
   resources :citizens_questions
   resources :citizens_tasks
   resources :elections

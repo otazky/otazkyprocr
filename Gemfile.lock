@@ -13,6 +13,8 @@ PATH
       refinerycms-core (~> 2.0.5)
     refinerycms-notices (1.0)
       refinerycms-core (~> 2.0.5)
+    refinerycms-own_questions (1.0)
+      refinerycms-core (~> 2.0.5)
     refinerycms-parties (1.0)
       refinerycms-core (~> 2.0.5)
     refinerycms-politicians (1.0)
@@ -362,6 +364,7 @@ DEPENDENCIES
   refinerycms-i18n
   refinerycms-keepers!
   refinerycms-notices!
+  refinerycms-own_questions!
   refinerycms-parties!
   refinerycms-politicians!
   refinerycms-questions!

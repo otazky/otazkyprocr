@@ -1,0 +1,29 @@
+es:
+  refinery:
+    plugins:
+      own_questions:
+        title: Own Questions
+#        article: masculino/femenino
+    own_questions:
+      admin:
+        own_questions:
+          actions:
+            create_new: Crear nuevo own question
+            reorder: Reordenar own questions
+            reorder_done: Reordenación de own questions completada
+          records:
+            title: Own Questions
+            sorry_no_results: Lo siento, no hay resultados
+            no_items_yet: No hay own questions todavía. Pulsa en "Crear nuevo Own Question" para crear tu primer own question.
+          own_question:
+            view_live_html: Ver este own question como abierto al público <br/><em>(abre en ventana nueva)</em>
+            edit: Editar este own question
+            delete: Borrar este own question para siempre
+      own_questions:
+        show:
+          other: Otros own questions
+  activerecord:
+    attributes:
+      'refinery/own_questions/own_question':
+        content: Content
+        title: Title
