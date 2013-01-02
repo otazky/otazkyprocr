@@ -18,3 +18,4 @@
 //= require tasks
 //= require tinymce-jquery
 //= require custom
+//= require citizens

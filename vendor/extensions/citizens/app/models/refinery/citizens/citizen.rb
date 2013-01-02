@@ -7,6 +7,7 @@ module Refinery
       has_secure_password
       attr_accessible :firstname, :lastname, :email, :password, :password_confirmation, :street, :street_number, :postal_code, :city, :county_id, :gender, :age, :position, :activation_code, :password_reset_token, :password_reset_sent_at
       has_many :citizens_questions, :class_name => 'CitizensQuestion'
+      has_one :own_question, :class_name => 'Refinery::OwnQuestions::OwnQuestion'
       has_many :questions, :through => :citizens_questions
       has_many :elections, :through => :election_subject_elections
       has_many :citizens_tasks
@@ -117,6 +118,9 @@ module Refinery
       def citizen_question(question_id)
         CitizensQuestion.where(:question_id => question_id, :citizen_id => id).first
       end
+
+
+
     end
   end
 end

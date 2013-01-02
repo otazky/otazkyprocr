@@ -11,6 +11,9 @@ module Refinery
 
       belongs_to :citizen , :class_name=>'Refinery::Citizens::Citizen'
 
+
+      default_scope :conditions => 'deleted_at IS NULL'
+
     end
   end
 end

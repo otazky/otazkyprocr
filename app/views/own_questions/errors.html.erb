@@ -1,0 +1,8 @@
+<% if @own_question.errors.any? %>
+    <h3><%= pluralize(@own_question.errors.count, "error") %> brání uložení:</h3>
+    <ul>
+      <% @own_question.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+    </ul>
+<% end %>

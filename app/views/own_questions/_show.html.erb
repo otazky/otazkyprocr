@@ -6,23 +6,18 @@
 
 
 
-      <% if @own_question && @own_question.any? %>
-          <table>
-            <tr>
-              <td>
-                <%#=  @own_question(citizen_id) %>
-              </td>
-              <td>
-                <%= link_to "Smazat otázku", own_question_path(own_question.citizen) %>
-              </td>
-            </tr>
-          </table>
-
+      <% if @own_question && @own_question.id %>
+          
+                <h2><%=  raw @own_question.title %></h2>
+                <%=  raw @own_question.content %>
+         <div class="cl"></div>
+                 <%= link_to "Smazat otázku", own_question_path(@own_question), :method=>'delete', :remote=>true, :id=>'destroy_own_question' %>
+         
       <% else %>
 
           Zde můžete zformulovat vlastní strategickou otázku a zúčastnit se kvalifikační soutěže pro voliče o otázku nejlepší a s největší podporou. Tři nejlepší otázky se pak utkají s otázkami kandidujících v nadcházejících volbách.
           Svou otázku můžete kdykoli vymazat a vložit novou. Tím se pochopitelně smažou všechny získané body.
-          <%=form_for :own_question , html:{id:'ownq_form'} do |f| %>
+          <%=form_for :own_question ,:url=>own_questions_path, html:{id:'ownq_form'}, remote: true  do |f| %>
           <fieldset>
             <legend>Zformulujte svou otázku</legend>
             <div class="field">

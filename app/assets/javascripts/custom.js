@@ -21,6 +21,8 @@ $(document).ready(function() {
 
     tasklist_init();
 
+    own_questions_bind();
+
 
     $('.closenotice').click(function(){
          $("#notice1").hide();

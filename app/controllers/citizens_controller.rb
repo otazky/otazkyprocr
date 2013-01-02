@@ -7,6 +7,7 @@ class CitizensController < ApplicationController
   def show     
     @citizen = Refinery::Citizens::Citizen.find(params[:id])
     @citizen_questions = @citizen.citizens_questions.active.order('created_at ASC')
+    @own_question = @citizen.own_question
   end
 
   def new        

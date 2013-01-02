@@ -2,7 +2,7 @@
 # OwnQuestion is formulated by a citizen (only 1)
 # 3 most popular of these questions may compete with the official candidates´ strategic questions
 
-class OwnQuestionController < ApplicationController 
+class OwnQuestionsController < ApplicationController
   #before_filter: get_ownquestion, :only => [:show, :destroy, :index]
 
 	def get_ownquestion
