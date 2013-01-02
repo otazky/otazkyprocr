@@ -43,6 +43,9 @@ Otazkyprocr::Application.routes.draw do
   end
 
   resources :own_questions
+  get "own_questions/:own_question_id/vote/:value" => "own_questions#vote", :as=>'oqvote'
+  get "own_questions/:own_question_id/remove_vote" => "own_questions#remove_vote", :as=>"rm_oqvote"
+
   resources :citizens_questions
   resources :citizens_tasks
   resources :elections

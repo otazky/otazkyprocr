@@ -1,0 +1,17 @@
+hlasovani
+
+<% own_questions.each do |oq| %>
+
+    <div class='own_question_vote_item'>
+      <h3><%= oq.title %></h3>
+      hlasů: <%= oq.score %>
+      <br>
+      <% if !oq.voted_by current_user %>
+           hlasovat: <%= link_to "+1", oqvote_path(oq, 1), :class=>'votelink plus' , :remote=>true %>
+                <%= link_to "-1", oqvote_path(oq, -1), :class=>'votelink minus', :remote=>true   %>
+      <% else %>
+        <%= link_to "odvolat hlas" , rm_oqvote_path(oq), :class=>'votelink rm', :remote=>true   %>
+      <%end%>
+    </div>
+
+<%end%>

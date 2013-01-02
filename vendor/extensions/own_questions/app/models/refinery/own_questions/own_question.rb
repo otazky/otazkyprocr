@@ -14,6 +14,11 @@ module Refinery
 
       default_scope :conditions => 'deleted_at IS NULL'
 
+
+      def voted_by(user)
+        OqVote.where(:own_question_id=>id, :user_id => user.id).any?
+      end
+
     end
   end
 end

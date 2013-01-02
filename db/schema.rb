@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130102101301) do
+ActiveRecord::Schema.define(:version => 20130102163026) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -186,10 +186,11 @@ ActiveRecord::Schema.define(:version => 20130102101301) do
     t.string   "title"
     t.integer  "position"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.datetime "deleted_at"
     t.integer  "citizen_id"
+    t.integer  "score",      :default => 0
   end
 
   create_table "refinery_page_part_translations", :force => true do |t|

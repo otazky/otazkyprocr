@@ -27,4 +27,32 @@ class OwnQuestionsController < ApplicationController
     end
   end
 
+  def vote
+
+    oq= Refinery::OwnQuestions::OwnQuestion.find(params[:own_question_id])
+    val=params[:value].to_i
+
+    vote=OqVote.where(:own_question_id=>oq.id, :user_id => current_user.id).first
+    if !vote
+      OqVote.create!(:own_question_id=>oq.id, :user_id => current_user.id, :value=>val)
+      oq.score = OqVote.where(:own_question_id=>oq.id).sum(:value)
+      oq.save
+    end
+    respond_to do |format|
+      format.html { render partial:'ownquestions_voting' }
+    end
+  end
+
+  def remove_vote
+    vote=OqVote.where(:own_question_id=>params[:own_question_id], :user_id => current_user.id).first
+    vote.destroy
+    oq= Refinery::OwnQuestions::OwnQuestion.find(params[:own_question_id])
+    oq.score = OqVote.where(:own_question_id=>oq.id).sum(:value)
+    oq.save
+    respond_to do |format|
+      format.html { render partial:'ownquestions_voting' }
+    end
+  end
+
+
 end
