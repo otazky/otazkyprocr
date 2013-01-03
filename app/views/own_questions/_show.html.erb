@@ -1,12 +1,8 @@
 <div class="" id="right-column">
 
 
-      Zde budete moct zformulovat vlastní strategickou otázku a zúčastnit se kvalifikační soutěže pro voliče o otázku nejlepší a s největší podporou. Tři nejlepší otázky se pak utkají s otázkami kandidujících v nadcházejících volbách.
-      Svou otázku můžete kdykoli vymazat a vložit novou. Tím se pochopitelně smažou všechny získané body.
-
-
-
-      <% if @own_question && @own_question.id %>
+     <% if @own_question && @own_question.id %>
+      Svou otázku můžete kdykoli vymazat a vložit novou. Tím se pochopitelně smažou všechny získané body!
           
                 <h2><%=  raw @own_question.title %></h2>
                 <%=  raw @own_question.content %>
