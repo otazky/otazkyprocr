@@ -119,7 +119,12 @@ module Refinery
         CitizensQuestion.where(:question_id => question_id, :citizen_id => id).first
       end
 
-
+      def oqvotes_positive
+        OqVote.where(:user_id=>id).where('value>0').count
+      end
+      def oqvotes_negative
+        OqVote.where(:user_id=>id).where('value<0').count
+      end
 
     end
   end
