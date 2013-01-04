@@ -1,6 +1,6 @@
 <h2>VÝPIS OTÁZEK A HLASOVÁNÍ</h2>
 
-
+ hlasoval/a jsem <%= current_user.oqvotes_positive %>+, <%= current_user.oqvotes_negative%>-
 <% own_questions.each do |oq| %>
 
     <div class='own_question_vote_item'>
@@ -14,8 +14,9 @@
        <br/>
 
       <% if !oq.voted_by current_user %>
-           hlasovat: <%= link_to "+1", oqvote_path(oq, 1), :class=>'votelink plus' , :remote=>true if current_user.oqvotes_positive<2 %>
-                <%= link_to "-1", oqvote_path(oq, -1), :class=>'votelink minus', :remote=>true   if current_user.oqvotes_negative<1 %>
+           hlasovat:
+            <%= link_to "+1", oqvote_path(oq, 1), :class=>'votelink plus' , :remote=>true if current_user.oqvotes_positive<2 %>
+            <%= link_to "-1", oqvote_path(oq,-1), :class=>'votelink minus', :remote=>true if current_user.oqvotes_negative<1 %>
       <% else %>
         <%= link_to "odvolat hlas" , rm_oqvote_path(oq), :class=>'votelink rm', :remote=>true   %>
       <%end%>

@@ -120,10 +120,10 @@ module Refinery
       end
 
       def oqvotes_positive
-        OqVote.where(:user_id=>id).where('value>0').count
+        OqVote.joins(:own_question).where(:user_id=>id).where('value>0 AND deleted_at IS NULL').count
       end
       def oqvotes_negative
-        OqVote.where(:user_id=>id).where('value<0').count
+        OqVote.joins(:own_question).where(:user_id=>id).where('value<0 AND deleted_at IS NULL').count
       end
 
     end

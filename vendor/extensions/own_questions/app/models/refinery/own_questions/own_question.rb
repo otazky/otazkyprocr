@@ -11,6 +11,7 @@ module Refinery
 
       belongs_to :citizen , :class_name=>'Refinery::Citizens::Citizen'
 
+      has_many :oq_votes
 
       default_scope :conditions => 'deleted_at IS NULL'
 
