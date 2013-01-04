@@ -1,0 +1,10 @@
+<% if @election.subjects.any? %>
+    <ul>
+      <% @parties.each do |party| %>
+          <li><%= link_to party.name, party.party_path(party.id) %></li>
+      <% end %>
+      <% @politicians.each do |politician| %>
+          <li><%= link_to politician.full_name, main_app.politician_path(politician.id) %></li>
+      <% end %>
+    </ul>
+<% end %>

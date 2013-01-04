@@ -274,3 +274,15 @@ section#question-stats {
   .ui-state-default a {text-decoration: none;;}
   .ui-state-active a{ color:#303030; text-decoration: none;;}
 }
+
+.headstatbox{
+  .headstat_item{
+    float:left;
+    width:120px;
+    border:p1x dotted silver;
+    text-align:center;
+    h1 { margin-bottom:0; }
+  }
+  width:400px;
+  float:right;
+}

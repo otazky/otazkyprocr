@@ -3,7 +3,7 @@ module Refinery
     class OwnQuestion < Refinery::Core::BaseModel
       self.table_name = 'refinery_own_questions'
 
-      attr_accessible :content, :title, :position
+      attr_accessible :content, :title, :position , :d50
 
       acts_as_indexed :fields => [:content, :title]
 

@@ -4,15 +4,22 @@
 <% own_questions.each do |oq| %>
 
     <div class='own_question_vote_item'>
-      <h3><%= oq.title %></h3>
+      <h3><%= oq.title %> <a onclick="$('#oqc<%=oq.id%>').toggle();">zobrazit více ...</a></h3>
+
+      <div class='oqcontent' id="oqc<%=oq.id%>" style='display:none;'>
+          <%= raw oq.content %>
+      </div>
+      <div class='oqvotelinks'>
       hlasů: <%= oq.score %>
-      <br>
+       <br/>
+
       <% if !oq.voted_by current_user %>
            hlasovat: <%= link_to "+1", oqvote_path(oq, 1), :class=>'votelink plus' , :remote=>true if current_user.oqvotes_positive<2 %>
                 <%= link_to "-1", oqvote_path(oq, -1), :class=>'votelink minus', :remote=>true   if current_user.oqvotes_negative<1 %>
       <% else %>
         <%= link_to "odvolat hlas" , rm_oqvote_path(oq), :class=>'votelink rm', :remote=>true   %>
       <%end%>
+      </div>
     </div>
 
 <%end%>

@@ -33,6 +33,14 @@ article.question {
   h3{
     font-size:1.2em;
     margin:0;padding:0;
+    a {font-size:0.7em; color:gray; text-decoration: none !important; cursor:pointer;  font-weight: normal;}
+    a:hover {color:black}
+  }
+  .oqcontent {
+    margin-bottom: 10px;
+  }
+  .oqvotelinks{
+    font-size:0.8em;
   }
 
   border-top: 1px solid #eeeeee;
@@ -49,4 +57,18 @@ article.question {
   .rm { font-size: 1em;;}
 
 
+}
+
+.own_question_item{
+  h2{
+    font-size:1.2em;
+    margin:0;
+    padding:0;
+    line-height: 1.6em;
+  }
+  border-top: 1px solid #eeeeee;
+  padding-top: 1px;
+  margin-top: 0.5em;
+  .info { color:#111111;}
+  .content{ color:#222222;}
 }

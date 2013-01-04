@@ -1,14 +1,15 @@
 <section id="elections-detail">
   <h2><%= @election.election_type.name + ' ' + @election.held.strftime('%Y') %></h2>
-  <p><%= @election.description %></p>
-  <% if @election.subjects.any? %>
-  <ul>
-    <% @parties.each do |party| %>
-      <li><%= link_to party.name, party.party_path(party.id) %></li>
-    <% end %>
-    <% @politicians.each do |politician| %>
-      <li><%= link_to politician.full_name, main_app.politician_path(politician.id) %></li>
-    <% end %>
-  </ul>
+  <div><%= raw @election.description %></div>
+
+
+  <% if @election.election_type_id==5 %>
+      <%= render 'citizens' %>
+  <% else %>
+    <%= render 'politicians' %>
+
   <% end %>
+
+
+
 </section>

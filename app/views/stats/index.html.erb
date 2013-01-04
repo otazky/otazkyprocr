@@ -3,10 +3,13 @@
 	<table>		
 		<tbody>
 			<tr>
-				<th>Otázek celkem</th>
+				<th>Otázek  politiků celkem</th>
 				<td><%= @stats.questions_count %></td>
 			</tr>
-
+            <tr>
+              <th>Otázek  voličů celkem</th>
+              <td><%= Stat.own_questions_count  %></td>
+            </tr>
 			<tr>
 				<th>Politiků celkem</th>
 				<td><%= @stats.politicians_count %></td>

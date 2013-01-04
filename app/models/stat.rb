@@ -147,6 +147,11 @@ class Stat
     CitizensQuestion.active.sum('hours_done')
   end
 
+  def self.done_workhours_sum
+    CitizensQuestion.active.sum('hours_done')
+  end
+
+
   def citizens_average_age
     Refinery::Citizens::Citizen.average('age').round(2)
   end
@@ -234,6 +239,10 @@ class Stat
     Refinery::Questions::Question.where("NOT disabled AND cache_oph>0").order("cache_oph desc").limit(3)
   end
 
+
+  def self.own_questions_count
+     Refinery::OwnQuestions::OwnQuestion.where("").count
+  end
 
 
 

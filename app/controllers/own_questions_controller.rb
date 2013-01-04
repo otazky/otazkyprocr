@@ -43,6 +43,13 @@ class OwnQuestionsController < ApplicationController
     end
   end
 
+  def index
+    respond_to do |format|
+      format.html { render partial:'ownquestions_voting' }
+    end
+  end
+
+
   def remove_vote
     vote=OqVote.where(:own_question_id=>params[:own_question_id], :user_id => current_user.id).first
     vote.destroy

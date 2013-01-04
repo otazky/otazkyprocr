@@ -15,15 +15,27 @@
             <header>
               <div class="container" id="header">
                 <div class="row">
-                  <div class="span8"> 
+                  <div class="span4">
                     <%= link_to(image_tag('logo.png', width: '230', height: '125', alt: 'Otázky pro ČR logo'), refinery.root_path) %>                                            
 
                   </div>
-                  <div class="span4"> 
-                  <h1> <%= Stat.citizens_count %></h1> voličů
-                     
-                  </div>  
-                  
+                  <div class="span4 headstatbox">
+                    <div class="headstat_item">
+                        <h1> <%= Stat.citizens_count %></h1>
+                        voličů
+                    </div>
+
+
+                    <div class="headstat_item">
+                      <h1><%= Stat.own_questions_count  %></h1>
+                        počet voličských otázek
+                    </div>
+
+                    <div class="headstat_item">
+                      <h1><%= Stat.done_workhours_sum %></h1>
+                        celkový počet darovaných hodin
+                    </div>
+
                 </div>
               </div>
             </header>

@@ -3,7 +3,14 @@
               :object => @own_question,
               :include_object_name => true %>
 
-  
+    <div class='field'>
+      <%= f.label :title -%>
+      <%= f.text_field :title  -%>
+    </div>
+     <div class='field'>
+       <label><%= f.check_box :d50 -%><%= "zařadit otázku voliče do Dámské 50" %></label>
+
+    </div>
   <div class='field'>
     <div id='page-tabs' class='clearfix ui-tabs ui-widget ui-widget-content ui-corner-all'>
       <ul id='page_parts'>
@@ -24,11 +31,7 @@
 
   </div>
   
-  <div class='field'>
-    <%= f.label :title -%>
-    <%= f.text_field :title  -%>
 
-  </div>
   
   <%= render '/refinery/admin/form_actions', :f => f,
              :continue_editing => false,

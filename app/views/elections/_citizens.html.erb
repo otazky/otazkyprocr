@@ -1,0 +1,10 @@
+<% own_questions.each do |oq| %>
+
+    <div class='own_question_item'>
+      <h2><%= oq.title %></h2>
+      <div class='info'><%= oq.citizen.lastname %>, <%=oq.score%> bodů </div>
+      <div class='content'><%= raw oq.content %></div>
+
+    </div>
+
+<%end%>
