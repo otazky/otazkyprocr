@@ -3,7 +3,7 @@
   <div><%= raw @election.description %></div>
 
 
-  <% if @election.election_type_id==4 %>
+  <% if [4,5].include? @election.election_type_id %>
       <%= render 'citizens' %>
   <% else %>
     <%= render 'politicians' %>

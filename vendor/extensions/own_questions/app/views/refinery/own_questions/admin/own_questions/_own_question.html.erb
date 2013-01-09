@@ -1,9 +1,12 @@
 <li class='clearfix record <%= cycle("on", "on-hover") %>' id="<%= dom_id(own_question) -%>">
+  <div style="width:450px;float:left;">
   <span class='title'>
     <%= own_question.title %>
-
+	<% if own_question.citizen %>
     <b style='margin-left:15px'><%= own_question.citizen.firstname %> <%= own_question.citizen.lastname %></b>
+	<%end%>
   </span>
+	</div>
   <% if own_question.d50 %>
   <span class="d50"> Dámská 50</span>
   <%end%>
