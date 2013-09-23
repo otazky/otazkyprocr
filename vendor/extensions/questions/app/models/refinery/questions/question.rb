@@ -25,7 +25,7 @@ module Refinery
       end
 
       def permited_question_count
-        if (self.election.election_type.name == 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 2) || (self.election.election_type.name != 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 1) 
+        if (self.election.election_type.name == 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 2) || (self.election.election_type.name != 'Prezidentské volby' && get_questions_count_for_subject(self.subject_id) >= 2)
             errors.add(:count, 'dosáhli ste maximálni počet otázek pro Váš účet.')
         end
       end

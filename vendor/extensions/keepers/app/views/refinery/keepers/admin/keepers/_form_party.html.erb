@@ -3,6 +3,7 @@
 <div class="field">
   <%= label_tag 'party_name', 'Party name' %>
   <%= text_field_tag 'party[name]' %>
+  <%= select 'party', 'id' , Refinery::Parties::Party.all.collect{ |e| [e.name, e.subject_id] }%>
 </div>
 
 <div class="select">
