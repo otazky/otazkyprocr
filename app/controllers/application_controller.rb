@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     end
 
     def get_all_elections
-      @elections = Refinery::Elections::Election.active.order("held desc")
+      @elections = Refinery::Elections::Election.active.order("position")
     end
 
   protected
