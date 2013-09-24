@@ -61,15 +61,32 @@
     </div>        
   </fieldset>
   <!-- END KEEPER PERSONAL INFO -->
-  
+
+		  <fieldset>
+			<legend>spravuje</legend>
+			<% if @keeper %>
+				<%@keeper.subjects.each do |subj| %>
+			           <%= subj.name %>   <br>
+
+
+				<%end%>
+			<%end%>
+		  </fieldset>
+
+
+   <%#
   <fieldset id="subject_form">
     <div id="add_politician">
-      <%= link_to 'Add politician', '/refinery/keepers/politician_form/', class: :ajax %>
+      <%= link_to 'Add politician', '/refinery/keepers/politician_form/', class: :ajax % >
     </div>
     <div id="add_party">
-      <%= link_to 'Add party', '/refinery/keepers/party_form/', class: :ajax %>
+      <%= link_to 'Add party', '/refinery/keepers/party_form/', class: :ajax % >
     </div>      
   </fieldset>
+
+			          %>
+
+
 
   <!-- START RENDER FORM ACTIONS -->
   <%= render '/refinery/admin/form_actions', :f => f,
@@ -78,6 +95,12 @@
         :delete_confirmation => t('message', :scope => 'refinery.admin.delete', :title => @keeper.firstname) %>
   <!-- END RENDER FORM ACTIONS -->
 <% end -%>
+
+
+
+
+
+
 <script>
 $(function() {
   $('a.ajax').live('click', function() {

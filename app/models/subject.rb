@@ -28,5 +28,6 @@ class Subject < ActiveRecord::Base
 
   def counties
       Refinery::Counties::County.uniq.joins(citizens: {questions: :subject}).where(subjects: {id: id})
-  end
+	end
+
 end

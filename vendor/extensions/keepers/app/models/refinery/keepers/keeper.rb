@@ -33,7 +33,12 @@ module Refinery
 
       def has_password?
         true if self.password_digest        
-      end
+			end
+
+			def to_s
+				firstname+ " " + lastname
+			end
+
     end
   end
 end

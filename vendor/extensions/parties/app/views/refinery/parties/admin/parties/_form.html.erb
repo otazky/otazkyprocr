@@ -29,7 +29,12 @@
     </div>
 
   </div>
-  
+
+	<div class="select">
+	  <%= f.label :keeper_id, 'Keeper' %>
+	  <%= f.select :keeper_id, Refinery::Keepers::Keeper.all.collect{ |k| [k.email, k.id] } %>
+	</div>
+	<br>
 
   </div>
   

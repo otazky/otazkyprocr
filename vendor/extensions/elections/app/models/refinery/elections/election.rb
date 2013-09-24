@@ -7,10 +7,10 @@ module Refinery
       has_many :subjects, :through => :election_subject_elections
       has_many :questions, :class_name => 'Refinery::Questions::Question'
 
-      attr_accessible :election_type_id, :held, :description, :position, :done
+      attr_accessible :election_type_id, :held, :description, :position, :done     , :homepage
 
       scope :active, where(done: false)
-      
+
       def title 
         election_type.name + ' ' + held.strftime('%Y')
       end

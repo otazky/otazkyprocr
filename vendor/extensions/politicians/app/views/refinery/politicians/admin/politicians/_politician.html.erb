@@ -1,7 +1,7 @@
 <li class='clearfix record <%= cycle("on", "on-hover") %>' id="<%= dom_id(politician) -%>">
   <span class='title'>
     <%= politician.firstname %> <%= politician.lastname %>
-
+	<i style='color:#aaaaaa'>(<%= politician.keeper %>)</i>
   </span>
   <span class='actions'>
     

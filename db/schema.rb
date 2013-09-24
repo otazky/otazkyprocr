@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130104093319) do
+ActiveRecord::Schema.define(:version => 20130924081122) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20130104093319) do
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.boolean  "done",             :default => false
+    t.boolean  "homepage",         :default => false
   end
 
   add_index "refinery_elections", ["election_type_id", "held"], :name => "index_refinery_elections_on_election_type_id_and_held", :unique => true
@@ -309,8 +310,8 @@ ActiveRecord::Schema.define(:version => 20130104093319) do
   end
 
   create_table "refinery_roles_users", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "role_id"
+    t.integer "user_id", :null => false
+    t.integer "role_id", :null => false
   end
 
   add_index "refinery_roles_users", ["role_id", "user_id"], :name => "index_refinery_roles_users_on_role_id_and_user_id"

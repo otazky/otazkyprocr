@@ -19,6 +19,7 @@ module Refinery
 
       scope :enabled, where(disabled: false)
       scope :active, enabled.joins(:election).where(refinery_elections: {done: false})
+			scope :homepage, joins(:election).where(refinery_elections:{homepage:true})
 
       def counties
         Refinery::Counties::County.uniq.joins(citizens: :questions).where(refinery_questions: {id: id})

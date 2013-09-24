@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     end
 
     def get_all_questions
-      @questions = Refinery::Questions::Question.active.shuffle
+      @questions = Refinery::Questions::Question.active.homepage.shuffle
     end
 
     def get_all_politicians

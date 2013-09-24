@@ -16,7 +16,12 @@ module Refinery
 
       def full_name
         "#{lastname}, #{firstname}"
-      end
+			end
+
+			def name
+				full_name
+			end
+
     end
   end
 end
