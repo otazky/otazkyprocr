@@ -1,7 +1,7 @@
 <li class='clearfix record <%= cycle("on", "on-hover") %>' id="<%= dom_id(election) -%>">
   <span class='title'>
-    <%= election.election_type.name %> <%= election.held %>   <%= raw("| <i style='color:#baaa88'>done</i>") if election.done %>
-	<%= raw("| <i style='color:#baaa88'>q homepage</i>") if election.homepage %>
+    <%= election.election_type.name %> <%= election.held %>   <%= raw("| <i style='color:#baaa88'>done</i>") if election.done==true %>
+	<%= raw("| <i style='color:#baaa88'>q homepage</i>") if election.homepage==true %>
 
   </span>
   <span class='actions'>
