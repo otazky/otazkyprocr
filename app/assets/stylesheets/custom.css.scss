@@ -282,7 +282,16 @@ section#question-stats {
     border:p1x dotted silver;
     text-align:center;
     h1 { margin-bottom:0; }
+	  a{
+
+			  color:black;
+		 &:hover{ color:#404040;}
+	  }
   }
+
+
+
+
   width:400px;
   float:right;
 }

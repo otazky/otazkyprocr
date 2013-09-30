@@ -2,9 +2,9 @@
 
     <div class='own_question_item'>
       <h2><%= oq.title %></h2>
-      <div class='info'><%= oq.citizen.lastname if oq.citizen_id%>, <%=oq.score%> bodů </div>
-      <div class='content'><%= raw oq.content %></div>
 
+      <div class='content'><%= raw oq.content %></div>
+	  <div class='info'><%= oq.citizen.lastname if oq.citizen_id%>, <%=oq.score%> <%=bodu_cesky(oq.score)%></div>
     </div>
 
 <%end%>

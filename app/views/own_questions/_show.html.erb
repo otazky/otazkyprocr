@@ -13,27 +13,7 @@
 
           Zde můžete zformulovat vlastní strategickou otázku a zúčastnit se kvalifikační soutěže pro voliče o otázku nejlepší a s největší podporou. Tři nejlepší otázky se pak utkají s otázkami kandidujících v nadcházejících volbách.
           Svou otázku můžete kdykoli vymazat a vložit novou. Tím se pochopitelně smažou všechny získané body.
-          <%=form_for :own_question ,:url=>own_questions_path, html:{id:'ownq_form'}, remote: true  do |f| %>
-          <fieldset>
-            <legend>Zformulujte svou otázku</legend>
-            <div class="field">
-              <label for="question_title">Záhlaví *</label>
-              <%= f.text_field :title %>
-            </div>
-
-            <div class="field">
-              <label for="question_content">Otázka *</label>
-              <%= f.text_area :content, :class => "owtinymce", :rows => 10, :cols=>160 %>
-              <%= tinymce( :editor_selector => "owtinymce" , :width=>635)%>
-
-              <span class="fieldWithErrors"></span>
-            </div>
-          </fieldset>
-                  <br/>
-          <div class="actions">
-            <input class="btn btn-primary" name="commit" type="submit" value="Uložit otázku" />
-          </div>
-          <%end%>
+          <%= render "own_questions/form"%>
 
       <% end %>
 

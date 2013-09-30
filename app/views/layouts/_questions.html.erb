@@ -1,7 +1,7 @@
 <% if @questions.any? or @politicians.any?%>
     <section id="questions-list">    
         <div id="carousel">
-        <% @questions.zip(@politicians).flatten.compact.each do |obj| %>
+        <% @questions.zip(@politicians, @parties).flatten.compact.each do |obj| %>
             <% case obj %>
             <% when Refinery::Questions::Question %>
                 <div class="carousel-item">
@@ -21,7 +21,19 @@
                         <%= image_fu obj.photo, "200x230#" %>
                     </a>
                 </div>
-            <% end %>
+
+
+			<% when Refinery::Parties::Party %>
+			  <div class="carousel-item">
+				<a href="<%= main_app.party_path(obj) %>" class="block-link">
+				  <%= image_fu obj.photo, "200x230#" %>
+				</a>
+			  </div>
+
+		  	<% end %>
+
+
+
         <% end %>
         </div>
             

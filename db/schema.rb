@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130924081122) do
+ActiveRecord::Schema.define(:version => 20130930063744) do
 
   create_table "citizens_questions", :force => true do |t|
     t.integer  "citizen_id"
@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(:version => 20130924081122) do
     t.integer  "position"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.integer  "photo_id"
   end
 
   add_index "refinery_parties", ["name"], :name => "index_refinery_parties_on_name", :unique => true
