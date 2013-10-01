@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
     end
 
     def get_all_politicians
-      @politicians = Refinery::Politicians::Politician.where('photo_id is not NULL').active.shuffle
+      @politicians = Refinery::Politicians::Politician.where('photo_id is not NULL').active.homepage.shuffle
 
-			@parties = Refinery::Parties::Party.where('photo_id is not NULL').active.shuffle
+			@parties = Refinery::Parties::Party.where('photo_id is not NULL').active.homepage.shuffle
 
     end
 

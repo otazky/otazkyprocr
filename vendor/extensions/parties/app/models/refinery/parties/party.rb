@@ -14,6 +14,8 @@ module Refinery
 
 			scope :active, joins(subject: :elections).where(refinery_elections: {done: false})
 
+			scope :homepage, joins(subject: :elections).where(refinery_elections: {homepage: true})
+
     end
   end
 end

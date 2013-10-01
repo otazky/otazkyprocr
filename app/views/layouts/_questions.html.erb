@@ -1,4 +1,4 @@
-<% if @questions.any? or @politicians.any?%>
+<% if @questions.any? or @politicians.any? or  @parties.any? %>
     <section id="questions-list">    
         <div id="carousel">
         <% @questions.zip(@politicians, @parties).flatten.compact.each do |obj| %>
